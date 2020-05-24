@@ -15,10 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        fab.setOnClickListener { showNewSettingUi() }
+    }
+
+    fun showNewSettingUi(){
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
