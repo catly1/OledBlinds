@@ -1,4 +1,4 @@
-package com.example.oledsaver.setting.model
+package com.example.oledsaver.setting
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
