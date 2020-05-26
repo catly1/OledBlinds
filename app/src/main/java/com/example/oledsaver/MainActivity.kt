@@ -1,5 +1,6 @@
 package com.example.oledsaver
 
+import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun installedApps(){
+        var list : List<ApplicationInfo> = packageManager.getInstalledApplications(0)
+        for (app in list){
+            val label = packageManager.getApplicationLabel(app)
+            val icon = packageManager.getApplicationIcon(app)
         }
     }
 }
