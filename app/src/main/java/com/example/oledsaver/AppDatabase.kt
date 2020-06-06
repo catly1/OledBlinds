@@ -9,7 +9,7 @@ import com.example.oledsaver.setting.SettingDao
 
 @Database(entities = [Setting::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): SettingDao
+    abstract fun settingDao(): SettingDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null
