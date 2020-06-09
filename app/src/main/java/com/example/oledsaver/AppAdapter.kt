@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.oledsaver.app.AppListItem
 
 class AppAdapter(var layoutInflater: LayoutInflater, var listStorage: List<AppListItem>, context: Context, customizedListView: List<AppListItem>) : BaseAdapter() {
@@ -14,7 +15,7 @@ class AppAdapter(var layoutInflater: LayoutInflater, var listStorage: List<AppLi
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("Not yet implemented")
+        var listViewHolder : RecyclerView.ViewHolder
     }
 
     override fun getItem(position: Int): Any {
@@ -26,7 +27,7 @@ class AppAdapter(var layoutInflater: LayoutInflater, var listStorage: List<AppLi
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("Not yet implemented")
+        return position as Long
     }
 
 }
