@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.oledsaver.app.AppListItem
 
 class AppAdapter(context: Context, customizedListView: List<AppListItem>) : BaseAdapter() {
-    private var layoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var listStorage: List<AppListItem> = customizedListView
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {

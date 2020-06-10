@@ -3,12 +3,10 @@ package com.example.oledsaver
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
-import androidx.fragment.app.FragmentManager
 import com.example.oledsaver.app.AppListItem
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,16 +18,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val userInstalledApps = findViewById<ListView>(R.id.listView)
-        val installedApps = getInstalledApps()
-        val installedAppAdapter = AppAdapter(this@MainActivity, installedApps)
-        userInstalledApps.adapter = installedAppAdapter
+//        val userInstalledApps = findViewById<ListView>(R.id.listView)
+//        val installedApps = getInstalledApps()
+
         fab.setOnClickListener { showNewSettingUi() }
     }
 
-    fun showNewSettingUi(){
+    private fun showNewSettingUi(){
         val newFragment = NewSettingDialogFragment.newInstance()
         newFragment.show(supportFragmentManager, "dialog")
+        val userInstalledApps = findViewById<ListView>(R.id.listView)
+        val installedApps = getInstalledApps()
+        userInstalledApps.adapter = AppAdapter(this, installedApps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                 res.add(AppListItem(app.applicationInfo.loadLabel(packageManager).toString(), app.applicationInfo.loadIcon(packageManager)))
             }
         }
-
         return res
     }
 

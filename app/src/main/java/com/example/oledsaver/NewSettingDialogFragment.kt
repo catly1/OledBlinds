@@ -1,11 +1,12 @@
 package com.example.oledsaver
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.fragment.app.DialogFragment
+import com.example.oledsaver.app.AppListItem
 
 
 class NewSettingDialogFragment: DialogFragment() {
