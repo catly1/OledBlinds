@@ -16,7 +16,7 @@ class NewSettingDialogFragment: DialogFragment() {
 //    }
 //
 //    var newSettingDialogListener: NewSettingDialogListener? = null
-
+    var installedApps: List<AppListItem> = ArrayList();
     companion object {
         fun newInstance(): NewSettingDialogFragment{
             //            val args = Bundle()
@@ -35,6 +35,11 @@ class NewSettingDialogFragment: DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val userInstalledApps = view?.findViewById<ListView>(R.id.listView)
+        userInstalledApps?.adapter = AppAdapter(activity!!, installedApps)
+        println(installedApps)
+        println(userInstalledApps)
        return inflater!!.inflate(R.layout.dialog_new_setting, container, false)
     }
 

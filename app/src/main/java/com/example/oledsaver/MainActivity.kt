@@ -25,11 +25,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNewSettingUi(){
-        val newFragment = NewSettingDialogFragment.newInstance()
-        newFragment.show(supportFragmentManager, "dialog")
-        val userInstalledApps = findViewById<ListView>(R.id.listView)
         val installedApps = getInstalledApps()
-        userInstalledApps.adapter = AppAdapter(this, installedApps)
+        val newFragment = NewSettingDialogFragment.newInstance()
+        newFragment.installedApps = installedApps
+        newFragment.show(supportFragmentManager, "dialog")
+//        val userInstalledApps = findViewById<ListView>(R.id.listView)
+
+//        userInstalledApps.adapter = AppAdapter(this, installedApps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
