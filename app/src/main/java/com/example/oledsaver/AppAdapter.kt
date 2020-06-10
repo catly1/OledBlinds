@@ -5,17 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.oledsaver.app.AppListItem
 
-class AppAdapter(var layoutInflater: LayoutInflater, var listStorage: List<AppListItem>, context: Context, customizedListView: List<AppListItem>) : BaseAdapter() {
-    init {
-        layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        listStorage = customizedListView
-    }
+class AppAdapter(context: Context, customizedListView: List<AppListItem>) : BaseAdapter() {
+    private var layoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private var listStorage: List<AppListItem> = customizedListView
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var listViewHolder : RecyclerView.ViewHolder
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+        var listViewHolder : ViewHolder
+
+        if(convertView == null){
+            listViewHolder = ViewHolder(null, null)
+            convertView = layoutInflater.inflate(R.layout.dialog_new_setting, parent, false)
+        }
+
+        return convertView
     }
 
     override fun getItem(position: Int): Any {
@@ -30,4 +36,6 @@ class AppAdapter(var layoutInflater: LayoutInflater, var listStorage: List<AppLi
         return position as Long
     }
 
+    class ViewHolder(var textInListView: TextView?, var imageInListView: ImageView?) {
+    }
 }
