@@ -15,13 +15,18 @@ class AppAdapter(context: Context, customizedListView: List<AppListItem>) : Base
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var listViewHolder : ViewHolder
+        val view: View?
 
         if(convertView == null){
-            listViewHolder = ViewHolder(null, null)
-            convertView = layoutInflater.inflate(R.layout.dialog_new_setting, parent, false)
+            view = layoutInflater.inflate(R.layout.dialog_new_setting, parent, false)
+            listViewHolder = ViewHolder(view)
+            view.tag = listViewHolder
+        } else {
+            view = convertView
+            listViewHolder = view.tag as ViewHolder
         }
 
-        return convertView
+        return view
     }
 
     override fun getItem(position: Int): Any {
@@ -36,6 +41,8 @@ class AppAdapter(context: Context, customizedListView: List<AppListItem>) : Base
         return position as Long
     }
 
-    class ViewHolder(var textInListView: TextView?, var imageInListView: ImageView?) {
+    class ViewHolder(view: View?) {
+        public val label: TextView = view?.findViewById(R.id.list_app_name) as TextView
+        public val icon: ImageView = view?.findViewById(R.id.app_icon) as ImageView
     }
 }
