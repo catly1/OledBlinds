@@ -18,7 +18,7 @@ class AppAdapter(context: Context, customizedListView: List<AppListItem>) : Base
         val view: View?
 
         if(convertView == null){
-            view = layoutInflater.inflate(R.layout.dialog_new_setting, parent, false)
+            view = layoutInflater.inflate(R.layout.app_list_item, parent, false)
             listViewHolder = ViewHolder(view)
             view.tag = listViewHolder
         } else {
@@ -26,6 +26,8 @@ class AppAdapter(context: Context, customizedListView: List<AppListItem>) : Base
             listViewHolder = view.tag as ViewHolder
         }
 
+        listViewHolder.label.text = listStorage[position].name
+        listViewHolder.icon.setImageDrawable(listStorage[position].icon)
         return view
     }
 

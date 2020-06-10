@@ -1,12 +1,15 @@
 package com.example.oledsaver
 
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ListView
 import androidx.fragment.app.FragmentManager
+import com.example.oledsaver.app.AppListItem
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val userInstalledApps = findViewById<ListView>(R.id.listView)
+        val installedApps = getInstalledApps()
+        val installedAppAdapter = AppAdapter(this@MainActivity, installedApps)
+        userInstalledApps.adapter = installedAppAdapter
         fab.setOnClickListener { showNewSettingUi() }
     }
 
@@ -41,11 +48,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun installedApps(){
-        var list : List<ApplicationInfo> = packageManager.getInstalledApplications(0)
+    private fun getInstalledApps(): List<AppListItem>{
+        var list : List<PackageInfo> = packageManager.getInstalledPackages(0)
+        var res = ArrayList<AppListItem>()
         for (app in list){
-            val label = packageManager.getApplicationLabel(app)
-            val icon = packageManager.getApplicationIcon(app)
+            if(isSystemPackage(app)) {
+                res.add(AppListItem(app.applicationInfo.loadLabel(packageManager).toString(), app.applicationInfo.loadIcon(packageManager)))
+            }
         }
+
+        return res
+    }
+
+    private fun isSystemPackage(app:PackageInfo): Boolean{
+        return (app.applicationInfo.flags != 0 && ApplicationInfo.FLAG_SYSTEM != 0)
     }
 }
