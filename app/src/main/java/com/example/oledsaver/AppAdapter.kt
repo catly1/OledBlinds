@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.oledsaver.app.AppListItem
 
-class AppAdapter(context: Context, customizedListView: List<AppListItem>) : BaseAdapter() {
+class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : BaseAdapter() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var listStorage: List<AppListItem> = customizedListView
 
@@ -18,6 +18,8 @@ class AppAdapter(context: Context, customizedListView: List<AppListItem>) : Base
         val view: View?
 
         if(convertView == null){
+            println(parent)
+            println(listStorage)
             view = layoutInflater.inflate(R.layout.app_list_item, parent, false)
             listViewHolder = ViewHolder(view)
             view.tag = listViewHolder

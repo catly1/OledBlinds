@@ -14,6 +14,7 @@ import com.example.oledsaver.app.AppListItem
 
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_first.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,20 +27,21 @@ class MainActivity : AppCompatActivity() {
 //        val installedApps = getInstalledApps()
 
 //        fab.setOnClickListener {view->
-//            findNavController(view).navigate(R.id.action_FirstFragment_to_SecondFragment)
-////            showNewSettingUi()
+//
+//            showNewSettingUi()
 //        }
+
     }
 
     private fun showNewSettingUi(){
         val installedApps = getInstalledApps()
-        val newFragment = NewSettingDialogFragment.newInstance()
-        newFragment.installedApps = installedApps
+//        val newFragment = NewSettingDialogFragment.newInstance()
+//        newFragment.installedApps = installedApps
 //        newFragment.show(supportFragmentManager, "dialog")
 
-//        val userInstalledApps = findViewById<ListView>(R.id.listView)
-
-//        userInstalledApps.adapter = AppAdapter(this, installedApps)
+        val userInstalledApps = findViewById<ListView>(R.id.listView)
+        println(userInstalledApps)
+        userInstalledApps.adapter = AppAdapter(this, installedApps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
