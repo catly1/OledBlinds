@@ -18,8 +18,6 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
         val view: View?
 
         if(convertView == null){
-            println(parent)
-            println(listStorage)
             view = layoutInflater.inflate(R.layout.app_list_item, parent, false)
             listViewHolder = ViewHolder(view)
             view.tag = listViewHolder
@@ -30,6 +28,8 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
 
         listViewHolder.label.text = listStorage[position].name
         listViewHolder.icon.setImageDrawable(listStorage[position].icon)
+        println(listViewHolder.label.text)
+        println(listStorage.size)
         return view
     }
 

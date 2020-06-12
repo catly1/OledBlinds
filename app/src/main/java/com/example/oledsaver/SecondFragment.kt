@@ -21,19 +21,22 @@ class SecondFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-
+        val rootView = inflater.inflate(R.layout.fragment_second, container, false)
+        val userInstalledApps = rootView.findViewById<ListView>(R.id.listView)
+        val installedApps = getInstalledApps()
+        userInstalledApps.adapter = AppAdapter(activity, installedApps)
+        userInstalledApps
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val userInstalledApps = view.findViewById<ListView>(R.id.listView)
-        val installedApps = getInstalledApps()
+//        val userInstalledApps = view.findViewById<ListView>(R.id.listView)
+//        val installedApps = getInstalledApps()
 //        println(installedApps)
 //        println(userInstalledApps)
-        userInstalledApps.adapter = AppAdapter(activity, installedApps)
+
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }

@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
 //        newFragment.installedApps = installedApps
 //        newFragment.show(supportFragmentManager, "dialog")
 
-        val userInstalledApps = findViewById<ListView>(R.id.listView)
-        println(userInstalledApps)
-        userInstalledApps.adapter = AppAdapter(this, installedApps)
+//        val userInstalledApps = findViewById<ListView>(R.id.listView)
+//        println(userInstalledApps)
+//        userInstalledApps.adapter = AppAdapter(this, installedApps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
