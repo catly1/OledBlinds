@@ -36,10 +36,10 @@ class NewSettingDialogFragment: DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val userInstalledApps = view?.findViewById<ListView>(R.id.listView)
-        userInstalledApps?.adapter = AppAdapter(activity!!, installedApps)
-        println(installedApps)
-        println(userInstalledApps)
+//        val userInstalledApps = view?.findViewById<ListView>(R.id.listView)
+//        userInstalledApps?.adapter = AppAdapter(activity!!, installedApps)
+//        println(installedApps)
+//        println(userInstalledApps)
        return inflater!!.inflate(R.layout.dialog_new_setting, container, false)
     }
 

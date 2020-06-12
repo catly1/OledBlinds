@@ -7,7 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
+import androidx.navigation.findNavController
+//import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.app.AppListItem
+
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,14 +25,18 @@ class MainActivity : AppCompatActivity() {
 //        val userInstalledApps = findViewById<ListView>(R.id.listView)
 //        val installedApps = getInstalledApps()
 
-        fab.setOnClickListener { showNewSettingUi() }
+//        fab.setOnClickListener {view->
+//            findNavController(view).navigate(R.id.action_FirstFragment_to_SecondFragment)
+////            showNewSettingUi()
+//        }
     }
 
     private fun showNewSettingUi(){
         val installedApps = getInstalledApps()
         val newFragment = NewSettingDialogFragment.newInstance()
         newFragment.installedApps = installedApps
-        newFragment.show(supportFragmentManager, "dialog")
+//        newFragment.show(supportFragmentManager, "dialog")
+
 //        val userInstalledApps = findViewById<ListView>(R.id.listView)
 
 //        userInstalledApps.adapter = AppAdapter(this, installedApps)
