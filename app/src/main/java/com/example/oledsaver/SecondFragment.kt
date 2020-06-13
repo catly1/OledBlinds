@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.app.AppListItem
 
@@ -24,8 +26,13 @@ class SecondFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_second, container, false)
         val userInstalledApps = rootView.findViewById<ListView>(R.id.listView)
         val installedApps = getInstalledApps()
-        userInstalledApps.adapter = AppAdapter(activity, installedApps)
+        val adapter = AppAdapter(activity, installedApps)
+        userInstalledApps.adapter = adapter
         userInstalledApps
+        userInstalledApps.setOnItemClickListener {parent, view, position, id ->
+            val row = adapter.getItem(position)
+            Toast.makeText(activity,"you clicked $row", Toast.LENGTH_LONG).show()
+        }
         // Inflate the layout for this fragment
         return rootView
     }

@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.oledsaver.app.AppListItem
 
 class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : BaseAdapter() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var listStorage: List<AppListItem> = customizedListView
+    private val context = context
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var listViewHolder : ViewHolder
@@ -21,6 +23,9 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
             view = layoutInflater.inflate(R.layout.app_list_item, parent, false)
             listViewHolder = ViewHolder(view)
             view.tag = listViewHolder
+//            view.setOnClickListener {
+//                Toast.makeText(context,"clicking works",Toast.LENGTH_LONG).show()
+//            }
         } else {
             view = convertView
             listViewHolder = view.tag as ViewHolder
@@ -30,6 +35,7 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
         listViewHolder.icon.setImageDrawable(listStorage[position].icon)
         println(listViewHolder.label.text)
         println(listStorage.size)
+
         return view
     }
 
