@@ -42,7 +42,7 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
     }
 
     override fun getItemId(position: Int): Long {
-        return position as Long
+        return position.toLong()
     }
 
     class ViewHolder(view: View?) {
