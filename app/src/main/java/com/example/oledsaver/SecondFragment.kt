@@ -31,7 +31,9 @@ class SecondFragment : Fragment() {
         userInstalledApps
         userInstalledApps.setOnItemClickListener {parent, view, position, id ->
             val row = adapter.getItem(position)
-            Toast.makeText(activity,"you clicked $row", Toast.LENGTH_LONG).show()
+            val name = installedApps[row as Int].name
+            val size = installedApps.size
+            Toast.makeText(activity,"apps are $size", Toast.LENGTH_LONG).show()
         }
         // Inflate the layout for this fragment
         return rootView
@@ -63,6 +65,6 @@ class SecondFragment : Fragment() {
 
 
     private fun isSystemPackage(app:PackageInfo): Boolean{
-        return (app.applicationInfo.flags != 0 && ApplicationInfo.FLAG_SYSTEM != 0)
+        return (app.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
     }
 }
