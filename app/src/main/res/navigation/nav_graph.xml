@@ -24,5 +24,20 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+
+        <action
+            android:id="@+id/action_SecondFragment_to_ConfirmationFragment"
+            app:destination="@+id/ConfirmationFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ConfirmationFragment"
+        android:name="com.example.oledsaver.ConfirmationFragment"
+        android:label="Confirmation Fragment"
+        tools:layout="@layout/fragment_confirmation">
+
+        <action
+            android:id="@+id/action_ConfirmationFragment_to_FirstFragment"
+            app:destination="@+id/FirstFragment"/>
     </fragment>
 </navigation>

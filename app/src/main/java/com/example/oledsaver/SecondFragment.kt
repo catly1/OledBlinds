@@ -34,6 +34,7 @@ class SecondFragment : Fragment() {
             val name = installedApps[row as Int].name
             val size = installedApps.size
             Toast.makeText(activity,"apps are $size", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_SecondFragment_to_ConfirmationFragment)
         }
         // Inflate the layout for this fragment
         return rootView
