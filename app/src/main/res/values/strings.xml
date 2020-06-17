@@ -11,4 +11,5 @@
     <string name="test_string_fragment">testing in fragment 3</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="hello_world" />
+    <string name="save">Save</string>
 </resources>

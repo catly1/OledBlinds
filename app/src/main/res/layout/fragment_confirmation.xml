@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ConfirmationFragment">
 
+
     <TextView
         android:id="@+id/testText"
         android:layout_width="wrap_content"
@@ -12,5 +13,10 @@
         android:text="@string/test_string_fragment"
      />
 
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"/>
 
 </LinearLayout>
