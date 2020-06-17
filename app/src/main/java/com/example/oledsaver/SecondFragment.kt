@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.app.AppListItem
 
@@ -18,6 +19,8 @@ import com.example.oledsaver.app.AppListItem
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
+
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +33,10 @@ class SecondFragment : Fragment() {
         userInstalledApps.adapter = adapter
         userInstalledApps
         userInstalledApps.setOnItemClickListener {parent, view, position, id ->
-            val row = adapter.getItem(position)
-            val name = installedApps[row as Int].name
+            val row = adapter.getItem(position) as AppListItem
+            val name = row.name
             val size = installedApps.size
-            Toast.makeText(activity,"apps are $size", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,"selected app is $name", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_SecondFragment_to_ConfirmationFragment)
         }
         // Inflate the layout for this fragment

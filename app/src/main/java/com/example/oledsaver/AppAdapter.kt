@@ -40,7 +40,7 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
     }
 
     override fun getItem(position: Int): Any {
-        return position
+        return listStorage[position]
     }
 
     override fun getCount(): Int {
@@ -50,6 +50,7 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
+
 
     class ViewHolder(view: View?) {
         public val label: TextView = view?.findViewById(R.id.list_app_name) as TextView
