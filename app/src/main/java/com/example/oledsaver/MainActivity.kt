@@ -1,20 +1,14 @@
 package com.example.oledsaver
 
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ListView
-import androidx.navigation.findNavController
-//import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.oledsaver.app.AppListItem
+
 
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_first.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,25 +17,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-//        val userInstalledApps = findViewById<ListView>(R.id.listView)
-//        val installedApps = getInstalledApps()
-
-//        fab.setOnClickListener {view->
-//
-//            showNewSettingUi()
-//        }
-
-    }
-
-    private fun showNewSettingUi(){
-        val installedApps = getInstalledApps()
-//        val newFragment = NewSettingDialogFragment.newInstance()
-//        newFragment.installedApps = installedApps
-//        newFragment.show(supportFragmentManager, "dialog")
-
-//        val userInstalledApps = findViewById<ListView>(R.id.listView)
-//        println(userInstalledApps)
-//        userInstalledApps.adapter = AppAdapter(this, installedApps)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,18 +35,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getInstalledApps(): List<AppListItem>{
-        var list : List<PackageInfo> = packageManager.getInstalledPackages(0)
-        var res = ArrayList<AppListItem>()
-        for (app in list){
-            if(isSystemPackage(app)) {
-                res.add(AppListItem(app.applicationInfo.loadLabel(packageManager).toString(), app.applicationInfo.loadIcon(packageManager)))
-            }
-        }
-        return res
-    }
-
-    private fun isSystemPackage(app:PackageInfo): Boolean{
-        return (app.applicationInfo.flags != 0 && ApplicationInfo.FLAG_SYSTEM != 0)
-    }
 }

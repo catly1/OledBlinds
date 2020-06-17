@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.app.AppListItem
@@ -20,7 +21,7 @@ import com.example.oledsaver.app.AppListItem
  */
 class SecondFragment : Fragment() {
 
-
+    private val model: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +32,14 @@ class SecondFragment : Fragment() {
         val installedApps = getInstalledApps()
         val adapter = AppAdapter(activity, installedApps)
         userInstalledApps.adapter = adapter
-        userInstalledApps
+
+
         userInstalledApps.setOnItemClickListener {parent, view, position, id ->
             val row = adapter.getItem(position) as AppListItem
             val name = row.name
             val size = installedApps.size
-            Toast.makeText(activity,"selected app is $name", Toast.LENGTH_LONG).show()
+
+            model.set(row)
             findNavController().navigate(R.id.action_SecondFragment_to_ConfirmationFragment)
         }
         // Inflate the layout for this fragment
@@ -56,12 +59,12 @@ class SecondFragment : Fragment() {
     }
 
     private fun getInstalledApps(): List<AppListItem>{
-        var list : List<PackageInfo> = activity?.packageManager?.getInstalledPackages(0) as List<PackageInfo>
-        var res = ArrayList<AppListItem>()
+        val list : List<PackageInfo> = activity?.packageManager?.getInstalledPackages(0) as List<PackageInfo>
+        val res = ArrayList<AppListItem>()
         for (app in list){
             if(isSystemPackage(app)) {
-                res.add(AppListItem(app.applicationInfo.loadLabel(activity!!.packageManager).toString(), app.applicationInfo.loadIcon(
-                    activity!!.packageManager)))
+                res.add(AppListItem(app.applicationInfo.loadLabel(requireActivity().packageManager).toString(), app.applicationInfo.loadIcon(
+                    requireActivity().packageManager)))
             }
         }
         return res
