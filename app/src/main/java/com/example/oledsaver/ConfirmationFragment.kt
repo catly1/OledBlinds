@@ -28,6 +28,7 @@ class ConfirmationFragment: Fragment() {
         val app : AppListItem? = model.get()
         Toast.makeText(activity,"selected app is ${app?.name}", Toast.LENGTH_LONG).show()
         saveButton.setOnClickListener {
+
             findNavController().navigate(R.id.action_ConfirmationFragment_to_FirstFragment)
         }
 
