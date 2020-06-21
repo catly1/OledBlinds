@@ -6,4 +6,5 @@ import androidx.room.Room
 
 class ConfirmationViewModel(application: Application) : AndroidViewModel(application) {
     val db = Room.databaseBuilder(application,AppDatabase::class.java,"database-name")
+    
 }

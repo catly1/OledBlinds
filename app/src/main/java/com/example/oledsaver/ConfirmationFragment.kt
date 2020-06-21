@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.fragment_confirmation.*
 
 class ConfirmationFragment: Fragment() {
 
-    private val model: SharedViewModel by activityViewModels()
+    private val sharedModel: SharedViewModel by activityViewModels()
+    private val model : ConfirmationViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +27,7 @@ class ConfirmationFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val app : AppListItem? = model.get()
+        val app : AppListItem? = sharedModel.get()
         Toast.makeText(activity,"selected app is ${app?.name}", Toast.LENGTH_LONG).show()
         saveButton.setOnClickListener {
 
