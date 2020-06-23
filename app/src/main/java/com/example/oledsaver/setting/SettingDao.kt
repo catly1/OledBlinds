@@ -11,8 +11,8 @@ interface SettingDao {
     fun getAll(): List<Setting>
 
     @Insert
-    fun insertAll(vararg users: Setting)
+    fun insertAll(vararg settings: Setting)
 
     @Delete
-    fun delete(user: Setting)
+    fun delete(setting: Setting)
 }
