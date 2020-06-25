@@ -19,7 +19,7 @@ import com.example.oledsaver.app.AppListItem
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class AddAppFragment : Fragment() {
 
     private val model: SharedViewModel by activityViewModels()
 
