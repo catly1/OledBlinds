@@ -1,4 +1,4 @@
-package com.example.oledsaver
+package com.example.oledsaver.features.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.oledsaver.R
 import com.example.oledsaver.app.AppListItem
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 

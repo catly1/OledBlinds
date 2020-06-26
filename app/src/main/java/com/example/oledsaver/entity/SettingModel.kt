@@ -1,11 +1,11 @@
-package com.example.oledsaver.setting
+package com.example.oledsaver.entity
 
 import android.graphics.drawable.Drawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "settings")
 data class Setting(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "name") val name: String?,

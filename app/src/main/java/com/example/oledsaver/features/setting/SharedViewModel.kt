@@ -1,4 +1,4 @@
-package com.example.oledsaver
+package com.example.oledsaver.features.setting
 
 import android.app.Application
 import android.content.pm.PackageInfo

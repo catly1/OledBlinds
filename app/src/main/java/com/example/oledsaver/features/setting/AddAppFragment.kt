@@ -1,4 +1,4 @@
-package com.example.oledsaver
+package com.example.oledsaver.features.setting
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.oledsaver.R
+import com.example.oledsaver.adapter.AppAdapter
 import com.example.oledsaver.app.AppListItem
 
 /**
@@ -30,7 +29,8 @@ class AddAppFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_second, container, false)
         val userInstalledApps = rootView.findViewById<ListView>(R.id.listView)
         val installedApps = getInstalledApps()
-        val adapter = AppAdapter(activity, installedApps)
+        val adapter =
+            AppAdapter(activity, installedApps)
         userInstalledApps.adapter = adapter
 
 

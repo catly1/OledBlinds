@@ -1,11 +1,11 @@
-package com.example.oledsaver
+package com.example.oledsaver.features.main
 
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import com.example.oledsaver.R
 
 
 import kotlinx.android.synthetic.main.activity_main.*

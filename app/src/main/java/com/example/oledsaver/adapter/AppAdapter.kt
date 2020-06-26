@@ -1,4 +1,4 @@
-package com.example.oledsaver
+package com.example.oledsaver.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import com.example.oledsaver.R
 import com.example.oledsaver.app.AppListItem
 
 class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : BaseAdapter() {
@@ -21,7 +21,8 @@ class AppAdapter(context: Context?, customizedListView: List<AppListItem>) : Bas
 
         if(convertView == null){
             view = layoutInflater.inflate(R.layout.app_list_item, parent, false)
-            listViewHolder = ViewHolder(view)
+            listViewHolder =
+                ViewHolder(view)
             view.tag = listViewHolder
 //            view.setOnClickListener {
 //                Toast.makeText(context,"clicking works",Toast.LENGTH_LONG).show()

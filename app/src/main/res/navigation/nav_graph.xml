@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.oledsaver.HomeViewFragment"
+        android:name="com.example.oledsaver.features.home.HomeViewFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.oledsaver.AddAppFragment"
+        android:name="com.example.oledsaver.features.setting.AddAppFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/ConfirmationFragment"
-        android:name="com.example.oledsaver.ConfirmationFragment"
+        android:name="com.example.oledsaver.features.setting.ConfirmationFragment"
         android:label="Confirmation Fragment"
         tools:layout="@layout/fragment_confirmation">
 
