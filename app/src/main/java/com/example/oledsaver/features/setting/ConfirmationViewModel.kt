@@ -14,7 +14,7 @@ class ConfirmationViewModel(application: Application) : AndroidViewModel(applica
     fun addApp(appListItem: AppListItem){
         val setting = Setting(
             name = appListItem.name,
-            icon = appListItem.icon,
+//            icon = appListItem.icon,
             uid = 0
         )
         db.settingDao().insertAll(setting)
