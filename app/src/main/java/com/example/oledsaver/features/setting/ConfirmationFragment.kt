@@ -34,7 +34,11 @@ class ConfirmationFragment: Fragment() {
 //            if (app != null) {
 //                model.addApp(app)
 //            }
-            findNavController().navigate(R.id.action_ConfirmationFragment_to_FirstFragment)
+            app?.let { it1 ->
+                model.addApp(it1)
+                findNavController().navigate(R.id.action_ConfirmationFragment_to_FirstFragment)
+            }
+
         }
 
     }
