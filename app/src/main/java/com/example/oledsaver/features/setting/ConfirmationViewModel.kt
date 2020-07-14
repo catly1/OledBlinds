@@ -11,7 +11,13 @@ class ConfirmationViewModel(application: Application) : AndroidViewModel(applica
     private val db = Room.databaseBuilder(application,
         AppDatabase::class.java,"database-name").build()
 
+    fun saveIcon(){
+
+    }
+
     fun addApp(appListItem: AppListItem){
+
+        appListItem.icon
         val setting = Setting(
             name = appListItem.name,
 //            icon = appListItem.icon,
