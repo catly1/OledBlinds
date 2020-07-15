@@ -1,6 +1,8 @@
 package com.example.oledsaver.features.setting
 
 import android.app.Application
+import android.graphics.drawable.Drawable
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.room.Room
 import com.example.oledsaver.app.AppListItem
@@ -11,13 +13,13 @@ class ConfirmationViewModel(application: Application) : AndroidViewModel(applica
     private val db = Room.databaseBuilder(application,
         AppDatabase::class.java,"database-name").build()
 
-    fun saveIcon(){
-
+    fun saveIcon(drawable: Drawable){
+        val bitmap = drawable.toBitmap()
     }
 
     fun addApp(appListItem: AppListItem){
 
-        appListItem.icon
+        appListItem.icon.toBitmap()
         val setting = Setting(
             name = appListItem.name,
 //            icon = appListItem.icon,
