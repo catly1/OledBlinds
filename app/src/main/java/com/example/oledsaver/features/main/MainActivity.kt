@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
+        val sharedPref = this.getSharedPreferences(
+            "options", MODE_PRIVATE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
