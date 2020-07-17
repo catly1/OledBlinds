@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Setting(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int = 1,
     @ColumnInfo(name = "name") val name: String?,
-    @ColumnInfo(name = "icon") val icon: Bitmap
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val icon: Bitmap
 )
