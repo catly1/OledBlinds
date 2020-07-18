@@ -13,7 +13,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : List<Setting>
 
-    fun getAllSavedSettings(){
-
+    fun getAllSavedSettings(): List<Setting> {
+        settings = db.settingDao().getAll()
+        return settings
     }
 }
