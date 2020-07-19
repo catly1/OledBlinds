@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
+import com.example.oledsaver.entity.Setting
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
 class HomeViewFragment : Fragment() {
 
     private val model : HomeViewModel by activityViewModels()
+    lateinit var settings : List<Setting>
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +30,8 @@ class HomeViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        settings = model.getAllSavedSettings()
 
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
