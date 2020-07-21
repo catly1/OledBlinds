@@ -11,7 +11,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val db = Room.databaseBuilder(application,
         AppDatabase::class.java,"database-name").build()
 
-    lateinit var settings : List<Setting>
+    private lateinit var settings : List<Setting>
 
     fun getAllSavedSettings(): List<Setting> {
         settings = db.settingDao().getAll()
