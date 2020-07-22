@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
+import com.example.oledsaver.adapter.SavedAppAdapter
 import com.example.oledsaver.entity.Setting
 import kotlinx.android.synthetic.main.fragment_first.*
 
@@ -19,11 +20,13 @@ class HomeViewFragment : Fragment() {
     private val model : HomeViewModel by activityViewModels()
     lateinit var settings : List<Setting>
 
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
+        val adapter = SavedAppAdapter()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
