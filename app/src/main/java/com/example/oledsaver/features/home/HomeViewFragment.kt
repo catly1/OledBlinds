@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
@@ -26,7 +27,10 @@ class HomeViewFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val adapter = SavedAppAdapter()
+        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
+        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
+        val adapter = SavedAppAdapter(model.getAllSavedSettings())
+        savedSettings.adapter = adapter
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false)
     }

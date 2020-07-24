@@ -5,12 +5,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.oledsaver.entity.Setting
 
-class SavedAppAdapter: BaseAdapter() {
+class SavedAppAdapter(val allSavedSettings: List<Setting>) : BaseAdapter() {
 
-    lateinit var savedAppList: List<Setting>
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        savedAppList =
         TODO("Not yet implemented")
     }
 
