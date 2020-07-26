@@ -9,7 +9,7 @@ class SavedAppAdapter(private val allSavedSettings: List<Setting>) : BaseAdapter
 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("Not yet implemented")
+        var listViewHolder : ViewHolder
     }
 
     override fun getItem(position: Int): Any {
@@ -22,5 +22,9 @@ class SavedAppAdapter(private val allSavedSettings: List<Setting>) : BaseAdapter
 
     override fun getCount(): Int {
         return allSavedSettings.size
+    }
+
+    class ViewHolder(view: View?){
+
     }
 }
