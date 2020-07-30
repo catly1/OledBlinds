@@ -26,7 +26,7 @@ class SavedAppAdapter(context: Context?, private val allSavedSettings: List<Sett
             listViewHolder = view.tag as ViewHolder
         }
 
-        listViewHolder.label
+        listViewHolder.label.text = allSavedSettings[position].name
         return view
     }
 

@@ -21,8 +21,8 @@ class ConfirmationViewModel(application: Application) : AndroidViewModel(applica
 
         appListItem.icon.toBitmap()
         val setting = Setting(
-            name = appListItem.name,
-            icon = appListItem.icon.toBitmap()
+            name = appListItem.name
+//            icon = appListItem.icon.toBitmap()
         )
         db.settingDao().insertAll(setting)
     }
