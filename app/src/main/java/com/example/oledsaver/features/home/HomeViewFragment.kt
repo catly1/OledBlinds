@@ -27,10 +27,10 @@ class HomeViewFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
-        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
-        val adapter = SavedAppAdapter(activity, model.getAllSavedSettings())
-        savedSettings.adapter = adapter
+//        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
+//        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
+//        val adapter = SavedAppAdapter(activity, model.getAllSavedSettings())
+//        savedSettings.adapter = adapter
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
