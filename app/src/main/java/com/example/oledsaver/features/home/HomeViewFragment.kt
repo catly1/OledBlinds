@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
  */
 class HomeViewFragment : Fragment() {
 
-    private val model : HomeViewModel by activityViewModels()
+//    private val model : HomeViewModel by activityViewModels()
     lateinit var settings : List<Setting>
 
 
@@ -38,7 +38,7 @@ class HomeViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        settings = model.getAllSavedSettings()
+//        settings = model.getAllSavedSettings()
 
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
