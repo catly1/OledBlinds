@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
  */
 class HomeViewFragment : Fragment() {
 
-//    private val model : HomeViewModel by activityViewModels()
+    private val model : HomeViewModel by activityViewModels()
     lateinit var settings : List<Setting>
 
 
@@ -27,12 +27,13 @@ class HomeViewFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-//        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
-//        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
-//        val adapter = SavedAppAdapter(activity, model.getAllSavedSettings())
-//        savedSettings.adapter = adapter
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
+        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
+        val adapter = SavedAppAdapter(activity, model.getAllSavedSettings())
+        savedSettings.adapter = adapter
+        return rootView
+//         Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
