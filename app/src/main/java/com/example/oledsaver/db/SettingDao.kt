@@ -10,7 +10,7 @@ import com.example.oledsaver.entity.Setting
 @Dao
 interface SettingDao {
     @Query("SELECT * FROM setting")
-    fun getAll(): List<Setting>
+    fun getAll(): LiveData<List<Setting>>
 
     @Query("SELECT * FROM setting")
     fun testAll(): LiveData<List<Setting>>
