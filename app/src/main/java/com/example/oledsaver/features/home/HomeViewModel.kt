@@ -13,7 +13,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val dao = AppDatabase.getDatabase(application).settingDao()
     private val repository: SettingRepository =
         SettingRepository(dao)
-    val settings : List<Setting> = repository.getSettings()
+    val settings : LiveData<List<Setting>> = repository.getSettings()
 //    fun getAllSavedSettings(): List<Setting> {
 //        settings = repository.getSettings()
 //        return settings

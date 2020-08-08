@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import com.example.oledsaver.R
 import com.example.oledsaver.entity.Setting
 
-class SavedAppAdapter(context: Context?, private val allSavedSettings: List<Setting>) : BaseAdapter() {
+class SavedAppAdapter(context: Context?, private val allSavedSettings: LiveData<List<Setting>>) : BaseAdapter() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private val settings : List<Setting>? = allSavedSettings.value
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var listViewHolder : ViewHolder
@@ -26,12 +28,12 @@ class SavedAppAdapter(context: Context?, private val allSavedSettings: List<Sett
             listViewHolder = view.tag as ViewHolder
         }
 
-        listViewHolder.label.text = allSavedSettings[position].name
+        listViewHolder.label.text = settings?.get(position)?.name
         return view
     }
 
-    override fun getItem(position: Int): Any {
-        return allSavedSettings[position]
+    override fun getItem(position: Int): Setting? {
+        return settings?.get(position)
     }
 
     override fun getItemId(position: Int): Long {
@@ -39,7 +41,8 @@ class SavedAppAdapter(context: Context?, private val allSavedSettings: List<Sett
     }
 
     override fun getCount(): Int {
-        return allSavedSettings.size
+        val size = settings?.size
+        return size ?: 0
     }
 
     class ViewHolder(view: View?){
