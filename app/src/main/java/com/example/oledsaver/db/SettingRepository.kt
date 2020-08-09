@@ -14,5 +14,9 @@ class SettingRepository @Inject constructor(
         return settingDao.getAll()
     }
 
+    fun insert(setting: Setting){
+        settingDao.insertAll(setting)
+    }
+
 
 }
