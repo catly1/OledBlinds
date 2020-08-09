@@ -10,10 +10,7 @@ import com.example.oledsaver.db.SettingRepository
 import com.example.oledsaver.entity.Setting
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    private val dao = AppDatabase.getDatabase(application).settingDao()
-    private val repository: SettingRepository =
-        SettingRepository(dao)
-    val settings : LiveData<List<Setting>> = repository.getSettings()
+    lateinit var settings : LiveData<List<Setting>>
 //    fun getAllSavedSettings(): List<Setting> {
 //        settings = repository.getSettings()
 //        return settings

@@ -7,11 +7,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.room.Room
 import com.example.oledsaver.app.AppListItem
 import com.example.oledsaver.db.AppDatabase
+import com.example.oledsaver.db.SettingRepository
 import com.example.oledsaver.entity.Setting
 
 class ConfirmationViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = Room.databaseBuilder(application,
-        AppDatabase::class.java,"database-name").build()
+    lateinit var repository: SettingRepository
 
     fun saveIcon(drawable: Drawable){
         val bitmap = drawable.toBitmap()
@@ -19,11 +19,12 @@ class ConfirmationViewModel(application: Application) : AndroidViewModel(applica
 
     fun addApp(appListItem: AppListItem){
 
-        appListItem.icon.toBitmap()
+//        appListItem.icon.toBitmap()
         val setting = Setting(
             name = appListItem.name
 //            icon = appListItem.icon.toBitmap()
         )
-        db.settingDao().insertAll(setting)
+//        db.settingDao().insertAll(setting)
+        repository.insert(setting)
     }
 }

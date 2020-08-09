@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
 import com.example.oledsaver.adapter.SavedAppAdapter
 import com.example.oledsaver.entity.Setting
+import com.example.oledsaver.features.setting.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
 class HomeViewFragment : Fragment() {
 
     private val model : HomeViewModel by activityViewModels()
-    lateinit var settings : List<Setting>
+    private val sharedModel : SharedViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -29,9 +30,9 @@ class HomeViewFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_first, container, false)
         val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
+        model.settings = sharedModel.repository.getSettings()
         val adapter = SavedAppAdapter(activity, model.settings)
         savedSettings.adapter = adapter
-        print(model)
         return rootView
 //         Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_first, container, false)

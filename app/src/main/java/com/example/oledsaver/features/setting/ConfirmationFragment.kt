@@ -21,6 +21,8 @@ class ConfirmationFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        model.repository = sharedModel.repository
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_confirmation, container, false)
     }
