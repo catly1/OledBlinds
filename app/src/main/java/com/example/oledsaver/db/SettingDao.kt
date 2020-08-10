@@ -12,9 +12,6 @@ interface SettingDao {
     @Query("SELECT * FROM setting")
     fun getAll(): LiveData<List<Setting>>
 
-    @Query("SELECT * FROM setting")
-    fun testAll(): LiveData<List<Setting>>
-
     @Insert
     fun insertAll(vararg settings: Setting)
 

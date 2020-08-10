@@ -2,6 +2,9 @@ package com.example.oledsaver.db
 
 import androidx.lifecycle.LiveData
 import com.example.oledsaver.entity.Setting
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.concurrent.Executor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,8 +18,12 @@ class SettingRepository @Inject constructor(
     }
 
     fun insert(setting: Setting){
-        settingDao.insertAll(setting)
+        GlobalScope.launch {
+            settingDao.insertAll(setting)
+        }
     }
+
+
 
 
 }
