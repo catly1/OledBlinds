@@ -35,7 +35,7 @@ class HomeViewFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_first, container, false)
         val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
-//        model.repository = sharedModel.repository
+        model.repository = sharedModel.repository
 //        model.getAllSavedSettings()
 //        val adapter = SavedAppAdapter(activity, model.settings)
 //        savedSettings.adapter = adapter
@@ -54,7 +54,17 @@ class HomeViewFragment : Fragment() {
         }
 
         test.setOnClickListener {
+            GlobalScope.launch {
+                var set = model.getAllSavedSettings()
+                changeText(set)
+            }
+
             Toast.makeText(context,"test",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun changeText(settings: Array<Setting>){
+        var text = "In DB:${settings.size}"
+        println(text)
     }
 }
