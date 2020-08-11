@@ -10,7 +10,7 @@ import com.example.oledsaver.entity.Setting
 @Dao
 interface SettingDao {
     @Query("SELECT * FROM setting")
-    fun getAll(): LiveData<List<Setting>>
+    fun getAll(): Array<Setting>
 
     @Insert
     fun insertAll(vararg settings: Setting)

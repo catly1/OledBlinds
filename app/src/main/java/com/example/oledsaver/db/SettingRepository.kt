@@ -13,7 +13,7 @@ class SettingRepository @Inject constructor(
     private val settingDao: SettingDao
     ) {
 
-    fun getSettings(): LiveData<List<Setting>> {
+    fun getSettings(): Array<Setting> {
         return settingDao.getAll()
     }
 
@@ -22,7 +22,6 @@ class SettingRepository @Inject constructor(
             settingDao.insertAll(setting)
         }
     }
-
 
 
 
