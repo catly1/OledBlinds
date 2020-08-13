@@ -11,9 +11,9 @@ import androidx.lifecycle.LiveData
 import com.example.oledsaver.R
 import com.example.oledsaver.entity.Setting
 
-class SavedAppAdapter(context: Context?, private val allSavedSettings: LiveData<List<Setting>>) : BaseAdapter() {
+class SavedAppAdapter(context: Context?, private val allSavedSettings: List<Setting>) : BaseAdapter() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private val settings : List<Setting>? = allSavedSettings.value
+    private val settings : List<Setting> = allSavedSettings
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var listViewHolder : ViewHolder
@@ -28,12 +28,12 @@ class SavedAppAdapter(context: Context?, private val allSavedSettings: LiveData<
             listViewHolder = view.tag as ViewHolder
         }
 
-        listViewHolder.label.text = settings?.get(position)?.name
+        listViewHolder.label.text = settings[position].name
         return view
     }
 
-    override fun getItem(position: Int): Setting? {
-        return settings?.get(position)
+    override fun getItem(position: Int): Setting {
+        return settings[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -41,8 +41,7 @@ class SavedAppAdapter(context: Context?, private val allSavedSettings: LiveData<
     }
 
     override fun getCount(): Int {
-        val size = settings?.size
-        return size ?: 0
+        return settings.size
     }
 
     class ViewHolder(view: View?){

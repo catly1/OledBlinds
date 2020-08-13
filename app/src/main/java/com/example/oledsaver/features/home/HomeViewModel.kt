@@ -11,9 +11,9 @@ import com.example.oledsaver.entity.Setting
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var repository: SettingRepository
-    lateinit var settings : Array<Setting>
+    lateinit var settings : List<Setting>
 
-    fun getAllSavedSettings(): Array<Setting> {
+    fun getAllSavedSettings(): List<Setting> {
 
         settings = repository.getSettings()
         return settings

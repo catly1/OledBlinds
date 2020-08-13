@@ -13,7 +13,7 @@ class SettingRepository @Inject constructor(
     private val settingDao: SettingDao
     ) {
 
-    fun getSettings(): Array<Setting> {
+    fun getSettings(): List<Setting> {
         return settingDao.getAll()
     }
 

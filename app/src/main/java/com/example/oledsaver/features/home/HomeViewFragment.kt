@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
 import com.example.oledsaver.adapter.SavedAppAdapter
@@ -36,11 +34,11 @@ class HomeViewFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_first, container, false)
         val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
         model.repository = sharedModel.repository
-//        GlobalScope.launch {
-//            model.getAllSavedSettings()
-//            val adapter = SavedAppAdapter(activity, model.settings)
-//            savedSettings.adapter = adapter
-//        }
+        GlobalScope.launch {
+            model.getAllSavedSettings()
+            val adapter = SavedAppAdapter(activity, model.settings)
+            savedSettings.adapter = adapter
+        }
         return rootView
 //         Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_first, container, false)
@@ -65,7 +63,7 @@ class HomeViewFragment : Fragment() {
         }
     }
 
-    fun changeText(settings: Array<Setting>){
+    fun changeText(settings: List<Setting>){
         var text = "In DB:${settings.size}"
         println(text)
     }
