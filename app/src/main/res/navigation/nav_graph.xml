@@ -40,4 +40,9 @@
             android:id="@+id/action_ConfirmationFragment_to_FirstFragment"
             app:destination="@+id/FirstFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.oledsaver.features.setting.SettingFragment"
+        android:label="SettingFragment" />
+
 </navigation>
