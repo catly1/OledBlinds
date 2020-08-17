@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -43,6 +46,10 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.oledsaver.features.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
 
 </navigation>
