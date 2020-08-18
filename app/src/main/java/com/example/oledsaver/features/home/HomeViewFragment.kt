@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
 import com.example.oledsaver.adapter.SavedAppAdapter
+import com.example.oledsaver.app.AppListItem
 import com.example.oledsaver.entity.Setting
 import com.example.oledsaver.features.setting.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_first.*
@@ -38,7 +39,15 @@ class HomeViewFragment : Fragment() {
             model.getAllSavedSettings()
             val adapter = SavedAppAdapter(activity, model.settings)
             savedSettings.adapter = adapter
+            savedSettings.setOnItemClickListener {parent, view, position, id ->
+                val setting = adapter.getItem(position)
+                sharedModel.setCurrentSetting(setting)
+                findNavController().navigate(R.id.action_FirstFragment_to_settingFragment)
+            }
+
         }
+
+
         return rootView
 //         Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_first, container, false)

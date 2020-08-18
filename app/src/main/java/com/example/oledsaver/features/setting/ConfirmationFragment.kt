@@ -30,7 +30,7 @@ class ConfirmationFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val app : AppListItem? = sharedModel.get()
+        val app : AppListItem? = sharedModel.getSettingToBeSaved()
         Toast.makeText(activity,"selected app is ${app?.name}", Toast.LENGTH_LONG).show()
         saveButton.setOnClickListener {
 //            if (app != null) {

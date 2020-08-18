@@ -8,22 +8,29 @@ import androidx.lifecycle.ViewModel
 import com.example.oledsaver.app.AppListItem
 import com.example.oledsaver.db.AppDatabase
 import com.example.oledsaver.db.SettingRepository
+import com.example.oledsaver.entity.Setting
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
-    private val selected = MutableLiveData<AppListItem>()
+    private val toBeSaved = MutableLiveData<AppListItem>()
+    private val currentSetting = MutableLiveData<Setting>()
     private val dao = AppDatabase.getDatabase(application).settingDao()
     val repository: SettingRepository =
         SettingRepository(dao)
     val installedApps : List<AppListItem>? = null
 
-    fun set(item: AppListItem) {
-        println(item)
-        selected.value = item
+    fun setSettingToBeSaved(item: AppListItem) {
+        toBeSaved.value = item
     }
 
-    fun get(): AppListItem? {
-        println(selected)
-        return selected.value
+    fun getSettingToBeSaved(): AppListItem? {
+        return toBeSaved.value
     }
 
+    fun setCurrentSetting(setting: Setting){
+        currentSetting.value = setting
+    }
+
+    fun getCurrentSetting(): Setting?{
+        return currentSetting.value
+    }
 }

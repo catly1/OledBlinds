@@ -36,10 +36,7 @@ class AddAppFragment : Fragment() {
 
         userInstalledApps.setOnItemClickListener {parent, view, position, id ->
             val row = adapter.getItem(position) as AppListItem
-            val name = row.name
-            val size = installedApps.size
-
-            model.set(row)
+            model.setSettingToBeSaved(row)
             findNavController().navigate(R.id.action_SecondFragment_to_ConfirmationFragment)
         }
         // Inflate the layout for this fragment
