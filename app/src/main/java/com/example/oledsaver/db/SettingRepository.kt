@@ -23,6 +23,10 @@ class SettingRepository @Inject constructor(
         }
     }
 
-
+    fun delete(setting: Setting){
+        GlobalScope.launch {
+            settingDao.delete(setting)
+        }
+    }
 
 }

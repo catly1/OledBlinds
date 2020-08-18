@@ -24,6 +24,7 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         delete.setOnClickListener {
+            model.repository.delete(model.getCurrentSetting()!!)
             findNavController().navigate(R.id.action_settingFragment_to_FirstFragment)
         }
     }
