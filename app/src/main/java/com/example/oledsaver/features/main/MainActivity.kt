@@ -1,21 +1,35 @@
 package com.example.oledsaver.features.main
 
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.oledsaver.R
+import android.provider.Settings
 
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val drawOtherAppPermissionCode = 2084
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this))
+        {
+            //If the draw over permission is not available open the settings screen
+            //to grant the permission.
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:$packageName"))
+            startActivityForResult(intent, drawOtherAppPermissionCode)
+        }
 
         val sharedPref = getSharedPreferences(
             "options", MODE_PRIVATE)
