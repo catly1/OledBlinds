@@ -11,9 +11,11 @@ import android.view.MenuItem
 import com.example.oledsaver.R
 import android.provider.Settings
 import android.widget.Toast
+import com.example.oledsaver.features.floating_menu.FloatingMenuService
 
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_first.*
 
 class MainActivity : AppCompatActivity() {
     private val drawOtherAppPermissionCode = 2084
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:$packageName"))
             startActivityForResult(intent, drawOtherAppPermissionCode)
+        } else {
+//            initializeView()
         }
 
         val sharedPref = getSharedPreferences(
@@ -64,4 +68,7 @@ class MainActivity : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+
+
 }

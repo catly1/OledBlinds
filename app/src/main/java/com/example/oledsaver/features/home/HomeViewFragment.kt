@@ -1,5 +1,6 @@
 package com.example.oledsaver.features.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.oledsaver.R
 import com.example.oledsaver.adapter.SavedAppAdapter
 import com.example.oledsaver.app.AppListItem
 import com.example.oledsaver.entity.Setting
+import com.example.oledsaver.features.floating_menu.FloatingMenuService
 import com.example.oledsaver.features.setting.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_first.*
 import kotlinx.coroutines.GlobalScope
@@ -47,7 +49,6 @@ class HomeViewFragment : Fragment() {
 
         }
 
-
         return rootView
 //         Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_first, container, false)
@@ -62,19 +63,16 @@ class HomeViewFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        test.setOnClickListener {
-            GlobalScope.launch {
-                var set = model.getAllSavedSettings()
-                changeText(set)
-            }
+        initializeView()
 
-            Toast.makeText(context,"test",Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun changeText(settings: List<Setting>){
-        var text = "In DB:${settings.size}"
-        println(text)
+    private fun initializeView(){
+        onButton.setOnClickListener {
+            Toast.makeText(activity, "you're clicking it", Toast.LENGTH_SHORT).show()
+            activity?.startService(Intent(activity, FloatingMenuService::class.java))
+            activity?.finish()
+        }
     }
 
 }
