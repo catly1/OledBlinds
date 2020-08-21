@@ -80,8 +80,8 @@ class FloatingMenuService: Service() {
                     }
                     MotionEvent.ACTION_MOVE -> {
                         //Calculate the X and Y coordinates of the view.
-                        params.x = initialX + (event.getRawX() - initialTouchX) as Int
-                        params.y = initialY + (event.getRawY() - initialTouchY) as Int
+                        params.x = (initialX + (event.rawX - initialTouchX)).toInt()
+                        params.y = (initialY + (event.rawY - initialTouchY)).toInt()
                         //Update the layout with new X & Y coordinate
                         mWindowManager.updateViewLayout(floatingMenuView, params)
                         lastAction = event.action
