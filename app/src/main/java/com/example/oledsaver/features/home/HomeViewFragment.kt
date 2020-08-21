@@ -72,8 +72,9 @@ class HomeViewFragment : Fragment() {
         }
     }
 
-    fun changeText(settings: List<Setting>){
+    private fun changeText(settings: List<Setting>){
         var text = "In DB:${settings.size}"
         println(text)
     }
+
 }

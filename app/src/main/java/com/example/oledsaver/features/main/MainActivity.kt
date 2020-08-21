@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.oledsaver.R
 import android.provider.Settings
+import android.widget.Toast
 
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,4 +52,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == drawOtherAppPermissionCode){
+            if (resultCode == RESULT_OK){
+
+            } else {
+                Toast.makeText(this, "Draw over other app permission not available. Closing the application", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 }
