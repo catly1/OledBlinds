@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/floating_menu"
     android:orientation="vertical"
+    android:background="#000000"
     >
 
     <Button
