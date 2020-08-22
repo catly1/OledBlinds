@@ -5,14 +5,21 @@ import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.IBinder
+import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.oledsaver.R
+import com.example.oledsaver.features.home.HomeViewModel
 import com.example.oledsaver.features.main.MainActivity
 
 class FloatingMenuService: Service() {
+
     private lateinit var mWindowManager:WindowManager
     private lateinit var floatingMenuView: View
+    private val displayMetrics = DisplayMetrics()
+
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
@@ -34,9 +41,11 @@ class FloatingMenuService: Service() {
         params.gravity = Gravity.TOP or Gravity.LEFT
         params.x = 0
         params.y = 100
+
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, params)
+        getScreenDimensions(params)
 
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
@@ -95,6 +104,16 @@ class FloatingMenuService: Service() {
 
         )
 
+    }
+
+    private fun getScreenDimensions(params : WindowManager.LayoutParams) {
+        mWindowManager.defaultDisplay.getMetrics(displayMetrics)
+        var height = displayMetrics.heightPixels
+        var width = displayMetrics.widthPixels
+        println(height)
+        println(width)
+        params.height = height / 2
+        params.width = width / 2
     }
 
     override fun onDestroy() {
