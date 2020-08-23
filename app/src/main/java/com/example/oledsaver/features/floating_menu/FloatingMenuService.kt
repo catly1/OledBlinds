@@ -8,10 +8,7 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import com.example.oledsaver.R
-import com.example.oledsaver.features.home.HomeViewModel
 import com.example.oledsaver.features.main.MainActivity
 
 class FloatingMenuService: Service() {
@@ -45,7 +42,7 @@ class FloatingMenuService: Service() {
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, params)
-        getScreenDimensions(params)
+        setMenuDimensions(params)
 
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
@@ -106,7 +103,7 @@ class FloatingMenuService: Service() {
 
     }
 
-    private fun getScreenDimensions(params : WindowManager.LayoutParams) {
+    private fun setMenuDimensions(params : WindowManager.LayoutParams) {
         mWindowManager.defaultDisplay.getMetrics(displayMetrics)
         var height = displayMetrics.heightPixels
         var width = displayMetrics.widthPixels
