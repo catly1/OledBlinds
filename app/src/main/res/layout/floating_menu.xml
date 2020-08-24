@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="65dp"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:id="@+id/floating_menu"
     android:orientation="vertical"
     android:background="#000000"
@@ -23,4 +23,12 @@
         android:id="@+id/float_close_button"
         android:text="X"
         />
+
+    <Button
+        android:id="@+id/bottom_right_button"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="40dp"
+        android:text="X"
+        android:layout_below="@+id/float_button"/>
 </RelativeLayout>
