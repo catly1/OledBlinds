@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:id="@+id/floating_menu"
     android:orientation="vertical"
     android:background="#000000"
@@ -11,13 +11,13 @@
     <Button
         android:id="@+id/float_button"
         android:layout_width="58dp"
-        android:layout_height="67dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Test" />
     <Button
         android:id="@+id/float_close_button"
         android:layout_width="58dp"
-        android:layout_height="67dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="X"
         android:layout_toRightOf="@id/float_button"/>
@@ -36,6 +36,7 @@
         android:layout_height="26dp"
         android:layout_below="@+id/float_button"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:text="X" />
 
     <Button
@@ -43,6 +44,7 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_below="@+id/float_button"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="X" />
 
