@@ -44,10 +44,10 @@ class FloatingMenuService: Service() {
         mWindowManager.addView(floatingMenuView, params)
         setMenuDimensions(params)
 
-//        val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
-//        closeButton.setOnClickListener {
-//            stopSelf()
-//        }
+        val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
+        closeButton.setOnClickListener {
+            stopSelf()
+        }
 
         val test = floatingMenuView.findViewById<Button>(R.id.float_button)
         test.setOnTouchListener (object : View.OnTouchListener {
