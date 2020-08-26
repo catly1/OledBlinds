@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
+import android.widget.Toast
 import com.example.oledsaver.R
 import com.example.oledsaver.features.main.MainActivity
 
@@ -42,7 +43,7 @@ class FloatingMenuService: Service() {
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, params)
-        setMenuDimensions(params)
+//        setMenuDimensions(params)
 
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
@@ -96,11 +97,39 @@ class FloatingMenuService: Service() {
                 }
                 return false
             }
+        })
+
+        val bottomRightButton = floatingMenuView.findViewById<Button>(R.id.bottom_right_button)
+        bottomRightButton.setOnTouchListener { view, event ->
+            var lastAction : Int = 0
+            var initialX : Int = 0
+            var initialY: Int = 0
+            var initialTouchX : Float = 0.toFloat()
+            var initialTouchY : Float = 0.toFloat()
+
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    //remember the initial position.
+                    initialX = params.x
+                    initialY = params.y
+                    //get the touch location
+                    initialTouchX = event.rawX
+                    initialTouchY = event.rawY
+                    lastAction = event.action
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    //Calculate the X and Y coordinates of the view.
+//                    params.x = (initialX + (event.rawX - initialTouchX)).toInt()
+//                    params.y = (initialY + (event.rawY - initialTouchY)).toInt()
+//                    //Update the layout with new X & Y coordinate
+//                    mWindowManager.updateViewLayout(floatingMenuView, params)
+//                    lastAction = event.action
+                    Toast.makeText(this, "you're moving it", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            false
         }
-
-
-        )
-
     }
 
     private fun setMenuDimensions(params : WindowManager.LayoutParams) {
