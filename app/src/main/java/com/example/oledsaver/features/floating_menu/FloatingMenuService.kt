@@ -39,6 +39,9 @@ class FloatingMenuService: Service() {
         params.gravity = Gravity.TOP or Gravity.LEFT
         params.x = 0
         params.y = 100
+        params.height = 200
+        params.width = 200
+
 
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
@@ -111,21 +114,21 @@ class FloatingMenuService: Service() {
 
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
-                    mWindowManager.defaultDisplay.getMetrics(displayMetrics)
                     //remember the initial position.
                     initialX = params.x
                     initialY = params.y
                     //remember initial dimensions.
-                    initialHeight = displayMetrics.heightPixels
-                    initialWidth = displayMetrics.widthPixels
+                    initialHeight = params.height
+                    initialWidth = params.width
                     //get the touch location
                     initialTouchX = event.rawX
                     initialTouchY = event.rawY
                     lastAction = event.action
                 }
                 MotionEvent.ACTION_MOVE -> {
-//                    params.height = (initialHeight + initialX + (event.rawX - initialTouchX)).toInt()
-//                    params.width = (initialWidth + initialY + (event.rawY - initialTouchY)).toInt()
+                    params.height = (initialHeight + initialX + (event.rawX - initialTouchX)).toInt()
+                    params.width = (initialWidth + initialY + (event.rawY - initialTouchY)).toInt()
+                    mWindowManager.updateViewLayout(floatingMenuView, params)
                     Toast.makeText(this, "$initialHeight", Toast.LENGTH_SHORT).show()
                 }
             }
