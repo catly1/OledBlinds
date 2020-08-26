@@ -106,25 +106,27 @@ class FloatingMenuService: Service() {
             var initialY: Int = 0
             var initialTouchX : Float = 0.toFloat()
             var initialTouchY : Float = 0.toFloat()
+            var initialHeight: Int = 0
+            var initialWidth: Int = 0
 
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
+                    mWindowManager.defaultDisplay.getMetrics(displayMetrics)
                     //remember the initial position.
                     initialX = params.x
                     initialY = params.y
+                    //remember initial dimensions.
+                    initialHeight = displayMetrics.heightPixels
+                    initialWidth = displayMetrics.widthPixels
                     //get the touch location
                     initialTouchX = event.rawX
                     initialTouchY = event.rawY
                     lastAction = event.action
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    //Calculate the X and Y coordinates of the view.
-//                    params.x = (initialX + (event.rawX - initialTouchX)).toInt()
-//                    params.y = (initialY + (event.rawY - initialTouchY)).toInt()
-//                    //Update the layout with new X & Y coordinate
-//                    mWindowManager.updateViewLayout(floatingMenuView, params)
-//                    lastAction = event.action
-                    Toast.makeText(this, "you're moving it", Toast.LENGTH_SHORT).show()
+//                    params.height = (initialHeight + initialX + (event.rawX - initialTouchX)).toInt()
+//                    params.width = (initialWidth + initialY + (event.rawY - initialTouchY)).toInt()
+                    Toast.makeText(this, "$initialHeight", Toast.LENGTH_SHORT).show()
                 }
             }
 
