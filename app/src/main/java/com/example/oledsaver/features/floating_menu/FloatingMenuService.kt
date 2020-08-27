@@ -126,8 +126,8 @@ class FloatingMenuService: Service() {
                     lastAction = event.action
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    params.height = (initialHeight + initialX + (event.rawX - initialTouchX)).toInt()
-                    params.width = (initialWidth + initialY + (event.rawY - initialTouchY)).toInt()
+                    params.height = (initialHeight + initialY + (event.rawY - initialTouchY)).toInt()
+                    params.width = (initialWidth + initialX + (event.rawX - initialTouchX)).toInt()
                     mWindowManager.updateViewLayout(floatingMenuView, params)
                     Toast.makeText(this, "$initialHeight", Toast.LENGTH_SHORT).show()
                 }
