@@ -33,7 +33,8 @@ class FloatingMenuService: Service() {
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-            PixelFormat.TRANSLUCENT)
+            PixelFormat.TRANSLUCENT
+        )
         //Specify the chat head position
         //Initially view will be added to top-left corner
         params.gravity = Gravity.TOP or Gravity.LEFT
@@ -54,15 +55,15 @@ class FloatingMenuService: Service() {
         }
 
         val test = floatingMenuView.findViewById<Button>(R.id.float_button)
-        test.setOnTouchListener (object : View.OnTouchListener {
-            var lastAction : Int = 0
-            var initialX : Int = 0
+        test.setOnTouchListener(object : View.OnTouchListener {
+            var lastAction: Int = 0
+            var initialX: Int = 0
             var initialY: Int = 0
-            var initialTouchX : Float = 0.toFloat()
-            var initialTouchY : Float = 0.toFloat()
+            var initialTouchX: Float = 0.toFloat()
+            var initialTouchY: Float = 0.toFloat()
 
-            override fun onTouch(view: View, event: MotionEvent): Boolean{
-                when(event.action){
+            override fun onTouch(view: View, event: MotionEvent): Boolean {
+                when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
                         //remember the initial position.
                         initialX = params.x
@@ -103,38 +104,41 @@ class FloatingMenuService: Service() {
         })
 
         val bottomRightButton = floatingMenuView.findViewById<Button>(R.id.bottom_right_button)
-        bottomRightButton.setOnTouchListener { view, event ->
-            var lastAction : Int = 0
-            var initialX : Int = 0
+        bottomRightButton.setOnTouchListener(object : View.OnTouchListener {
+            var lastAction: Int = 0
+            var initialX: Int = 0
             var initialY: Int = 0
-            var initialTouchX : Float = 0.toFloat()
-            var initialTouchY : Float = 0.toFloat()
+            var initialTouchX: Float = 0.toFloat()
+            var initialTouchY: Float = 0.toFloat()
             var initialHeight: Int = 0
             var initialWidth: Int = 0
 
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    //remember the initial position.
+            override fun onTouch(view: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+//                    //remember the initial position.
                     initialX = params.x
                     initialY = params.y
-                    //remember initial dimensions.
-                    initialHeight = params.height
-                    initialWidth = params.width
-                    //get the touch location
+//                    //remember initial dimensions.
+                        initialHeight = params.height
+                        initialWidth = params.width
+//                    //get the touch location
                     initialTouchX = event.rawX
                     initialTouchY = event.rawY
-                    lastAction = event.action
+//                    lastAction = event.action
+                        return true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        params.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
+                        params.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
+                        mWindowManager.updateViewLayout(floatingMenuView, params)
+                        return true
+                    }
                 }
-                MotionEvent.ACTION_MOVE -> {
-                    params.height = (initialHeight + initialY + (event.rawY - initialTouchY)).toInt()
-                    params.width = (initialWidth + initialX + (event.rawX - initialTouchX)).toInt()
-                    mWindowManager.updateViewLayout(floatingMenuView, params)
-                    Toast.makeText(this, "$initialHeight", Toast.LENGTH_SHORT).show()
-                }
-            }
 
-            false
-        }
+                return false
+            }
+        })
     }
 
     private fun setMenuDimensions(params : WindowManager.LayoutParams) {
