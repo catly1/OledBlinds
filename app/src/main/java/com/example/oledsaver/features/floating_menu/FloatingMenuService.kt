@@ -8,7 +8,6 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
-import android.widget.Toast
 import com.example.oledsaver.R
 import com.example.oledsaver.features.main.MainActivity
 
@@ -22,13 +21,12 @@ class FloatingMenuService: Service() {
         return null
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
         //Inflate the chat head layout we created
         floatingMenuView = LayoutInflater.from(this).inflate(R.layout.floating_menu, null)
         //Add the view to the window.
-        val params = WindowManager.LayoutParams(
+        val params1 = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
@@ -37,107 +35,19 @@ class FloatingMenuService: Service() {
         )
         //Specify the chat head position
         //Initially view will be added to top-left corner
-        params.gravity = Gravity.TOP or Gravity.LEFT
-        params.x = 0
-        params.y = 100
-        params.height = 200
-        params.width = 200
+        params1.gravity = Gravity.TOP or Gravity.LEFT
+        params1.x = 0
+        params1.y = 100
+        params1.height = 200
+        params1.width = 200
 
 
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        mWindowManager.addView(floatingMenuView, params)
+        mWindowManager.addView(floatingMenuView, params1)
 
-        val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
-        closeButton.setOnClickListener {
-            stopSelf()
-        }
+        setTouchEvents(floatingMenuView, params1)
 
-        val test = floatingMenuView.findViewById<Button>(R.id.float_button)
-        test.setOnTouchListener(object : View.OnTouchListener {
-            var lastAction: Int = 0
-            var initialX: Int = 0
-            var initialY: Int = 0
-            var initialTouchX: Float = 0.toFloat()
-            var initialTouchY: Float = 0.toFloat()
-
-            override fun onTouch(view: View, event: MotionEvent): Boolean {
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        //remember the initial position.
-                        initialX = params.x
-                        initialY = params.y
-                        //get the touch location
-                        initialTouchX = event.rawX
-                        initialTouchY = event.rawY
-                        lastAction = event.action
-                        return true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        //As we implemented on touch listener with ACTION_MOVE,
-                        //we have to check if the previous action was ACTION_DOWN
-                        //to identify if the user clicked the view or not.
-                        if (lastAction == MotionEvent.ACTION_DOWN) {
-                            //Open the chat conversation click.
-                            val intent = Intent(this@FloatingMenuService, MainActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            //close the service and remove the chat heads
-                            stopSelf()
-                        }
-                        lastAction = event.action
-                        return true
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        //Calculate the X and Y coordinates of the view.
-                        params.x = (initialX + (event.rawX - initialTouchX)).toInt()
-                        params.y = (initialY + (event.rawY - initialTouchY)).toInt()
-                        //Update the layout with new X & Y coordinate
-                        mWindowManager.updateViewLayout(floatingMenuView, params)
-                        lastAction = event.action
-                        return true
-                    }
-                }
-                return false
-            }
-        })
-
-        val bottomRightButton = floatingMenuView.findViewById<Button>(R.id.bottom_right_button)
-        bottomRightButton.setOnTouchListener(object : View.OnTouchListener {
-            var lastAction: Int = 0
-            var initialX: Int = 0
-            var initialY: Int = 0
-            var initialTouchX: Float = 0.toFloat()
-            var initialTouchY: Float = 0.toFloat()
-            var initialHeight: Int = 0
-            var initialWidth: Int = 0
-
-            override fun onTouch(view: View, event: MotionEvent): Boolean {
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-//                    //remember the initial position.
-                    initialX = params.x
-                    initialY = params.y
-//                    //remember initial dimensions.
-                        initialHeight = params.height
-                        initialWidth = params.width
-//                    //get the touch location
-                    initialTouchX = event.rawX
-                    initialTouchY = event.rawY
-//                    lastAction = event.action
-                        return true
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        params.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
-                        params.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
-                        mWindowManager.updateViewLayout(floatingMenuView, params)
-                        return true
-                    }
-                }
-
-                return false
-            }
-        })
     }
 
     private fun setMenuDimensions(params : WindowManager.LayoutParams) {
@@ -150,7 +60,99 @@ class FloatingMenuService: Service() {
         params.width = width / 2
     }
 
-    private fun setTouchEvents(){
+    private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
+        val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
+        closeButton.setOnClickListener {
+            stopSelf()
+        }
+
+        floatingMenuView.findViewById<Button>(R.id.float_button).also {
+            it.setOnTouchListener(object : View.OnTouchListener {
+                var lastAction: Int = 0
+                var initialX: Int = 0
+                var initialY: Int = 0
+                var initialTouchX: Float = 0.toFloat()
+                var initialTouchY: Float = 0.toFloat()
+
+                override fun onTouch(view: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            //remember the initial position.
+                            initialX = params.x
+                            initialY = params.y
+                            //get the touch location
+                            initialTouchX = event.rawX
+                            initialTouchY = event.rawY
+                            lastAction = event.action
+                            return true
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            //As we implemented on touch listener with ACTION_MOVE,
+                            //we have to check if the previous action was ACTION_DOWN
+                            //to identify if the user clicked the view or not.
+                            if (lastAction == MotionEvent.ACTION_DOWN) {
+                                //Open the chat conversation click.
+                                val intent = Intent(this@FloatingMenuService, MainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                //close the service and remove the chat heads
+                                stopSelf()
+                            }
+                            lastAction = event.action
+                            return true
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            //Calculate the X and Y coordinates of the view.
+                            params.x = (initialX + (event.rawX - initialTouchX)).toInt()
+                            params.y = (initialY + (event.rawY - initialTouchY)).toInt()
+                            //Update the layout with new X & Y coordinate
+                            mWindowManager.updateViewLayout(floatingMenuView, params)
+                            lastAction = event.action
+                            return true
+                        }
+                    }
+                    return false
+                }
+            })
+        }
+
+        floatingMenuView.findViewById<Button>(R.id.bottom_right_button).also {
+                it.setOnTouchListener(object : View.OnTouchListener {
+                    var lastAction: Int = 0
+                    var initialX: Int = 0
+                    var initialY: Int = 0
+                    var initialTouchX: Float = 0.toFloat()
+                    var initialTouchY: Float = 0.toFloat()
+                    var initialHeight: Int = 0
+                    var initialWidth: Int = 0
+
+                    override fun onTouch(view: View, event: MotionEvent): Boolean {
+                        when (event.action) {
+                            MotionEvent.ACTION_DOWN -> {
+                                //                    //remember the initial position.
+                                initialX = params.x
+                                initialY = params.y
+                                //                    //remember initial dimensions.
+                                initialHeight = params.height
+                                initialWidth = params.width
+                                //                    //get the touch location
+                                initialTouchX = event.rawX
+                                initialTouchY = event.rawY
+                                //                    lastAction = event.action
+                                return true
+                            }
+                            MotionEvent.ACTION_MOVE -> {
+                                params.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
+                                params.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
+                                mWindowManager.updateViewLayout(floatingMenuView, params)
+                                return true
+                            }
+                        }
+
+                        return false
+                    }
+                })
+            }
 
     }
 
