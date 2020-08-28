@@ -47,7 +47,6 @@ class FloatingMenuService: Service() {
         //Add the view to the window
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, params)
-//        setMenuDimensions(params)
 
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
@@ -149,6 +148,10 @@ class FloatingMenuService: Service() {
         println(width)
         params.height = height / 2
         params.width = width / 2
+    }
+
+    private fun setTouchEvents(){
+
     }
 
     override fun onDestroy() {
