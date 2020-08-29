@@ -7,6 +7,7 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Button
+import android.widget.Toast
 import com.example.oledsaver.R
 import com.example.oledsaver.features.main.MainActivity
 
@@ -27,6 +28,7 @@ class FloatingMenuService: Service() {
 
         //Add the view to the window.
 
+        createParamsAndView()
         createParamsAndView()
         createParamsAndView()
 
@@ -50,7 +52,7 @@ class FloatingMenuService: Service() {
         param.height = 200
         param.width = 200
 
-//        views.add(floatingMenuView)
+        views.add(floatingMenuView)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, param)
         setTouchEvents(floatingMenuView, param)
@@ -59,7 +61,14 @@ class FloatingMenuService: Service() {
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
+
             mWindowManager.removeView(floatingMenuView)
+            views.remove(floatingMenuView)
+            Toast.makeText(this,"${views.size}", Toast.LENGTH_SHORT).show()
+            if (views.isEmpty()){
+                Toast.makeText(this,"is empty", Toast.LENGTH_SHORT).show()
+//                stopSelf()
+            }
         }
 
         floatingMenuView.findViewById<Button>(R.id.float_button).also {
