@@ -1,6 +1,5 @@
 package com.example.oledsaver.features.floating_menu
 
-import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -16,6 +15,7 @@ class FloatingMenuService: Service() {
     private lateinit var mWindowManager:WindowManager
     private lateinit var floatingMenuView: View
     private val displayMetrics = DisplayMetrics()
+    private val params = ArrayList<WindowManager.LayoutParams>()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -26,38 +26,35 @@ class FloatingMenuService: Service() {
         //Inflate the chat head layout we created
         floatingMenuView = LayoutInflater.from(this).inflate(R.layout.floating_menu, null)
         //Add the view to the window.
-        val params1 = WindowManager.LayoutParams(
+
+        createParams()
+        createParams()
+
+        //Add the view to the window
+        params.forEach{param ->
+            mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+            mWindowManager.addView(floatingMenuView, param)
+            setTouchEvents(floatingMenuView, param)
+        }
+
+    }
+
+
+    private fun createParams(){
+        val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
-        //Specify the chat head position
-        //Initially view will be added to top-left corner
-        params1.gravity = Gravity.TOP or Gravity.LEFT
-        params1.x = 0
-        params1.y = 100
-        params1.height = 200
-        params1.width = 200
+        params.gravity = Gravity.TOP or Gravity.LEFT
+        params.x = 0
+        params.y = 100
+        params.height = 200
+        params.width = 200
 
-
-        //Add the view to the window
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        mWindowManager.addView(floatingMenuView, params1)
-
-        setTouchEvents(floatingMenuView, params1)
-
-    }
-
-    private fun setMenuDimensions(params : WindowManager.LayoutParams) {
-        mWindowManager.defaultDisplay.getMetrics(displayMetrics)
-        var height = displayMetrics.heightPixels
-        var width = displayMetrics.widthPixels
-        println(height)
-        println(width)
-        params.height = height / 2
-        params.width = width / 2
+        this.params.add(params)
     }
 
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
