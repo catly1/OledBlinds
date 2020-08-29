@@ -28,7 +28,6 @@ class FloatingMenuService: Service() {
         //Add the view to the window.
 
         createParams()
-        createParams()
 
         //Add the view to the window
         params.forEach{param ->
@@ -41,20 +40,20 @@ class FloatingMenuService: Service() {
 
 
     private fun createParams(){
-        val params = WindowManager.LayoutParams(
+        val param = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
-        params.gravity = Gravity.TOP or Gravity.LEFT
-        params.x = 0
-        params.y = 100
-        params.height = 200
-        params.width = 200
+        param.gravity = Gravity.TOP or Gravity.LEFT
+        param.x = 0
+        param.y = 100
+        param.height = 200
+        param.width = 200
 
-        this.params.add(params)
+        params.add(param)
     }
 
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
