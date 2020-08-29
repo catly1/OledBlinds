@@ -24,22 +24,19 @@ class FloatingMenuService: Service() {
     override fun onCreate() {
         super.onCreate()
         //Inflate the chat head layout we created
-        floatingMenuView = LayoutInflater.from(this).inflate(R.layout.floating_menu, null)
+
         //Add the view to the window.
 
-        createParams()
+        createParamsAndView()
+        createParamsAndView()
 
         //Add the view to the window
-        params.forEach{param ->
-            mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-            mWindowManager.addView(floatingMenuView, param)
-            setTouchEvents(floatingMenuView, param)
-        }
 
     }
 
 
-    private fun createParams(){
+    private fun createParamsAndView(){
+        floatingMenuView = LayoutInflater.from(this).inflate(R.layout.floating_menu, null)
         val param = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -53,7 +50,9 @@ class FloatingMenuService: Service() {
         param.height = 200
         param.width = 200
 
-        params.add(param)
+        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        mWindowManager.addView(floatingMenuView, param)
+        setTouchEvents(floatingMenuView, param)
     }
 
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
