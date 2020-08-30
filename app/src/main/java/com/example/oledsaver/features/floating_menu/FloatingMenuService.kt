@@ -30,7 +30,6 @@ class FloatingMenuService: Service() {
 
         createParamsAndView()
         createParamsAndView()
-        createParamsAndView()
 
         //Add the view to the window
 
@@ -49,8 +48,8 @@ class FloatingMenuService: Service() {
         param.gravity = Gravity.TOP or Gravity.LEFT
         param.x = 0
         param.y = 100
-        param.height = 200
-        param.width = 200
+        param.height = 500
+        param.width = 500
 
         views.add(floatingMenuView)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
