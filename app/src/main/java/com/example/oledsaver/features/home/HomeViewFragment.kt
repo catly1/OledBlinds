@@ -69,7 +69,6 @@ class HomeViewFragment : Fragment() {
 
     private fun initializeView(){
         onButton.setOnClickListener {
-            Toast.makeText(activity, "you're clicking it", Toast.LENGTH_SHORT).show()
             activity?.startService(Intent(activity, FloatingMenuService::class.java))
             activity?.finish()
         }

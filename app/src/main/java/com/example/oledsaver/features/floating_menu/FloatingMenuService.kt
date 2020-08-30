@@ -61,13 +61,10 @@ class FloatingMenuService: Service() {
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
         val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
         closeButton.setOnClickListener {
-
-            mWindowManager.removeView(floatingMenuView)
-            views.remove(floatingMenuView)
-            Toast.makeText(this,"${views.size}", Toast.LENGTH_SHORT).show()
-            if (views.isEmpty()){
-                Toast.makeText(this,"is empty", Toast.LENGTH_SHORT).show()
-//                stopSelf()
+                views.remove(floatingMenuView)
+                mWindowManager.removeView(floatingMenuView)
+            if (views.size == 0) {
+                stopSelf()
             }
         }
 
@@ -159,10 +156,5 @@ class FloatingMenuService: Service() {
                 })
             }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mWindowManager.removeView(floatingMenuView)
     }
 }
