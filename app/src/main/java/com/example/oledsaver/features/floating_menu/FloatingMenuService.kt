@@ -17,6 +17,7 @@ class FloatingMenuService: Service() {
     private lateinit var floatingMenuView: View
     private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
+    private val params = ArrayList<WindowManager.LayoutParams>()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -51,6 +52,7 @@ class FloatingMenuService: Service() {
         param.height = 500
         param.width = 500
 
+        params.add(param)
         views.add(floatingMenuView)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, param)
@@ -58,12 +60,13 @@ class FloatingMenuService: Service() {
     }
 
     private fun setTouchEvents(floatingMenuView: View, params: WindowManager.LayoutParams) {
-        val closeButton = floatingMenuView.findViewById<Button>(R.id.float_close_button)
-        closeButton.setOnClickListener {
+        floatingMenuView.findViewById<Button>(R.id.float_close_button).also {
+            it.setOnClickListener {
                 views.remove(floatingMenuView)
                 mWindowManager.removeView(floatingMenuView)
-            if (views.size == 0) {
-                stopSelf()
+                if (views.size == 0) {
+                    stopSelf()
+                }
             }
         }
 
@@ -155,5 +158,10 @@ class FloatingMenuService: Service() {
                 })
             }
 
+        floatingMenuView.findViewById<Button>(R.id.save_button).also {
+            it.setOnClickListener { v: View ->
+
+            }
+        }
     }
 }
