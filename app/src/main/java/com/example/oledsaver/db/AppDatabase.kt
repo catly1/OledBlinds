@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.oledsaver.entity.Setting
 
-@Database(entities = [Setting::class], version = 1)
+@Database(entities = [Setting::class, ViewParamDao::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun settingDao(): SettingDao
+    abstract fun viewParamDao(): ViewParamDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

@@ -9,6 +9,8 @@ import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import com.example.oledsaver.R
+import com.example.oledsaver.db.AppDatabase
+import com.example.oledsaver.db.ViewParamRepository
 import com.example.oledsaver.features.main.MainActivity
 
 class FloatingMenuService: Service() {
@@ -18,6 +20,9 @@ class FloatingMenuService: Service() {
     private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
     private val params = ArrayList<WindowManager.LayoutParams>()
+    private val dao = AppDatabase.getDatabase(application).viewParamDao()
+    private val repository: ViewParamRepository = ViewParamRepository(dao)
+
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
