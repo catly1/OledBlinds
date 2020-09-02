@@ -17,11 +17,12 @@ class FloatingMenuService: Service() {
 
     private lateinit var mWindowManager:WindowManager
     private lateinit var floatingMenuView: View
+    private lateinit var topBarView: View
     private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
     private val params = ArrayList<WindowManager.LayoutParams>()
-    private val dao = AppDatabase.getDatabase(application).viewParamDao()
-    private val repository: ViewParamRepository = ViewParamRepository(dao)
+//    private val dao = AppDatabase.getDatabase(application).viewParamDao()
+//    private val repository: ViewParamRepository = ViewParamRepository(dao)
 
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -30,19 +31,35 @@ class FloatingMenuService: Service() {
 
     override fun onCreate() {
         super.onCreate()
+        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         //Inflate the chat head layout we created
 
         //Add the view to the window.
 
-        createParamsAndView()
-        createParamsAndView()
+//        createParamsAndView()
+//        createParamsAndView()
+        createTopBar()
 
         //Add the view to the window
 
     }
 
     private fun createTopBar(){
-        
+        topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
+        val param = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+//        param.gravity = Gravity.TOP or Gravity.LEFT
+//        param.x = 0
+//        param.y = 100
+//        param.height = 500
+//        param.width = 500
+
+        mWindowManager.addView(topBarView,param)
     }
 
     private fun calculateBottomBarLocation(){
@@ -67,7 +84,6 @@ class FloatingMenuService: Service() {
 
         params.add(param)
         views.add(floatingMenuView)
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         mWindowManager.addView(floatingMenuView, param)
         setTouchEvents(floatingMenuView, param)
     }

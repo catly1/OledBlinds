@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.oledsaver.entity.Setting
+import com.example.oledsaver.entity.ViewParam
 
-@Database(entities = [Setting::class, ViewParamDao::class], version = 1)
+@Database(entities = [Setting::class, ViewParam::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun settingDao(): SettingDao
     abstract fun viewParamDao(): ViewParamDao
