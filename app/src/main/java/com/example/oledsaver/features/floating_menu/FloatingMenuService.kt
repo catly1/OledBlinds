@@ -41,6 +41,10 @@ class FloatingMenuService: Service() {
 
     }
 
+    private fun createTopBar(){
+        
+    }
+
     private fun calculateBottomBarLocation(){
 
     }
