@@ -20,6 +20,7 @@ class FloatingMenuService: Service() {
     private lateinit var mWindowManager:WindowManager
     private lateinit var floatingMenuView: View
     private lateinit var topBarView: View
+    private lateinit var bottomBarView: View
     private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
     private val params = ArrayList<WindowManager.LayoutParams>()
@@ -41,7 +42,7 @@ class FloatingMenuService: Service() {
 //        createParamsAndView()
 //        createParamsAndView()
         createTopBar()
-
+        createBottomBar()
         //Add the view to the window
 
     }
@@ -49,38 +50,29 @@ class FloatingMenuService: Service() {
     private fun createTopBar(){
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
         val param = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
+            MATCH_PARENT,
+            WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
         param.gravity = Gravity.TOP
-
-        param.height = WRAP_CONTENT
-        param.width = MATCH_PARENT
         mWindowManager.addView(topBarView,param)
+
         topBarView.findViewById<Button>(R.id.top_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
-                var lastAction: Int = 0
-                var initialX: Int = 0
                 var initialY: Int = 0
-                var initialTouchX: Float = 0.toFloat()
                 var initialTouchY: Float = 0.toFloat()
                 var initialHeight: Int = 0
-                var initialWidth: Int = 0
 
                 override fun onTouch(view: View, event: MotionEvent): Boolean {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
                             //                    //remember the initial position.
-                            initialX = param.x
                             initialY = param.y
                             //                    //remember initial dimensions.
                             initialHeight = param.height
-                            initialWidth = param.width
                             //                    //get the touch location
-                            initialTouchX = event.rawX
                             initialTouchY = event.rawY
                             //                    lastAction = event.action
                             return true
@@ -97,6 +89,20 @@ class FloatingMenuService: Service() {
                 }
             })
         }
+    }
+
+    private fun createBottomBar(){
+        bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
+        val param = WindowManager.LayoutParams(
+            MATCH_PARENT,
+            WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+        param.gravity = Gravity.BOTTOM
+        mWindowManager.addView(bottomBarView, param)
+
     }
 
     private fun calculateBottomBarLocation(){
