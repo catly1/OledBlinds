@@ -6,6 +6,8 @@ import android.graphics.PixelFormat
 import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.*
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.Toast
 import com.example.oledsaver.R
@@ -53,13 +55,48 @@ class FloatingMenuService: Service() {
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
-//        param.gravity = Gravity.TOP or Gravity.LEFT
-//        param.x = 0
-//        param.y = 100
-//        param.height = 500
-//        param.width = 500
+        param.gravity = Gravity.TOP
 
+        param.height = WRAP_CONTENT
+        param.width = MATCH_PARENT
         mWindowManager.addView(topBarView,param)
+        topBarView.findViewById<Button>(R.id.top_resize_button).also {
+            it.setOnTouchListener(object : View.OnTouchListener {
+                var lastAction: Int = 0
+                var initialX: Int = 0
+                var initialY: Int = 0
+                var initialTouchX: Float = 0.toFloat()
+                var initialTouchY: Float = 0.toFloat()
+                var initialHeight: Int = 0
+                var initialWidth: Int = 0
+
+                override fun onTouch(view: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            //                    //remember the initial position.
+                            initialX = param.x
+                            initialY = param.y
+                            //                    //remember initial dimensions.
+                            initialHeight = param.height
+                            initialWidth = param.width
+                            //                    //get the touch location
+                            initialTouchX = event.rawX
+                            initialTouchY = event.rawY
+                            //                    lastAction = event.action
+                            return true
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            param.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
+//                            param.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
+                            mWindowManager.updateViewLayout(topBarView, param)
+                            return true
+                        }
+                    }
+
+                    return false
+                }
+            })
+        }
     }
 
     private fun calculateBottomBarLocation(){
