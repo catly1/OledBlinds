@@ -9,10 +9,7 @@ import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
-import android.widget.Toast
 import com.example.oledsaver.R
-import com.example.oledsaver.db.AppDatabase
-import com.example.oledsaver.db.ViewParamRepository
 import com.example.oledsaver.features.main.MainActivity
 
 class FloatingMenuService: Service() {
@@ -24,6 +21,8 @@ class FloatingMenuService: Service() {
     private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
     private val params = ArrayList<WindowManager.LayoutParams>()
+    private lateinit var topParam : WindowManager.LayoutParams
+    private lateinit var bottomParam : WindowManager.LayoutParams
 //    private val dao = AppDatabase.getDatabase(application).viewParamDao()
 //    private val repository: ViewParamRepository = ViewParamRepository(dao)
 
@@ -49,15 +48,15 @@ class FloatingMenuService: Service() {
 
     private fun createTopBar(){
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
-        val param = WindowManager.LayoutParams(
+        topParam = WindowManager.LayoutParams(
             MATCH_PARENT,
             WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
-        param.gravity = Gravity.TOP
-        mWindowManager.addView(topBarView,param)
+        topParam.gravity = Gravity.TOP
+        mWindowManager.addView(topBarView,topParam)
 
         topBarView.findViewById<Button>(R.id.top_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
@@ -69,18 +68,20 @@ class FloatingMenuService: Service() {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
                             //                    //remember the initial position.
-                            initialY = param.y
+                            initialY = topParam.y
                             //                    //remember initial dimensions.
-                            initialHeight = param.height
+                            initialHeight = topParam.height
                             //                    //get the touch location
                             initialTouchY = event.rawY
                             //                    lastAction = event.action
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
-                            param.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
+                            topParam.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
+                            bottomParam.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
 //                            param.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
-                            mWindowManager.updateViewLayout(topBarView, param)
+                            mWindowManager.updateViewLayout(topBarView, topParam)
+                            mWindowManager.updateViewLayout(bottomBarView,bottomParam)
                             return true
                         }
                     }
@@ -93,17 +94,18 @@ class FloatingMenuService: Service() {
 
     private fun createBottomBar(){
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
-        val param = WindowManager.LayoutParams(
+        bottomParam = WindowManager.LayoutParams(
             MATCH_PARENT,
             WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
-        param.gravity = Gravity.BOTTOM
-        mWindowManager.addView(bottomBarView, param)
+        bottomParam.gravity = Gravity.BOTTOM
+        mWindowManager.addView(bottomBarView, bottomParam)
 
     }
+
 
     private fun calculateBottomBarLocation(){
 
