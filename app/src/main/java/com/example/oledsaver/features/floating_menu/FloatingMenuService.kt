@@ -41,6 +41,10 @@ class FloatingMenuService: Service() {
 
     }
 
+    private fun calculateBottomBarLocation(){
+
+    }
+
 
     private fun createParamsAndView(){
         floatingMenuView = LayoutInflater.from(this).inflate(R.layout.floating_menu, null)
