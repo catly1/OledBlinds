@@ -25,40 +25,17 @@ import kotlinx.coroutines.launch
  */
 class HomeViewFragment : Fragment() {
 
-    private val model : HomeViewModel by activityViewModels()
-    private val sharedModel : SharedViewModel by activityViewModels()
-
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
-        val rootView = inflater.inflate(R.layout.fragment_first, container, false)
-        val savedSettings = rootView.findViewById<ListView>(R.id.homeListView)
-        model.repository = sharedModel.repository
-        GlobalScope.launch {
-            model.getAllSavedSettings()
-            val adapter = SavedAppAdapter(activity, model.settings)
-            savedSettings.adapter = adapter
-            savedSettings.setOnItemClickListener {parent, view, position, id ->
-                val setting = adapter.getItem(position)
-                sharedModel.setCurrentSetting(setting)
-                findNavController().navigate(R.id.action_FirstFragment_to_settingFragment)
-            }
-
-        }
-
-        return rootView
-//         Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        var text = "Saved Apps: ${sharedModel.repository.getSettings()}"
-//        settings = model.getAllSavedSettings()
-//        Toast.makeText(context, text , Toast.LENGTH_SHORT).show()
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
@@ -67,7 +44,7 @@ class HomeViewFragment : Fragment() {
 
     }
 
-    private fun initializeView(){
+    private fun initializeView() {
         onButton.setOnClickListener {
             activity?.startService(Intent(activity, FloatingMenuService::class.java))
             activity?.finish()
