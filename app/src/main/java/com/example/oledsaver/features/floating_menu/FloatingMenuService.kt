@@ -8,6 +8,7 @@ import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.Button
+import android.widget.ImageButton
 import com.example.oledsaver.R
 
 class FloatingMenuService : Service() {
@@ -17,8 +18,10 @@ class FloatingMenuService : Service() {
     private lateinit var bottomBarView: View
     private lateinit var topParam: WindowManager.LayoutParams
     private lateinit var bottomParam: WindowManager.LayoutParams
-    private lateinit var topCloseButton: Button
-    private lateinit var bottomResizeButton: Button
+    private lateinit var topCloseButton: ImageButton
+    private lateinit var bottomResizeButton: ImageButton
+    private var topHideRunnable: Runnable = Runnable { topCloseButton.visibility = View.GONE }
+    private var bottomHideRunnable: Runnable = Runnable { bottomResizeButton.visibility = View.GONE }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -69,7 +72,7 @@ class FloatingMenuService : Service() {
         )
         topParam.gravity = Gravity.TOP
         mWindowManager.addView(topBarView, topParam)
-        topCloseButton = topBarView.findViewById<Button>(R.id.top_close_button).also {
+        topCloseButton = topBarView.findViewById<ImageButton>(R.id.top_close_button).also {
             it.setOnClickListener {
                 stopSelf()
             }
@@ -77,12 +80,13 @@ class FloatingMenuService : Service() {
     }
 
     private fun hideButtons() {
-        topBarView.postDelayed(Runnable {
-            topCloseButton.visibility = View.GONE
-        }, 3000)
-        bottomBarView.postDelayed({
-            bottomResizeButton.visibility = View.GONE
-        }, 3000)
+        topBarView.postDelayed(topHideRunnable, 3000)
+        bottomBarView.postDelayed(bottomHideRunnable, 3000)
+    }
+
+    private fun stopHideRunnables(){
+        bottomBarView.removeCallbacks(bottomHideRunnable)
+        topBarView.removeCallbacks(topHideRunnable)
     }
 
     private fun createBottomBar() {
@@ -96,7 +100,7 @@ class FloatingMenuService : Service() {
         )
         bottomParam.gravity = Gravity.BOTTOM
         mWindowManager.addView(bottomBarView, bottomParam)
-        bottomResizeButton = bottomBarView.findViewById<Button>(R.id.bottom_resize_button).also {
+        bottomResizeButton = bottomBarView.findViewById<ImageButton>(R.id.bottom_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
                 var initialY: Int = 0
                 var initialTouchY: Float = 0.toFloat()
@@ -108,6 +112,7 @@ class FloatingMenuService : Service() {
                             initialY = bottomParam.y
                             initialHeight = bottomParam.height
                             initialTouchY = event.rawY
+                            stopHideRunnables()
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
@@ -117,6 +122,9 @@ class FloatingMenuService : Service() {
                             mWindowManager.updateViewLayout(topBarView, topParam)
                             mWindowManager.updateViewLayout(bottomBarView, bottomParam)
                             return true
+                        }
+                        MotionEvent.ACTION_UP ->{
+                            hideButtons()
                         }
                     }
 

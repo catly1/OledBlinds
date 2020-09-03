@@ -10,13 +10,11 @@ class OLEDSaverTileService : TileService() {
     override fun onClick() {
         super.onClick()
         var serviceIntent = Intent(this, FloatingMenuService::class.java)
-
         if (status) {
             stopService(serviceIntent)
         } else {
             startService(serviceIntent)
         }
-
         var closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
         this.sendBroadcast(closeNotificationPanelIntent)
     }

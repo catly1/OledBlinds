@@ -8,14 +8,17 @@
     android:id="@+id/top_bar"
     >
     
-    <Button
+    <ImageButton
         android:id="@+id/top_close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/baseline_close_white_24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#00000000"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
