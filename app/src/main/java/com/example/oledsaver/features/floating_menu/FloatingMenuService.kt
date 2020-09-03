@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.IBinder
+import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.Button
@@ -30,6 +31,14 @@ class FloatingMenuService : Service() {
         createBottomBar()
         hideButtons()
         manageVisibility()
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mWindowManager.removeView(bottomBarView)
+        mWindowManager.removeView(topBarView)
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
     }
 
     private fun manageVisibility() {
@@ -62,8 +71,6 @@ class FloatingMenuService : Service() {
         mWindowManager.addView(topBarView, topParam)
         topCloseButton = topBarView.findViewById<Button>(R.id.top_close_button).also {
             it.setOnClickListener {
-                mWindowManager.removeView(bottomBarView)
-                mWindowManager.removeView(topBarView)
                 stopSelf()
             }
         }

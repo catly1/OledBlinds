@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.preference.PreferenceManager
 import com.example.oledsaver.R
 import com.example.oledsaver.features.floating_menu.FloatingMenuService
 import kotlinx.android.synthetic.main.fragment_first.*
@@ -33,6 +34,8 @@ class HomeViewFragment : Fragment() {
         onButton.setOnClickListener {
             activity?.startService(Intent(activity, FloatingMenuService::class.java))
             activity?.finish()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                .putBoolean("isActive", true).apply()
         }
     }
 
