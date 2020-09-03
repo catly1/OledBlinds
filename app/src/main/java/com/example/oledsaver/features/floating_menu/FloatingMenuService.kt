@@ -30,6 +30,11 @@ class FloatingMenuService: Service() {
     private lateinit var topCloseButton: Button
     private lateinit var bottomResizeButton: Button
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mWindowManager.removeView(bottomBarView)
+        mWindowManager.removeView(topBarView)
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -42,12 +47,12 @@ class FloatingMenuService: Service() {
 
         //Add the view to the window.
 
-//        createParamsAndView()
-//        createParamsAndView()
-        createTopBar()
-        createBottomBar()
-        hideButtons()
-        manageVisibility()
+        createParamsAndView()
+        createParamsAndView()
+//        createTopBar()
+//        createBottomBar()
+//        hideButtons()
+//        manageVisibility()
         //Add the view to the window
 
     }
@@ -79,8 +84,6 @@ class FloatingMenuService: Service() {
         mWindowManager.addView(topBarView,topParam)
         topCloseButton = topBarView.findViewById<Button>(R.id.top_close_button).also {
             it.setOnClickListener {
-                mWindowManager.removeView(bottomBarView)
-                mWindowManager.removeView(topBarView)
                 stopSelf()
             }
         }
