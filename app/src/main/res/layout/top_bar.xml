@@ -9,10 +9,10 @@
     >
     
     <Button
-        android:id="@+id/top_resize_button"
+        android:id="@+id/top_close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resize"
+        android:text="Close"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
