@@ -18,26 +18,7 @@
 
     <Button
         android:id="@+id/onButton"
-        android:text="test"
+        android:text="On"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <ListView
-        android:id="@+id/homeListView"
-        android:layout_width="fill_parent"
-        android:layout_height="573dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:scrollbars="none" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white_24dp"
-        tools:ignore="VectorDrawableCompat" />
-
-
 </LinearLayout>
