@@ -10,10 +10,9 @@
     <ImageButton
         android:id="@+id/bottom_resize_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:scaleType="fitCenter"
         android:background="#00000000"
-
-        android:padding="10dp"
         android:src="@drawable/baseline_keyboard_arrow_up_white_24dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
