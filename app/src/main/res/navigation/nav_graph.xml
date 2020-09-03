@@ -11,45 +11,6 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.oledsaver.features.setting.AddAppFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-
-        <action
-            android:id="@+id/action_SecondFragment_to_ConfirmationFragment"
-            app:destination="@+id/ConfirmationFragment"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/ConfirmationFragment"
-        android:name="com.example.oledsaver.features.setting.ConfirmationFragment"
-        android:label="Confirmation Fragment"
-        tools:layout="@layout/fragment_confirmation">
-
-        <action
-            android:id="@+id/action_ConfirmationFragment_to_FirstFragment"
-            app:destination="@+id/FirstFragment"/>
-    </fragment>
-    <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.oledsaver.features.setting.SettingFragment"
-        android:label="SettingFragment" >
-        <action
-            android:id="@+id/action_settingFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
     </fragment>
 
 </navigation>
