@@ -10,8 +10,12 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.oledsaver.R
 import com.example.oledsaver.features.main.MainActivity
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 class FloatingMenuService: Service() {
 
@@ -19,13 +23,12 @@ class FloatingMenuService: Service() {
     private lateinit var floatingMenuView: View
     private lateinit var topBarView: View
     private lateinit var bottomBarView: View
-    private val displayMetrics = DisplayMetrics()
     private val views = ArrayList<View>()
     private val params = ArrayList<WindowManager.LayoutParams>()
     private lateinit var topParam : WindowManager.LayoutParams
     private lateinit var bottomParam : WindowManager.LayoutParams
-//    private val dao = AppDatabase.getDatabase(application).viewParamDao()
-//    private val repository: ViewParamRepository = ViewParamRepository(dao)
+    private lateinit var topCloseButton: Button
+    private lateinit var bottomResizeButton: Button
 
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -43,76 +46,67 @@ class FloatingMenuService: Service() {
 //        createParamsAndView()
         createTopBar()
         createBottomBar()
-
+        hideButtons()
+        manageVisibility()
         //Add the view to the window
 
+    }
+
+    private fun manageVisibility(){
+        topBarView.setOnClickListener {
+            topCloseButton.visibility = View.VISIBLE
+            bottomResizeButton.visibility = View.VISIBLE
+            hideButtons()
+        }
+
+        bottomBarView.setOnClickListener {
+            topCloseButton.visibility = View.VISIBLE
+            bottomResizeButton.visibility = View.VISIBLE
+            hideButtons()
+        }
     }
 
     private fun createTopBar(){
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
         topParam = WindowManager.LayoutParams(
             MATCH_PARENT,
-            WRAP_CONTENT,
+            200,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
         topParam.gravity = Gravity.TOP
         mWindowManager.addView(topBarView,topParam)
-
-        topBarView.findViewById<Button>(R.id.top_close_button).also {
+        topCloseButton = topBarView.findViewById<Button>(R.id.top_close_button).also {
             it.setOnClickListener {
                 mWindowManager.removeView(bottomBarView)
                 mWindowManager.removeView(topBarView)
                 stopSelf()
             }
-//            it.setOnTouchListener(object : View.OnTouchListener {
-//                var initialY: Int = 0
-//                var initialTouchY: Float = 0.toFloat()
-//                var initialHeight: Int = 0
-//
-//                override fun onTouch(view: View, event: MotionEvent): Boolean {
-//                    when (event.action) {
-//                        MotionEvent.ACTION_DOWN -> {
-//                            //                    //remember the initial position.
-//                            initialY = topParam.y
-//                            //                    //remember initial dimensions.
-//                            initialHeight = topParam.height
-//                            //                    //get the touch location
-//                            initialTouchY = event.rawY
-//                            //                    lastAction = event.action
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_MOVE -> {
-////                            topParam.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
-////                            bottomParam.height = (initialHeight + (event.rawY - initialTouchY)).toInt()
-////                            param.width = (initialWidth  + (event.rawX - initialTouchX)).toInt()
-//                            topParam.y = (initialY + (event.rawY - initialTouchY)).toInt()
-//                            mWindowManager.updateViewLayout(topBarView, topParam)
-////                            mWindowManager.updateViewLayout(bottomBarView,bottomParam)
-//                            return true
-//                        }
-//                    }
-//
-//                    return false
-//                }
-//            })
         }
+    }
+
+    private fun hideButtons(){
+        topBarView.postDelayed(Runnable {
+            topCloseButton.visibility = View.GONE
+        },3000)
+        bottomBarView.postDelayed({
+            bottomResizeButton.visibility = View.GONE
+        },3000)
     }
 
     private fun createBottomBar(){
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
         bottomParam = WindowManager.LayoutParams(
             MATCH_PARENT,
-            WRAP_CONTENT,
+            200,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         )
         bottomParam.gravity = Gravity.BOTTOM
         mWindowManager.addView(bottomBarView, bottomParam)
-
-        bottomBarView.findViewById<Button>(R.id.bottom_resize_button).also {
+        bottomResizeButton = bottomBarView.findViewById<Button>(R.id.bottom_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
                 var initialY: Int = 0
                 var initialTouchY: Float = 0.toFloat()
@@ -146,11 +140,6 @@ class FloatingMenuService: Service() {
                 }
             })
         }
-    }
-
-
-    private fun calculateBottomBarLocation(){
-
     }
 
 
