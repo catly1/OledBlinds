@@ -6,7 +6,7 @@
     app:startDestination="@id/welcomeFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/homeViewFragment"
         android:name="com.example.oledsaver.features.home.HomeViewFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
@@ -15,15 +15,21 @@
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.oledsaver.features.home.WelcomeFragment"
-        android:label="WelcomeFragment" >
+        android:label="WelcomeFragment"
+        tools:layout="@layout/welcome_fragment">
         <action
             android:id="@+id/action_welcomeFragment_to_guideFragment"
             app:destination="@id/guideFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_homeViewFragment"
+            app:destination="@id/homeViewFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
         android:name="com.example.oledsaver.features.home.GuideFragment"
-        android:label="GuideFragment" >
+        android:label="GuideFragment"
+        tools:layout="@layout/guide_fragment">
         <action
             android:id="@+id/action_guideFragment_to_tileGuideFragment"
             app:destination="@id/tileGuideFragment" />
@@ -31,10 +37,12 @@
     <fragment
         android:id="@+id/tileGuideFragment"
         android:name="com.example.oledsaver.features.home.TileGuideFragment"
-        android:label="TileGuideFragment" >
+        android:label="TileGuideFragment"
+        tools:layout="@layout/tile_guide_fragment">
+
         <action
-            android:id="@+id/action_tileGuideFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_tileGuideFragment_to_homeViewFragment"
+            app:destination="@id/homeViewFragment" />
     </fragment>
 
 </navigation>

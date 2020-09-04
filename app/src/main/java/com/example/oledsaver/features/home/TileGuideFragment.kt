@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.oledsaver.R
-import kotlinx.android.synthetic.main.guide_fragment.*
+import kotlinx.android.synthetic.main.tile_guide_fragment.*
 
 class TileGuideFragment : Fragment() {
     override fun onCreateView(
@@ -19,8 +19,8 @@ class TileGuideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        guide_next_button.setOnClickListener {
-            findNavController().navigate(R.id.action_guideFragment_to_tileGuideFragment)
+        tile_guide_next_button.setOnClickListener {
+            findNavController().navigate(R.id.action_tileGuideFragment_to_homeViewFragment)
         }
     }
 }

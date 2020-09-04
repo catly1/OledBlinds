@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.preference.PreferenceManager
 import com.example.oledsaver.R
 import com.example.oledsaver.features.floating_menu.FloatingMenuService
+import com.example.oledsaver.features.main.MainActivity
 import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
@@ -20,6 +21,8 @@ class HomeViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity() as MainActivity).supportActionBar!!.show()
+        PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("alreadyRanOnce", true).apply()
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
