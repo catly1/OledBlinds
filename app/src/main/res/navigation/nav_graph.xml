@@ -3,14 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.oledsaver.features.home.HomeViewFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/home_fragment">
 
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.oledsaver.features.home.WelcomeFragment"
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_guideFragment"
+            app:destination="@id/guideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.example.oledsaver.features.home.GuideFragment"
+        android:label="GuideFragment" >
+        <action
+            android:id="@+id/action_guideFragment_to_tileGuideFragment"
+            app:destination="@id/tileGuideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tileGuideFragment"
+        android:name="com.example.oledsaver.features.home.TileGuideFragment"
+        android:label="TileGuideFragment" >
+        <action
+            android:id="@+id/action_tileGuideFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
 
 </navigation>

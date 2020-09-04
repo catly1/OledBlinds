@@ -9,19 +9,18 @@ import android.view.ViewGroup
 import androidx.preference.PreferenceManager
 import com.example.oledsaver.R
 import com.example.oledsaver.features.floating_menu.FloatingMenuService
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class HomeViewFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
