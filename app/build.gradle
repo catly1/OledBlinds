@@ -4,6 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\OneDrive\\AndroidKey\\upload-keystore.jks')
+            storePassword 'aurelio1960'
+            keyAlias = 'upload'
+            keyPassword 'aurelio1960'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
@@ -15,6 +23,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
