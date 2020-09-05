@@ -1,15 +1,11 @@
-package com.example.oledsaver.features.main
+package com.catly.oledsaver.features.main
 
 
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
-import com.example.oledsaver.R
-import android.provider.Settings
+import com.catly.oledsaver.R
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 

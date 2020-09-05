@@ -1,11 +1,11 @@
-package com.example.oledsaver.features.floating_menu
+package com.catly.oledsaver.features.floating_menu
 
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.preference.PreferenceManager
-import com.example.oledsaver.R
+import com.catly.oledsaver.R
 
 class OLEDSaverTileService : TileService() {
     private var status = false

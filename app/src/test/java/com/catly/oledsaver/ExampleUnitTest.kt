@@ -1,4 +1,4 @@
-package com.example.oledsaver
+package com.catly.oledsaver
 
 import org.junit.Test
 

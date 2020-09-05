@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.oledsaver">
+    package="com.catly.oledsaver">
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".features.main.MainActivity"
+            android:name="com.catly.oledsaver.features.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".features.floating_menu.FloatingMenuService"
+            android:name="com.catly.oledsaver.features.floating_menu.FloatingMenuService"
             android:enabled="true"
             android:exported="false"
             />
 
         <service
-            android:name=".features.floating_menu.OLEDSaverTileService"
+            android:name="com.catly.oledsaver.features.floating_menu.OLEDSaverTileService"
             android:label="@string/app_tile_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             >
