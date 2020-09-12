@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/left_bar"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ImageButton
+        android:id="@+id/top_close_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_close_white_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/top_rotate_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+   />
+
+    <ImageButton
+        android:id="@+id/top_rotate_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_rotate_90_degrees_ccw_white_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_close_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

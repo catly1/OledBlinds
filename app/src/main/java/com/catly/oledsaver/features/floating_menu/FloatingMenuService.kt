@@ -3,6 +3,7 @@ package com.catly.oledsaver.features.floating_menu
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
+import android.media.Image
 import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.view.*
@@ -19,6 +20,7 @@ class FloatingMenuService : Service() {
     private lateinit var bottomParam: WindowManager.LayoutParams
     private lateinit var topCloseButton: ImageButton
     private lateinit var bottomResizeButton: ImageButton
+    private lateinit var topRotateButton: ImageButton
     private var topHideRunnable: Runnable = Runnable { topCloseButton.visibility = View.GONE }
     private var bottomHideRunnable: Runnable = Runnable { bottomResizeButton.visibility = View.GONE }
 
@@ -76,6 +78,18 @@ class FloatingMenuService : Service() {
                 stopSelf()
             }
         }
+
+        topRotateButton = topBarView.findViewById<ImageButton>(R.id.top_rotate_button).also {
+            it.setOnClickListener {
+
+            }
+        }
+    }
+
+    private fun rotate(){
+        val tempTopParam = WindowManager.LayoutParams().copyFrom(topParam)
+        val tempBottomParam = WindowManager.LayoutParams().copyFrom(bottomParam)
+        topParam.gravity = Gravity.LEFT
     }
 
     private fun hideButtons() {
