@@ -16,6 +16,8 @@ class FloatingMenuService : Service() {
     private lateinit var mWindowManager: WindowManager
     private lateinit var topBarView: View
     private lateinit var bottomBarView: View
+    private lateinit var leftBarView: View
+    private lateinit var rightBarView: View
     private lateinit var topParam: WindowManager.LayoutParams
     private lateinit var bottomParam: WindowManager.LayoutParams
     private lateinit var topCloseButton: ImageButton
@@ -31,11 +33,23 @@ class FloatingMenuService : Service() {
     override fun onCreate() {
         super.onCreate()
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        createTopBar()
-        createBottomBar()
+        topDownMode()
         hideButtons()
         manageVisibility()
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
+    }
+
+    private fun topDownMode(){
+        createTopBar()
+        createBottomBar()
+    }
+
+    private fun leftRightMode(){
+
+    }
+
+    private fun createLeftBar(){
+        leftBarView = LayoutInflater.from(this).inflate(R.id.left_bar)
     }
 
     override fun onDestroy() {
