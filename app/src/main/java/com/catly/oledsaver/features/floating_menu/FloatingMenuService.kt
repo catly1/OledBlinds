@@ -27,6 +27,7 @@ class FloatingMenuService : Service() {
     private lateinit var topRotateButton: ImageButton
     private var topHideRunnable: Runnable = Runnable { topCloseButton.visibility = View.GONE }
     private var bottomHideRunnable: Runnable = Runnable { bottomResizeButton.visibility = View.GONE }
+    private var flipped = false
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -47,19 +48,31 @@ class FloatingMenuService : Service() {
     }
 
     private fun leftRightMode(){
-
+        createLeftBar()
     }
 
     private fun createLeftBar(){
         leftBarView = LayoutInflater.from(this).inflate(R.layout.left_bar, null)
-        leftParam = WindowManager.LayoutParams()
+        leftParam = WindowManager.LayoutParams(
+            200,
+            MATCH_PARENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+        leftParam.gravity = Gravity.LEFT
+        mWindowManager.addView(leftBarView,leftParam)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        removeTopBottom()
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
+    }
+
+    private fun removeTopBottom(){
         mWindowManager.removeView(bottomBarView)
         mWindowManager.removeView(topBarView)
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
     }
 
     private fun manageVisibility() {
@@ -97,16 +110,20 @@ class FloatingMenuService : Service() {
         }
 
         topRotateButton = topBarView.findViewById<ImageButton>(R.id.top_rotate_button).also {
-            it.setOnClickListener {
-
-            }
+            rotate(it)
         }
     }
 
-    private fun rotate(){
-        val tempTopParam = WindowManager.LayoutParams().copyFrom(topParam)
-        val tempBottomParam = WindowManager.LayoutParams().copyFrom(bottomParam)
-        topParam.gravity = Gravity.LEFT
+    private fun rotate(view: View){
+        view.setOnClickListener {
+            flipped = if (flipped) {
+                false
+            } else {
+                removeTopBottom()
+                leftRightMode()
+                true
+            }
+        }
     }
 
     private fun hideButtons() {
