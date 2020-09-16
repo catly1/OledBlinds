@@ -20,6 +20,8 @@ class FloatingMenuService : Service() {
     private lateinit var rightBarView: View
     private lateinit var topParam: WindowManager.LayoutParams
     private lateinit var bottomParam: WindowManager.LayoutParams
+    private lateinit var leftParam: WindowManager.LayoutParams
+    private lateinit var rightParam: WindowManager.LayoutParams
     private lateinit var topCloseButton: ImageButton
     private lateinit var bottomResizeButton: ImageButton
     private lateinit var topRotateButton: ImageButton
@@ -49,7 +51,8 @@ class FloatingMenuService : Service() {
     }
 
     private fun createLeftBar(){
-        leftBarView = LayoutInflater.from(this).inflate(R.id.left_bar)
+        leftBarView = LayoutInflater.from(this).inflate(R.layout.left_bar, null)
+        leftParam = WindowManager.LayoutParams()
     }
 
     override fun onDestroy() {
