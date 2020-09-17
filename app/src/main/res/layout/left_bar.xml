@@ -7,20 +7,20 @@
     android:background="#000000">
 
     <ImageButton
-        android:id="@+id/top_close_button"
+        android:id="@+id/left_close_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_close_white_24dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/top_rotate_button"
+        app:layout_constraintBottom_toTopOf="@+id/left_rotate_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
    />
 
     <ImageButton
-        android:id="@+id/top_rotate_button"
+        android:id="@+id/left_rotate_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#00000000"
@@ -28,7 +28,7 @@
         android:layout_marginRight="10dp"
         android:src="@drawable/baseline_rotate_90_degrees_ccw_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_close_button"
+        app:layout_constraintTop_toBottomOf="@+id/left_close_button"
         app:layout_constraintRight_toRightOf="parent"
       />
 

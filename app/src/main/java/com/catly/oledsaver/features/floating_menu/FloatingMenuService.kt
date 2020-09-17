@@ -23,8 +23,11 @@ class FloatingMenuService : Service() {
     private lateinit var leftParam: WindowManager.LayoutParams
     private lateinit var rightParam: WindowManager.LayoutParams
     private lateinit var topCloseButton: ImageButton
+    private lateinit var leftCloseButton: ImageButton
     private lateinit var bottomResizeButton: ImageButton
+    private lateinit var rightResizeButton: ImageButton
     private lateinit var topRotateButton: ImageButton
+    private lateinit var leftRotateButton: ImageButton
     private var topHideRunnable: Runnable = Runnable { topCloseButton.visibility = View.GONE }
     private var bottomHideRunnable: Runnable = Runnable { bottomResizeButton.visibility = View.GONE }
     private var flipped = false
@@ -62,6 +65,14 @@ class FloatingMenuService : Service() {
         )
         leftParam.gravity = Gravity.LEFT
         mWindowManager.addView(leftBarView,leftParam)
+
+        leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
+            it.setOnClickListener {
+                stopSelf()
+            }
+        }
+
+
     }
 
     override fun onDestroy() {
