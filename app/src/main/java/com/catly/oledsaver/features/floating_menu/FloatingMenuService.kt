@@ -52,6 +52,20 @@ class FloatingMenuService : Service() {
 
     private fun leftRightMode(){
         createLeftBar()
+        createRightBar()
+    }
+
+    private fun createRightBar(){
+        rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
+        rightParam = WindowManager.LayoutParams(
+            200,
+            MATCH_PARENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+        rightParam.gravity = Gravity.RIGHT
+        mWindowManager.addView(rightBarView,rightParam)
     }
 
     private fun createLeftBar(){
@@ -72,6 +86,9 @@ class FloatingMenuService : Service() {
             }
         }
 
+        leftRotateButton = leftBarView.findViewById<ImageButton>(R.id.left_rotate_button).also {
+            rotate(it)
+        }
 
     }
 
@@ -84,6 +101,11 @@ class FloatingMenuService : Service() {
     private fun removeTopBottom(){
         mWindowManager.removeView(bottomBarView)
         mWindowManager.removeView(topBarView)
+    }
+
+    private fun removeLeftRight(){
+        mWindowManager.removeView(leftBarView)
+        mWindowManager.removeView(rightBarView)
     }
 
     private fun manageVisibility() {
@@ -128,6 +150,8 @@ class FloatingMenuService : Service() {
     private fun rotate(view: View){
         view.setOnClickListener {
             flipped = if (flipped) {
+                removeLeftRight()
+                topDownMode()
                 false
             } else {
                 removeTopBottom()
