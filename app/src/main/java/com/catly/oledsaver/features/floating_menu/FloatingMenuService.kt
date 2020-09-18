@@ -27,6 +27,8 @@ class FloatingMenuService : Service() {
     private lateinit var rightResizeButton: ImageButton
     private lateinit var topRotateButton: ImageButton
     private lateinit var leftRotateButton: ImageButton
+    private var width: Int = 0
+    private var height: Int = 0
 
 
     private var topHideRunnable: Runnable = Runnable {
@@ -49,6 +51,8 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        width = PreferenceManager.getDefaultSharedPreferences(this).getInt("width",200)
+        height = PreferenceManager.getDefaultSharedPreferences(this).getInt("height",200)
         flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         if (flipped){
@@ -78,7 +82,7 @@ class FloatingMenuService : Service() {
         rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
 
         rightParam = WindowManager.LayoutParams(
-            200,
+            width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
@@ -104,14 +108,13 @@ class FloatingMenuService : Service() {
                         }
                         MotionEvent.ACTION_MOVE -> {
                             leftParam.width = (initialWidth - (event.rawX - initialTouchX)).toInt()
-                            rightParam.width =
-                                (initialWidth - (event.rawX - initialTouchX)).toInt()
+                            rightParam.width = leftParam.width
                             mWindowManager.updateViewLayout(leftBarView, leftParam)
                             mWindowManager.updateViewLayout(rightBarView, rightParam)
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
-                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width)
+                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
                             hideLeftRightButtons()
                         }
                     }
@@ -125,7 +128,7 @@ class FloatingMenuService : Service() {
     private fun createLeftBar(){
         leftBarView = LayoutInflater.from(this).inflate(R.layout.left_bar, null)
         leftParam = WindowManager.LayoutParams(
-            200,
+            width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
@@ -207,7 +210,7 @@ class FloatingMenuService : Service() {
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
         topParam = WindowManager.LayoutParams(
             MATCH_PARENT,
-            200,
+            height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
@@ -265,7 +268,7 @@ class FloatingMenuService : Service() {
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
         bottomParam = WindowManager.LayoutParams(
             MATCH_PARENT,
-            200,
+            height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
@@ -288,14 +291,15 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
-                            topParam.height = (initialHeight - (event.rawY - initialTouchY)).toInt()
                             bottomParam.height =
                                 (initialHeight - (event.rawY - initialTouchY)).toInt()
+                            topParam.height = bottomParam.height
                             mWindowManager.updateViewLayout(topBarView, topParam)
                             mWindowManager.updateViewLayout(bottomBarView, bottomParam)
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
+                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("height", bottomParam.height).apply()
                             hideTopBottomButtons()
                         }
                     }
