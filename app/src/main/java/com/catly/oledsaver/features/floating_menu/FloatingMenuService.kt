@@ -184,12 +184,12 @@ class FloatingMenuService : Service() {
     private fun manageLeftRightVisibility() {
         leftBarView.setOnClickListener {
             makeLeftRightButtonsVisible()
-            hideTopBottomButtons()
+            hideLeftRightButtons()
         }
 
         rightBarView.setOnClickListener {
             makeLeftRightButtonsVisible()
-            hideTopBottomButtons()
+            hideLeftRightButtons()
         }
     }
 
