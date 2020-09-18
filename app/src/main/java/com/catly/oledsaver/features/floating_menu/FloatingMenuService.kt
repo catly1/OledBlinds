@@ -51,17 +51,31 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        width = PreferenceManager.getDefaultSharedPreferences(this).getInt("width",200)
-        height = PreferenceManager.getDefaultSharedPreferences(this).getInt("height",200)
-        flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
+        setWidthHeightValues()
         if (flipped){
             leftRightMode()
         } else {
             topDownMode()
         }
-
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
+    }
+
+    private fun setWidthHeightValues(){
+        width = PreferenceManager.getDefaultSharedPreferences(this).getInt("width",200)
+        width = if (checkIfPositive(width)){
+            width
+        } else {
+            200
+        }
+
+        height = PreferenceManager.getDefaultSharedPreferences(this).getInt("height",200)
+        height = if (checkIfPositive(height)){
+            height
+        } else {
+            200
+        }
     }
 
     private fun topDownMode(){
@@ -264,6 +278,10 @@ class FloatingMenuService : Service() {
         rightBarView.removeCallbacks(rightHideRunnable)
     }
 
+    private fun checkIfPositive(num: Int) : Boolean{
+        return num > 0
+    }
+
     private fun createBottomBar() {
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
         bottomParam = WindowManager.LayoutParams(
@@ -280,6 +298,7 @@ class FloatingMenuService : Service() {
                 var initialY: Int = 0
                 var initialTouchY: Float = 0.toFloat()
                 var initialHeight: Int = 0
+                var calculatedHeight = 0
 
                 override fun onTouch(view: View, event: MotionEvent): Boolean {
                     when (event.action) {
@@ -291,11 +310,13 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
-                            bottomParam.height =
-                                (initialHeight - (event.rawY - initialTouchY)).toInt()
-                            topParam.height = bottomParam.height
-                            mWindowManager.updateViewLayout(topBarView, topParam)
-                            mWindowManager.updateViewLayout(bottomBarView, bottomParam)
+                            calculatedHeight = (initialHeight - (event.rawY - initialTouchY)).toInt()
+                            if (checkIfPositive(calculatedHeight)){
+                                bottomParam.height = calculatedHeight
+                                topParam.height = bottomParam.height
+                                mWindowManager.updateViewLayout(topBarView, topParam)
+                                mWindowManager.updateViewLayout(bottomBarView, bottomParam)
+                            }
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
