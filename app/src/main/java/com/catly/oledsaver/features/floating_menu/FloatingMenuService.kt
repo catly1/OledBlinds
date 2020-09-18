@@ -80,8 +80,8 @@ class FloatingMenuService : Service() {
                 override fun onTouch(view: View, event: MotionEvent): Boolean {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
-                            initialX = bottomParam.x
-                            initialWidth = bottomParam.width
+                            initialX = rightParam.x
+                            initialWidth = rightParam.width
                             initialTouchX = event.rawX
                             stopHideRunnables()
                             return true
