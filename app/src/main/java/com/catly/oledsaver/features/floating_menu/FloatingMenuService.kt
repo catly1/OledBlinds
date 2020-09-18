@@ -3,7 +3,6 @@ package com.catly.oledsaver.features.floating_menu
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
-import android.media.Image
 import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.view.*
@@ -71,6 +70,39 @@ class FloatingMenuService : Service() {
         )
         rightParam.gravity = Gravity.RIGHT
         mWindowManager.addView(rightBarView,rightParam)
+
+        rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
+            it.setOnTouchListener(object : View.OnTouchListener {
+                var initialX: Int = 0
+                var initialTouchX: Float = 0.toFloat()
+                var initialWidth: Int = 0
+
+                override fun onTouch(view: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            initialX = bottomParam.x
+                            initialWidth = bottomParam.width
+                            initialTouchX = event.rawX
+                            stopHideRunnables()
+                            return true
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            leftParam.width = (initialWidth - (event.rawX - initialTouchX)).toInt()
+                            rightParam.width =
+                                (initialWidth - (event.rawX - initialTouchX)).toInt()
+                            mWindowManager.updateViewLayout(leftBarView, leftParam)
+                            mWindowManager.updateViewLayout(rightBarView, rightParam)
+                            return true
+                        }
+                        MotionEvent.ACTION_UP ->{
+                            hideButtons()
+                        }
+                    }
+
+                    return false
+                }
+            })
+        }
     }
 
     private fun createLeftBar(){
