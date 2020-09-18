@@ -76,6 +76,7 @@ class FloatingMenuService : Service() {
 
     private fun createRightBar(){
         rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
+
         rightParam = WindowManager.LayoutParams(
             200,
             MATCH_PARENT,
@@ -110,6 +111,7 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
+                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width)
                             hideLeftRightButtons()
                         }
                     }
