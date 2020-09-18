@@ -12,6 +12,7 @@ class OLEDSaverTileService : TileService() {
     override fun onClick() {
         super.onClick()
         var serviceIntent = Intent(this, FloatingMenuService::class.java)
+        startService(serviceIntent)
         if (status) {
             stopService(serviceIntent)
         } else {
