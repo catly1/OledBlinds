@@ -27,6 +27,8 @@ class FloatingMenuService : Service() {
     private lateinit var rightResizeButton: ImageButton
     private lateinit var topRotateButton: ImageButton
     private lateinit var leftRotateButton: ImageButton
+
+
     private var topHideRunnable: Runnable = Runnable {
         topCloseButton.visibility = View.GONE
         topRotateButton.visibility = View.GONE
@@ -47,8 +49,14 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        topDownMode()
+        if (flipped){
+            leftRightMode()
+        } else {
+            topDownMode()
+        }
+
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
     }
 
@@ -220,10 +228,12 @@ class FloatingMenuService : Service() {
             flipped = if (flipped) {
                 removeLeftRight()
                 topDownMode()
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isFlipped", false).apply()
                 false
             } else {
                 removeTopBottom()
                 leftRightMode()
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isFlipped", true).apply()
                 true
             }
         }
