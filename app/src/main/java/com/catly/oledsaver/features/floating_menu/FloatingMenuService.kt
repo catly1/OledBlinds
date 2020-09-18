@@ -138,7 +138,11 @@ class FloatingMenuService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        removeTopBottom()
+        if (flipped) {
+            removeLeftRight()
+        } else {
+            removeTopBottom()
+        }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
     }
 
