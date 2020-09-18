@@ -31,7 +31,14 @@ class FloatingMenuService : Service() {
         topCloseButton.visibility = View.GONE
         topRotateButton.visibility = View.GONE
     }
-    private var bottomHideRunnable: Runnable = Runnable { bottomResizeButton.visibility = View.GONE }
+    private var bottomHideRunnable: Runnable = Runnable {
+        bottomResizeButton.visibility = View.GONE }
+    private var leftHideRunnable: Runnable = Runnable {
+        leftCloseButton.visibility = View.GONE
+        leftRotateButton.visibility = View.GONE
+    }
+    private var rightHideRunnable: Runnable = Runnable {
+        rightResizeButton.visibility = View.GONE }
     private var flipped = false
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -48,15 +55,15 @@ class FloatingMenuService : Service() {
     private fun topDownMode(){
         createTopBar()
         createBottomBar()
-        hideButtons()
-        manageVisibility()
+        hideTopBottomButtons()
+        manageTopBottomVisibility()
     }
 
     private fun leftRightMode(){
         createLeftBar()
         createRightBar()
-        hideButtons()
-        manageVisibility()
+        hideLeftRightButtons()
+        manageLeftRightVisibility()
     }
 
     private fun createRightBar(){
@@ -83,7 +90,7 @@ class FloatingMenuService : Service() {
                             initialX = rightParam.x
                             initialWidth = rightParam.width
                             initialTouchX = event.rawX
-                            stopHideRunnables()
+                            stopLeftRightHideRunnables()
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
@@ -95,7 +102,7 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
-                            hideButtons()
+                            hideLeftRightButtons()
                         }
                     }
 
@@ -145,23 +152,42 @@ class FloatingMenuService : Service() {
         mWindowManager.removeView(rightBarView)
     }
 
-    private fun manageVisibility() {
+    private fun manageTopBottomVisibility() {
         topBarView.setOnClickListener {
-            makeButtonsVisible()
-            hideButtons()
+            makeTopBottomButtonsVisible()
+            hideTopBottomButtons()
         }
 
         bottomBarView.setOnClickListener {
-            makeButtonsVisible()
-            hideButtons()
+            makeTopBottomButtonsVisible()
+            hideTopBottomButtons()
         }
     }
 
-    private fun makeButtonsVisible() {
+    private fun manageLeftRightVisibility() {
+        leftBarView.setOnClickListener {
+            makeLeftRightButtonsVisible()
+            hideTopBottomButtons()
+        }
+
+        rightBarView.setOnClickListener {
+            makeLeftRightButtonsVisible()
+            hideTopBottomButtons()
+        }
+    }
+
+    private fun makeTopBottomButtonsVisible() {
         topCloseButton.visibility = View.VISIBLE
         topRotateButton.visibility = View.VISIBLE
         bottomResizeButton.visibility = View.VISIBLE
     }
+
+    private fun makeLeftRightButtonsVisible() {
+        leftCloseButton.visibility = View.VISIBLE
+        leftRotateButton.visibility = View.VISIBLE
+        rightResizeButton.visibility = View.VISIBLE
+    }
+
 
     private fun createTopBar() {
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
@@ -199,14 +225,24 @@ class FloatingMenuService : Service() {
         }
     }
 
-    private fun hideButtons() {
+    private fun hideTopBottomButtons() {
         topBarView.postDelayed(topHideRunnable, 3000)
         bottomBarView.postDelayed(bottomHideRunnable, 3000)
     }
 
-    private fun stopHideRunnables(){
+    private fun hideLeftRightButtons(){
+        leftBarView.postDelayed(leftHideRunnable, 3000)
+        rightBarView.postDelayed(rightHideRunnable,3000)
+    }
+
+    private fun stopTopBottomHideRunnables(){
         bottomBarView.removeCallbacks(bottomHideRunnable)
         topBarView.removeCallbacks(topHideRunnable)
+    }
+
+    private fun stopLeftRightHideRunnables(){
+        leftBarView.removeCallbacks(leftHideRunnable)
+        rightBarView.removeCallbacks(rightHideRunnable)
     }
 
     private fun createBottomBar() {
@@ -232,7 +268,7 @@ class FloatingMenuService : Service() {
                             initialY = bottomParam.y
                             initialHeight = bottomParam.height
                             initialTouchY = event.rawY
-                            stopHideRunnables()
+                            stopTopBottomHideRunnables()
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
@@ -244,7 +280,7 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
-                            hideButtons()
+                            hideTopBottomButtons()
                         }
                     }
 
