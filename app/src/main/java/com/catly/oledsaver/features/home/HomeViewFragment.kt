@@ -49,8 +49,7 @@ class HomeViewFragment : Fragment() {
             PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
             Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
             activity?.stopService(floatingMenuServiceIntent)
-            PreferenceManager.getDefaultSharedPreferences(activity).edit()
-                .putBoolean("isActive", false).apply()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
         }
     }
 

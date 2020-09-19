@@ -34,7 +34,7 @@ class OLEDSaverTileService : TileService() {
             status = true
         } else {
             tile.state = Tile.STATE_INACTIVE
-            tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveroff)
+            tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveronoff)
             status = false
         }
 
