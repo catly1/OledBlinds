@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:padding="20dp"
-        app:srcCompat="@drawable/button_guide"
+        app:srcCompat="@drawable/button_guide2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

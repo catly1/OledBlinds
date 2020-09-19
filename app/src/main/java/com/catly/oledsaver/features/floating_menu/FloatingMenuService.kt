@@ -243,6 +243,7 @@ class FloatingMenuService : Service() {
     }
 
     private fun rotate(view: View){
+        setWidthHeightValues()
         view.setOnClickListener {
             flipped = if (flipped) {
                 removeLeftRight()

@@ -43,6 +43,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/welcomepermission" />
+        app:srcCompat="@drawable/welcome2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
