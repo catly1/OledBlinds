@@ -1,5 +1,6 @@
-# OLED Blinds
 ![](app/src/main/res/mipmap-hdpi/ic_launcher.png)
+#OLED Blinds
+
 Android Devices have varying screen sizes. That's why you often see static backdrops to maintain the app's aspect ratio. This can damage the screen permanently if this is an app you frequently use for hours.
 
 This app helps by adding black letter boxings which for OLED screen means the pixels will be shut off. The controls hide automatically after a few secs. An unintended side effect of this is that it can save a bit of your battery!
