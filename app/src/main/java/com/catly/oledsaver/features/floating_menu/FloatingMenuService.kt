@@ -1,4 +1,4 @@
-package com.catly.oledblinds.features.floating_menu
+package com.catly.oledsaver.features.floating_menu
 
 import android.app.Service
 import android.content.Intent
@@ -8,7 +8,7 @@ import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
-import com.catly.oledblinds.R
+import com.catly.oledsaver.R
 
 class FloatingMenuService : Service() {
 

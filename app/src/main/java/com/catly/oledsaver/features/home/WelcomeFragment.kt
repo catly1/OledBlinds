@@ -1,4 +1,4 @@
-package com.catly.oledblinds.features.home
+package com.catly.oledsaver.features.home
 
 import android.content.Intent
 import android.net.Uri
@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.catly.oledblinds.R
-import com.catly.oledblinds.features.main.MainActivity
+import com.catly.oledsaver.R
+import com.catly.oledsaver.features.main.MainActivity
 import kotlinx.android.synthetic.main.welcome_fragment.*
 
 class WelcomeFragment : Fragment() {
