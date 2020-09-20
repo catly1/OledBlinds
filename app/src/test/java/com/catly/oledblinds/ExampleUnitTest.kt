@@ -1,4 +1,4 @@
-package com.catly.oledsaver
+package com.catly.oledblinds
 
 import org.junit.Test
 

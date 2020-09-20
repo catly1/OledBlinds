@@ -1,4 +1,4 @@
-package com.catly.oledsaver
+package com.catly.oledblinds
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

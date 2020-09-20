@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/homeViewFragment"
-        android:name="com.catly.oledsaver.features.home.HomeViewFragment"
+        android:name="com.catly.oledblinds.features.home.HomeViewFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
 
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.catly.oledsaver.features.home.WelcomeFragment"
+        android:name="com.catly.oledblinds.features.home.WelcomeFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/welcome_fragment">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
-        android:name="com.catly.oledsaver.features.home.GuideFragment"
+        android:name="com.catly.oledblinds.features.home.GuideFragment"
         android:label="GuideFragment"
         tools:layout="@layout/guide_fragment">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/tileGuideFragment"
-        android:name="com.catly.oledsaver.features.home.TileGuideFragment"
+        android:name="com.catly.oledblinds.features.home.TileGuideFragment"
         android:label="TileGuideFragment"
         tools:layout="@layout/tile_guide_fragment">
 

@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.home
+package com.catly.oledblinds.features.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.preference.PreferenceManager
-import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
-import com.catly.oledsaver.features.main.MainActivity
+import com.catly.oledblinds.R
+import com.catly.oledblinds.features.floating_menu.FloatingMenuService
+import com.catly.oledblinds.features.main.MainActivity
 import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
