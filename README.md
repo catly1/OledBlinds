@@ -1,5 +1,5 @@
 ![](app/src/main/res/mipmap-hdpi/ic_launcher.png)
-#OLED Blinds
+# OLED Blinds
 
 Android Devices have varying screen sizes. That's why you often see static backdrops to maintain the app's aspect ratio. This can damage the screen permanently if this is an app you frequently use for hours.
 
