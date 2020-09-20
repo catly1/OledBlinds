@@ -64,14 +64,14 @@ class FloatingMenuService : Service() {
 
     private fun setWidthHeightValues(){
         width = PreferenceManager.getDefaultSharedPreferences(this).getInt("width",200)
-        width = if (checkIfPositive(width)){
+        width = if (checkIfValidNumber(width)){
             width
         } else {
             200
         }
 
         height = PreferenceManager.getDefaultSharedPreferences(this).getInt("height",200)
-        height = if (checkIfPositive(height)){
+        height = if (checkIfValidNumber(height)){
             height
         } else {
             200
@@ -279,8 +279,8 @@ class FloatingMenuService : Service() {
         rightBarView.removeCallbacks(rightHideRunnable)
     }
 
-    private fun checkIfPositive(num: Int) : Boolean{
-        return num > 0
+    private fun checkIfValidNumber(num: Int) : Boolean{
+        return num > 60
     }
 
     private fun createBottomBar() {
@@ -312,7 +312,7 @@ class FloatingMenuService : Service() {
                         }
                         MotionEvent.ACTION_MOVE -> {
                             calculatedHeight = (initialHeight - (event.rawY - initialTouchY)).toInt()
-                            if (checkIfPositive(calculatedHeight)){
+                            if (checkIfValidNumber(calculatedHeight)){
                                 bottomParam.height = calculatedHeight
                                 topParam.height = bottomParam.height
                                 mWindowManager.updateViewLayout(topBarView, topParam)
