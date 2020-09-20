@@ -8,3 +8,7 @@ This app helps by adding black letter boxings which for OLED screen means the pi
 You can set a toggle in the notification/quick panel or turn it on from the app directly. The height or width of the bars is automatically saved. In case the controls become inaccessible, there is a reset button in the app.
 
 This app needs permission to Draw Over Other Apps.
+
+## How To Get:
+* [Google Play Store](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
+* [Releases(Free)](https://github.com/catly1/OledBlinds/releases)
