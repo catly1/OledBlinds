@@ -10,6 +10,9 @@ You can set a toggle in the notification/quick panel or turn it on from the app 
 
 This app needs permission to Draw Over Other Apps.
 
+## Requirements:
+* Android 7.0 and up.
+
 ## How To Get:
-* [Google Play Store](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
-* [Releases(Free)](https://github.com/catly1/OledBlinds/releases)
+* [Google Play Store($1.0)](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
+* [Releases(Free APK)](https://github.com/catly1/OledBlinds/releases)

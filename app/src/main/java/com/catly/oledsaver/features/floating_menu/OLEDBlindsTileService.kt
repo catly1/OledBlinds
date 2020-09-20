@@ -28,7 +28,6 @@ class OLEDBlindsTileService : TileService() {
         val tile = qsTile
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)) {
-            //        tile.icon = Icon.createWithResource(this, R.drawable.other_icon)
             tile.state = Tile.STATE_ACTIVE
             tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
             status = true
@@ -38,6 +37,6 @@ class OLEDBlindsTileService : TileService() {
             status = false
         }
 
-        tile.updateTile() // you need to call this method to apply changes
+        tile.updateTile()
     }
 }

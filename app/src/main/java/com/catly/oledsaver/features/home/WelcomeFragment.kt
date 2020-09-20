@@ -55,15 +55,12 @@ class WelcomeFragment : Fragment() {
         set_permission_button.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Settings.canDrawOverlays(activity))
             {
-                //If the draw over permission is not available open the settings screen
-                //to grant the permission.
                 val intent = Intent(
                     Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:${activity?.packageName}"))
                 startActivityForResult(intent, drawOtherAppPermissionCode)
             } else {
                 findNavController().navigate(R.id.action_welcomeFragment_to_guideFragment)
-//            initializeView()
             }
         }
     }
