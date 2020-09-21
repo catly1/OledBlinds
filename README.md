@@ -12,7 +12,11 @@ This app needs permission to Draw Over Other Apps.
 
 ## Requirements:
 * Android 7.0 and up.
+* Permission to Draw Over Other Apps.
 
 ## How To Get:
 * [Google Play Store($1.0)](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
 * [Releases(Free APK)](https://github.com/catly1/OledBlinds/releases)
+
+## Disclaimer:
+This app does not directly interact with other apps. It just draws black bars on the screen. It's the same as how Facebook messenger draws those floating chat heads.
