@@ -10,7 +10,7 @@ You can set a toggle in the notification/quick panel or turn it on from the app 
 
 This app needs permission to Draw Over Other Apps.
 ## Demo Video:
-[![OLED Blinds Demo](images/thumbnail.jpg)](https://youtu.be/rMdr5dpMaBI "OLED Blinds Demo")
+[![OLED Blinds Demo](images/thumbnail.png)](https://youtu.be/rMdr5dpMaBI "OLED Blinds Demo")
 
 
 ## Requirements:
