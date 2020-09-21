@@ -9,14 +9,19 @@ This app helps by adding black letter boxings which for OLED screen means the pi
 You can set a toggle in the notification/quick panel or turn it on from the app directly. The height or width of the bars is automatically saved. In case the controls become inaccessible, there is a reset button in the app.
 
 This app needs permission to Draw Over Other Apps.
+## Demo Video:
+[![OLED Blinds Demo](images/thumbnail.jpg)](https://youtu.be/rMdr5dpMaBI "OLED Blinds Demo")
+
 
 ## Requirements:
 * Android 7.0 and up.
 * Permission to Draw Over Other Apps.
 
 ## How To Get:
-* [Google Play Store($1.0)](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
-* [Releases(Free APK)](https://github.com/catly1/OledBlinds/releases)
+* [Get it for free here](https://github.com/catly1/OledBlinds/releases)
+* [Play store ($0.99)](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
+Both links have the same app. If you want to support my work then consider buying it from the app store.
+
 
 ## Disclaimer:
-This app does not directly interact with other apps. It just draws black bars on the screen. It's the same as how Facebook messenger draws those floating chat heads.
+This app does not directly interact with other apps. It just draws black bars on the screen. It's the same as how Facebook messenger draws floating chat heads.
