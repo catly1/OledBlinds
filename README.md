@@ -19,12 +19,14 @@ This app needs permission to Draw Over Other Apps.
 ## How To Get:
 * [Get it for free here](https://github.com/catly1/OledBlinds/releases)
 * [Play store ($0.99)](https://play.google.com/store/apps/details?id=com.catly.oledsaver)
+
 Both links have the same app. If you want to support my work then consider buying it from the app store.
 
 ## Installation:
 * After downloading app-release.apk, simply run it.
 * Follow the steps on the app.
 * Adding it in the notification panel varies between devices. If you have a Samsung phone follow this guide:
+
 ![](images/SamsungButtonGuide.jpg)
 
 ## Disclaimer:
