@@ -9,6 +9,7 @@ import com.catly.oledsaver.R
 
 class OLEDBlindsTileService : TileService() {
     private var status = false
+    private val notification = OLEDBlindsNotification(this)
     override fun onClick() {
         super.onClick()
         var serviceIntent = Intent(this, FloatingMenuService::class.java)
