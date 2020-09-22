@@ -12,11 +12,11 @@ class OLEDBlindsTileService : TileService() {
     override fun onClick() {
         super.onClick()
         var serviceIntent = Intent(this, FloatingMenuService::class.java)
-        startService(serviceIntent)
+        ServiceRunnerService.enqueueWork(this,serviceIntent)
         if (status) {
             stopService(serviceIntent)
         } else {
-            startService(serviceIntent)
+            ServiceRunnerService.enqueueWork(this,serviceIntent)
         }
         var closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
         this.sendBroadcast(closeNotificationPanelIntent)
