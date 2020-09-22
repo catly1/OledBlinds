@@ -8,7 +8,6 @@ import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
-import androidx.core.app.JobIntentService
 import com.catly.oledsaver.R
 
 class FloatingMenuService : Service() {
@@ -173,7 +172,6 @@ class FloatingMenuService : Service() {
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
     }
-
 
     private fun removeTopBottom(){
         mWindowManager.removeView(bottomBarView)
