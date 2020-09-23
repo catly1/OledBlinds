@@ -9,15 +9,14 @@ import com.catly.oledsaver.R
 
 class OLEDBlindsTileService : TileService() {
     private var status = false
-    private val notification = OLEDBlindsNotification(this)
+
     override fun onClick() {
         super.onClick()
-        var serviceIntent = Intent(this, FloatingMenuService::class.java)
-        startService(serviceIntent)
+            FloatingMenuService.startService(this)
         if (status) {
-            stopService(serviceIntent)
+            FloatingMenuService.stopService(this)
         } else {
-            startService(serviceIntent)
+            FloatingMenuService.startService(this)
         }
         var closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
         this.sendBroadcast(closeNotificationPanelIntent)

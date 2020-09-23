@@ -1,17 +1,23 @@
 package com.catly.oledsaver.features.floating_menu
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
+import android.os.Build
 import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
+import androidx.core.app.NotificationCompat
 import com.catly.oledsaver.R
 
 class FloatingMenuService : Service() {
 
+    private val channelID = "OLED Blinds Service"
     private lateinit var mWindowManager: WindowManager
     private lateinit var topBarView: View
     private lateinit var bottomBarView: View
@@ -30,6 +36,17 @@ class FloatingMenuService : Service() {
     private var width: Int = 0
     private var height: Int = 0
 
+    companion object {
+        fun startService(context: Context){
+            val startIntent = Intent(context, FloatingMenuService::class.java)
+            context.startForegroundService(startIntent)
+        }
+
+        fun stopService(context: Context){
+            val stopIntent = Intent(context, FloatingMenuService::class.java)
+            context.stopService(stopIntent)
+        }
+    }
 
     private var topHideRunnable: Runnable = Runnable {
         topCloseButton.visibility = View.GONE
@@ -48,6 +65,29 @@ class FloatingMenuService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        createNotificationChannel()
+
+        val notification = NotificationCompat.Builder(this, channelID)
+            .setContentTitle("OLED Blinds")
+            .setContentText("OLED Blinds is running")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .build()
+
+        startForeground(1,notification)
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val serviceChannel = NotificationChannel(channelID, "OLED Blinds Service Channel",
+                NotificationManager.IMPORTANCE_DEFAULT)
+            val manager = getSystemService(NotificationManager::class.java)
+            manager!!.createNotificationChannel(serviceChannel)
+        }
+    }
+
 
     override fun onCreate() {
         super.onCreate()
@@ -110,6 +150,7 @@ class FloatingMenuService : Service() {
                 var initialX: Int = 0
                 var initialTouchX: Float = 0.toFloat()
                 var initialWidth: Int = 0
+                var calculatedWidth = 0
 
                 override fun onTouch(view: View, event: MotionEvent): Boolean {
                     when (event.action) {
@@ -121,10 +162,13 @@ class FloatingMenuService : Service() {
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
-                            leftParam.width = (initialWidth - (event.rawX - initialTouchX)).toInt()
-                            rightParam.width = leftParam.width
-                            mWindowManager.updateViewLayout(leftBarView, leftParam)
-                            mWindowManager.updateViewLayout(rightBarView, rightParam)
+                            calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
+                            if (checkIfValidNumber(calculatedWidth)) {
+                                leftParam.width = calculatedWidth
+                                rightParam.width = leftParam.width
+                                mWindowManager.updateViewLayout(leftBarView, leftParam)
+                                mWindowManager.updateViewLayout(rightBarView, rightParam)
+                            }
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
