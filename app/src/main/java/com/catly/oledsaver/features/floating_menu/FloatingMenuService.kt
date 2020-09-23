@@ -2,9 +2,11 @@ package com.catly.oledsaver.features.floating_menu
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -69,10 +71,15 @@ class FloatingMenuService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
 
+        val stopSelf = Intent(this, FloatingMenuService::class.java)
+        stopSelf.action = "ACTION_STOP_SERVICE"
+        val pendingIntent = PendingIntent.getService(this,0, stopSelf, PendingIntent.FLAG_CANCEL_CURRENT)
+
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("OLED Blinds")
-            .setContentText("OLED Blinds is running")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentText("OLED Blinds is running.")
+            .setSmallIcon(R.drawable.ic_stat_oledsaver)
+            .setContentIntent(pendingIntent)
             .build()
 
         startForeground(1,notification)
