@@ -16,6 +16,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import androidx.core.app.NotificationCompat
 import com.catly.oledsaver.R
+import com.catly.oledsaver.features.main.MainActivity
 
 class FloatingMenuService : Service() {
 
@@ -71,9 +72,8 @@ class FloatingMenuService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
 
-        val stopSelf = Intent(this, FloatingMenuService::class.java)
-        stopSelf.action = "ACTION_STOP_SERVICE"
-        val pendingIntent = PendingIntent.getService(this,0, stopSelf, PendingIntent.FLAG_CANCEL_CURRENT)
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,0)
 
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("OLED Blinds")
