@@ -13,7 +13,7 @@ This app needs permission to Draw Over Other Apps.
 [![OLED Blinds Demo](images/thumbnail.png)](https://youtu.be/rMdr5dpMaBI "OLED Blinds Demo")
 
 ## Requirements:
-* Android 7.0 and up.
+* Android 8.0 and up.
 * Permission to Draw Over Other Apps.
 
 ## How To Get:
