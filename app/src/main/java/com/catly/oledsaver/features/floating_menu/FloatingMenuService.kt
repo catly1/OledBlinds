@@ -55,6 +55,7 @@ class FloatingMenuService : Service() {
     private var topHideRunnable: Runnable = Runnable {
         topCloseButton.visibility = View.GONE
         topRotateButton.visibility = View.GONE
+        topLockButton.visibility = View.GONE
     }
     private var bottomHideRunnable: Runnable = Runnable {
         bottomResizeButton.visibility = View.GONE }
@@ -128,8 +129,8 @@ class FloatingMenuService : Service() {
     }
 
     private fun topDownMode(){
-        createTopBar()
         createBottomBar()
+        createTopBar()
         hideTopBottomButtons()
         manageTopBottomVisibility()
     }
@@ -263,6 +264,7 @@ class FloatingMenuService : Service() {
     private fun makeTopBottomButtonsVisible() {
         topCloseButton.visibility = View.VISIBLE
         topRotateButton.visibility = View.VISIBLE
+        topLockButton.visibility = View.VISIBLE
         bottomResizeButton.visibility = View.VISIBLE
     }
 
@@ -285,9 +287,9 @@ class FloatingMenuService : Service() {
         topParam.gravity = Gravity.TOP
 
         topCloseButton = topBarView.findViewById<ImageButton>(R.id.top_close_button).also {
-            it.setOnClickListener {
-                stopSelf()
-            }
+                it.setOnClickListener {
+                    stopSelf()
+                }
         }
 
         topRotateButton = topBarView.findViewById<ImageButton>(R.id.top_rotate_button).also {
@@ -295,15 +297,16 @@ class FloatingMenuService : Service() {
         }
 
         topLockButton = topBarView.findViewById<ImageButton>(R.id.top_lock_button).also {
-            handleLock(it)
+            handleLockIcon(it)
         }
 
         mWindowManager.addView(topBarView, topParam)
     }
 
-    private fun handleLock(imageButton: ImageButton) {
+    private fun handleLockIcon(imageButton: ImageButton) {
         if (locked) {
             imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
+            lockTopBottomButtons()
         } else {
             imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
         }
@@ -311,31 +314,47 @@ class FloatingMenuService : Service() {
         imageButton.setOnClickListener {
             locked = if (locked) {
                 imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
+                unlockTopBottomButtons()
                 PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", false).apply()
                 false
             } else {
                 imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
+                lockTopBottomButtons()
                 PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", true).apply()
                 true
             }
         }
     }
 
+    private fun lockTopBottomButtons(){
+        topCloseButton.isEnabled = false
+        topRotateButton.isEnabled = false
+        bottomResizeButton.isEnabled = false
+    }
+
+    private fun unlockTopBottomButtons(){
+        topCloseButton.isEnabled = true
+        topRotateButton.isEnabled = true
+        bottomResizeButton.isEnabled = true
+    }
+
     private fun rotate(view: View){
-        setWidthHeightValues()
-        view.setOnClickListener {
-            flipped = if (flipped) {
-                removeLeftRight()
-                topDownMode()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isFlipped", false).apply()
-                false
-            } else {
-                removeTopBottom()
-                leftRightMode()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isFlipped", true).apply()
-                true
+            setWidthHeightValues()
+            view.setOnClickListener {
+                flipped = if (flipped) {
+                    removeLeftRight()
+                    topDownMode()
+                    PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("isFlipped", false).apply()
+                    false
+                } else {
+                    removeTopBottom()
+                    leftRightMode()
+                    PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("isFlipped", true).apply()
+                    true
+                }
             }
-        }
     }
 
     private fun hideTopBottomButtons() {
