@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -36,8 +35,10 @@ class FloatingMenuService : Service() {
     private lateinit var rightResizeButton: ImageButton
     private lateinit var topRotateButton: ImageButton
     private lateinit var leftRotateButton: ImageButton
+    private lateinit var topLockButton: ImageButton
     private var width: Int = 0
     private var height: Int = 0
+    private var locked = false
 
     companion object {
         fun startService(context: Context){
@@ -100,6 +101,7 @@ class FloatingMenuService : Service() {
         super.onCreate()
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
+        locked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isLocked", false)
         setWidthHeightValues()
         if (flipped){
             leftRightMode()
@@ -281,7 +283,7 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         topParam.gravity = Gravity.TOP
-        mWindowManager.addView(topBarView, topParam)
+
         topCloseButton = topBarView.findViewById<ImageButton>(R.id.top_close_button).also {
             it.setOnClickListener {
                 stopSelf()
@@ -290,6 +292,32 @@ class FloatingMenuService : Service() {
 
         topRotateButton = topBarView.findViewById<ImageButton>(R.id.top_rotate_button).also {
             rotate(it)
+        }
+
+        topLockButton = topBarView.findViewById<ImageButton>(R.id.top_lock_button).also {
+            handleLock(it)
+        }
+
+        mWindowManager.addView(topBarView, topParam)
+    }
+
+    private fun handleLock(imageButton: ImageButton) {
+        if (locked) {
+            imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
+        } else {
+            imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
+        }
+
+        imageButton.setOnClickListener {
+            locked = if (locked) {
+                imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", false).apply()
+                false
+            } else {
+                imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", true).apply()
+                true
+            }
         }
     }
 
