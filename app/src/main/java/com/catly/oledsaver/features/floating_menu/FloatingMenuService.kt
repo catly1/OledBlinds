@@ -36,9 +36,12 @@ class FloatingMenuService : Service() {
     private lateinit var topRotateButton: ImageButton
     private lateinit var leftRotateButton: ImageButton
     private lateinit var topLockButton: ImageButton
+    private lateinit var leftLockButton: ImageButton
     private var width: Int = 0
     private var height: Int = 0
     private var locked = false
+    private val lockedIcon = R.drawable.baseline_lock_white_24dp
+    private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
 
     companion object {
         fun startService(context: Context){
@@ -59,12 +62,15 @@ class FloatingMenuService : Service() {
     }
     private var bottomHideRunnable: Runnable = Runnable {
         bottomResizeButton.visibility = View.GONE }
+
     private var leftHideRunnable: Runnable = Runnable {
         leftCloseButton.visibility = View.GONE
         leftRotateButton.visibility = View.GONE
+        leftLockButton.visibility = View.GONE
     }
     private var rightHideRunnable: Runnable = Runnable {
         rightResizeButton.visibility = View.GONE }
+
     private var flipped = false
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -142,10 +148,16 @@ class FloatingMenuService : Service() {
     }
 
     private fun leftRightMode(){
-        createLeftBar()
         createRightBar()
+        createLeftBar()
+        addLeftRightViews()
         hideLeftRightButtons()
         manageLeftRightVisibility()
+    }
+
+    private fun addLeftRightViews(){
+        mWindowManager.addView(leftBarView,leftParam)
+        mWindowManager.addView(rightBarView,rightParam)
     }
 
     private fun createRightBar(){
@@ -159,7 +171,6 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         rightParam.gravity = Gravity.RIGHT
-        mWindowManager.addView(rightBarView,rightParam)
 
         rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
@@ -209,7 +220,6 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         leftParam.gravity = Gravity.LEFT
-        mWindowManager.addView(leftBarView,leftParam)
 
         leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
             it.setOnClickListener {
@@ -219,6 +229,10 @@ class FloatingMenuService : Service() {
 
         leftRotateButton = leftBarView.findViewById<ImageButton>(R.id.left_rotate_button).also {
             rotate(it)
+        }
+
+        leftLockButton = leftBarView.findViewById<ImageButton>(R.id.left_lock_button).also{
+            handleLockIcon(it)
         }
 
     }
@@ -277,6 +291,7 @@ class FloatingMenuService : Service() {
     private fun makeLeftRightButtonsVisible() {
         leftCloseButton.visibility = View.VISIBLE
         leftRotateButton.visibility = View.VISIBLE
+        leftLockButton.visibility = View.VISIBLE
         rightResizeButton.visibility = View.VISIBLE
     }
 
@@ -307,40 +322,55 @@ class FloatingMenuService : Service() {
         }
     }
 
+
+
     private fun handleLockIcon(imageButton: ImageButton) {
         if (locked) {
-            imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
-            lockTopBottomButtons()
+            imageButton.setImageResource(lockedIcon)
+            lockButtons()
         } else {
-            imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
+            imageButton.setImageResource(unlockedIcon)
         }
 
         imageButton.setOnClickListener {
             locked = if (locked) {
-                imageButton.setImageResource(R.drawable.baseline_lock_open_white_24dp)
-                unlockTopBottomButtons()
+                imageButton.setImageResource(unlockedIcon)
+                unlockButtons()
                 PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", false).apply()
                 false
             } else {
-                imageButton.setImageResource(R.drawable.baseline_lock_white_24dp)
-                lockTopBottomButtons()
+                imageButton.setImageResource(lockedIcon)
+                lockButtons()
                 PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", true).apply()
                 true
             }
         }
     }
 
-    private fun lockTopBottomButtons(){
-        topCloseButton.isEnabled = false
-        topRotateButton.isEnabled = false
-        bottomResizeButton.isEnabled = false
+    private fun lockButtons(){
+        if (flipped){
+            leftCloseButton.isEnabled = false
+            leftRotateButton.isEnabled = false
+            rightResizeButton.isEnabled = false
+        } else {
+            topCloseButton.isEnabled = false
+            topRotateButton.isEnabled = false
+            bottomResizeButton.isEnabled = false
+        }
     }
 
-    private fun unlockTopBottomButtons(){
-        topCloseButton.isEnabled = true
-        topRotateButton.isEnabled = true
-        bottomResizeButton.isEnabled = true
+    private fun unlockButtons(){
+        if (flipped){
+            leftCloseButton.isEnabled = true
+            leftRotateButton.isEnabled = true
+            rightResizeButton.isEnabled = true
+        } else {
+            topCloseButton.isEnabled = true
+            topRotateButton.isEnabled = true
+            bottomResizeButton.isEnabled = true
+        }
     }
+
 
     private fun rotate(view: View){
             setWidthHeightValues()

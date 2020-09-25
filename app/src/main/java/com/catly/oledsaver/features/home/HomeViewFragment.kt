@@ -50,6 +50,7 @@ class HomeViewFragment : Fragment() {
             Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
             activity?.stopService(floatingMenuServiceIntent)
             PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
         }
     }
 
