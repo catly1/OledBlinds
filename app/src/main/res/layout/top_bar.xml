@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,10 +14,11 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_close_white_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/top_rotate_button"
+        app:layout_constraintStart_toEndOf="@+id/top_lock_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/top_lock_button"
-        app:layout_constraintStart_toEndOf="@+id/top_rotate_button"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        />
 
     <ImageButton
         android:id="@+id/top_rotate_button"
@@ -25,10 +27,12 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_rotate_90_degrees_ccw_white_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/top_close_button"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/top_close_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        />
 
     <ImageButton
         android:id="@+id/top_lock_button"
@@ -37,10 +41,11 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_lock_open_white_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/top_close_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/top_close_button"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
