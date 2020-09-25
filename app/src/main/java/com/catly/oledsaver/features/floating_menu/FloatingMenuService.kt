@@ -131,8 +131,14 @@ class FloatingMenuService : Service() {
     private fun topDownMode(){
         createBottomBar()
         createTopBar()
+        addTopBottomViews()
         hideTopBottomButtons()
         manageTopBottomVisibility()
+    }
+
+    private fun addTopBottomViews(){
+        mWindowManager.addView(topBarView, topParam)
+        mWindowManager.addView(bottomBarView, bottomParam)
     }
 
     private fun leftRightMode(){
@@ -299,8 +305,6 @@ class FloatingMenuService : Service() {
         topLockButton = topBarView.findViewById<ImageButton>(R.id.top_lock_button).also {
             handleLockIcon(it)
         }
-
-        mWindowManager.addView(topBarView, topParam)
     }
 
     private fun handleLockIcon(imageButton: ImageButton) {
@@ -391,7 +395,6 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         bottomParam.gravity = Gravity.BOTTOM
-        mWindowManager.addView(bottomBarView, bottomParam)
         bottomResizeButton = bottomBarView.findViewById<ImageButton>(R.id.bottom_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
                 var initialY: Int = 0
