@@ -11,7 +11,7 @@
         android:id="@+id/guide_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Press and drag the resize button to resize"
+        android:text="Press and drag to resize. Use the quick toggle when locked."
         android:autoSizeTextType="uniform"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
