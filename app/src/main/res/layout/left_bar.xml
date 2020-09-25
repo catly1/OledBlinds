@@ -14,10 +14,11 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_close_white_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/left_lock_button"
+        app:layout_constraintTop_toBottomOf="@+id/left_rotate_button"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/left_rotate_button"
-        app:layout_constraintTop_toBottomOf="@+id/left_lock_button"
-        app:layout_constraintRight_toRightOf="parent"/>
+        />
 
     <ImageButton
         android:id="@+id/left_rotate_button"
@@ -26,10 +27,10 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_rotate_90_degrees_ccw_white_24dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/left_close_button"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/left_close_button" />
+        android:layout_marginEnd="10dp"/>
 
     <ImageButton
         android:id="@+id/left_lock_button"
@@ -38,10 +39,10 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_lock_open_white_24dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/left_close_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/left_close_button"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

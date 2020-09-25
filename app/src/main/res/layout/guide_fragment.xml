@@ -11,7 +11,7 @@
         android:id="@+id/guide_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Drag ^ To resize and press X to close"
+        android:text="Press and drag the resize button to resize"
         android:autoSizeTextType="uniform"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,5 +48,7 @@
         app:layout_constraintBottom_toTopOf="@id/guide_text"
         android:layout_marginBottom="30dp"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
