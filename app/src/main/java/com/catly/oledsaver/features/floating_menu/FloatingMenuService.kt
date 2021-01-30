@@ -299,10 +299,10 @@ class FloatingMenuService : Service() {
     private fun createTopBar() {
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
         topParam = WindowManager.LayoutParams(
-            MATCH_PARENT,
+            2300,
             height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT
         )
         topParam.gravity = Gravity.TOP
@@ -418,10 +418,10 @@ class FloatingMenuService : Service() {
     private fun createBottomBar() {
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
         bottomParam = WindowManager.LayoutParams(
-            MATCH_PARENT,
+            2300,
             height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT
         )
         bottomParam.gravity = Gravity.BOTTOM
