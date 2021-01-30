@@ -8,6 +8,13 @@
         app:layout="@layout/start_button"
         />
 
+    <SwitchPreferenceCompat
+        app:key="override"
+        app:title="@string/override"
+        app:summary="@string/overrideDescription"
+        app:iconSpaceReserved="false"
+        />
+
     <Preference
         app:key="reset"
         app:title="@string/reset"
