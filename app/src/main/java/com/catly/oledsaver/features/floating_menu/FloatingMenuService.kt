@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -42,6 +43,7 @@ class FloatingMenuService : Service() {
     private var locked = false
     private val lockedIcon = R.drawable.baseline_lock_white_24dp
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
+    var override = false
 
     companion object {
         fun startService(context: Context){
@@ -77,6 +79,14 @@ class FloatingMenuService : Service() {
         return null
     }
 
+    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key : String->
+        when (key) {
+            "override"->{
+                override = sharedPreferences.getBoolean(key, false)
+            }
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
 
@@ -106,6 +116,7 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
         locked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isLocked", false)
@@ -295,16 +306,23 @@ class FloatingMenuService : Service() {
         rightResizeButton.visibility = View.VISIBLE
     }
 
+    private fun calcDimensions() : WindowManager.LayoutParams{
+        val param = WindowManager.LayoutParams(
+            MATCH_PARENT,
+                height,
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                PixelFormat.TRANSLUCENT)
+
+        if (override){
+            param.width = mWindowManager.defaultDisplay.width + 1000
+        }
+        return param
+    }
 
     private fun createTopBar() {
         topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
-        topParam = WindowManager.LayoutParams(
-            2300,
-            height,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            PixelFormat.TRANSLUCENT
-        )
+        topParam = calcDimensions()
         topParam.gravity = Gravity.TOP
 
         topCloseButton = topBarView.findViewById<ImageButton>(R.id.top_close_button).also {
@@ -417,13 +435,7 @@ class FloatingMenuService : Service() {
 
     private fun createBottomBar() {
         bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
-        bottomParam = WindowManager.LayoutParams(
-            2300,
-            height,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            PixelFormat.TRANSLUCENT
-        )
+        bottomParam = calcDimensions()
         bottomParam.gravity = Gravity.BOTTOM
         bottomResizeButton = bottomBarView.findViewById<ImageButton>(R.id.bottom_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
