@@ -44,6 +44,7 @@ class FloatingMenuService : Service() {
     private val lockedIcon = R.drawable.baseline_lock_white_24dp
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
     var override = false
+    var isActive = false
 
     companion object {
         fun startService(context: Context){
@@ -83,8 +84,19 @@ class FloatingMenuService : Service() {
         when (key) {
             "override"->{
                 override = sharedPreferences.getBoolean(key, false)
+                if (isActive){
+                    refresh()
+                }
+            }
+            "isActive"->{
+                isActive = sharedPreferences.getBoolean(key, false)
             }
         }
+    }
+
+    private fun refresh() {
+        removeTopBottom()
+        topDownMode()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -116,6 +128,9 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
+        isActive = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)
         override = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("override", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
@@ -126,8 +141,6 @@ class FloatingMenuService : Service() {
         } else {
             topDownMode()
         }
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
     }
 
     private fun setWidthHeightValues(){
@@ -319,7 +332,6 @@ class FloatingMenuService : Service() {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT)
-        println("its: $override")
         if (override){
             param.width = mWindowManager.defaultDisplay.width + 1000
         }

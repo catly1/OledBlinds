@@ -18,15 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         />
 
-    <Button
+    <ToggleButton
         android:id="@+id/onButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="On"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reset"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/overrideTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,15 +47,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/override"
-        app:layout_constraintBottom_toTopOf="@+id/switchCompat3"
+        app:layout_constraintBottom_toTopOf="@+id/override"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resetButton"
         android:layout_marginBottom="10dp"
     />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchCompat3"
+    <Switch
+        android:id="@+id/override"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

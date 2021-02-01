@@ -14,6 +14,12 @@
         app:iconSpaceReserved="false"
         />
 
+    <SwitchPreferenceCompat
+        app:key="isActive"
+        app:title="@string/start"
+        app:iconSpaceReserved="false"
+        />
+
 <!--    <Preference-->
 <!--        app:key="reset"-->
 <!--        app:title="@string/reset"-->

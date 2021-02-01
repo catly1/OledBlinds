@@ -5,7 +5,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="start">On</string>
     <string name="reset">Reset</string>
-    <string name="override">Override</string>
+    <string name="override">Ignore camera cutout</string>
     <string name="overrideDescription">Override the size of the bars</string>
     <string name="hello_first_fragment">Good to Go!</string>
     <string name="app_tile_name">OLED Blinds</string>
