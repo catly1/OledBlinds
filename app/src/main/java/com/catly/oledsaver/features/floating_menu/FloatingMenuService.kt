@@ -116,7 +116,7 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
+        override = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("override", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
         locked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isLocked", false)
@@ -127,6 +127,7 @@ class FloatingMenuService : Service() {
             topDownMode()
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
     }
 
     private fun setWidthHeightValues(){
@@ -313,7 +314,7 @@ class FloatingMenuService : Service() {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT)
-
+        println("its: $override")
         if (override){
             param.width = mWindowManager.defaultDisplay.width + 1000
         }
