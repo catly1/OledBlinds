@@ -34,27 +34,27 @@ class HomeViewFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        initializeView()
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeView()
+    }
 
-//    private fun initializeView() {
-//        onButton.setOnClickListener {
-//            activity?.startService(floatingMenuServiceIntent)
-//            activity?.finish()
-//            PreferenceManager.getDefaultSharedPreferences(activity).edit()
-//                .putBoolean("isActive", true).apply()
-//        }
-//
-//        resetButton.setOnClickListener {
-//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("width", 200).apply()
-//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
-//            Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
-//            activity?.stopService(floatingMenuServiceIntent)
-//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
-//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
-//        }
-//    }
+    private fun initializeView() {
+        onButton.setOnClickListener {
+            activity?.startService(floatingMenuServiceIntent)
+            activity?.finish()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                .putBoolean("isActive", true).apply()
+        }
+
+        resetButton.setOnClickListener {
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("width", 200).apply()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
+            Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
+            activity?.stopService(floatingMenuServiceIntent)
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
+            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
+        }
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.catly.oledsaver.features.floating_menu
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -9,7 +10,6 @@ import com.catly.oledsaver.R
 
 class OLEDBlindsTileService : TileService() {
     private var status = false
-
     override fun onClick() {
         super.onClick()
             FloatingMenuService.startService(this)
