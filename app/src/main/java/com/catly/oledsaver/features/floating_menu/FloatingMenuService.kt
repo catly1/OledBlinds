@@ -172,11 +172,16 @@ class FloatingMenuService : Service() {
         mWindowManager.addView(rightBarView,rightParam)
     }
 
+//    private fun calcLeftRightDimensions() : WindowManager.LayoutParams {
+//        val param =
+//
+//        return param
+//    }
+
     private fun createRightBar(){
         rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
 
-        rightParam = WindowManager.LayoutParams(
-            width,
+        rightParam = WindowManager.LayoutParams(width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,

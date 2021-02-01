@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
-        app:key="turnServiceOn"
-        app:title="start"
         app:iconSpaceReserved="false"
+        app:key="turnServiceOn"
         app:layout="@layout/start_button"
-        />
+        app:title="start" />
 
     <SwitchPreferenceCompat
         app:key="override"
