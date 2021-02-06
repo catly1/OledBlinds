@@ -29,9 +29,9 @@ class HomeViewFragment : Fragment() {
     private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key : String->
         when (key) {
             "isActive"->{
-                onButton?.let {
-                    it.isChecked = sharedPreferences.getBoolean(key, false)
-                }
+//                onButton?.let {
+//                    it.isChecked = sharedPreferences.getBoolean(key, false)
+//                }
                isActive = sharedPreferences.getBoolean(key, false)
             }
         }
@@ -44,10 +44,10 @@ class HomeViewFragment : Fragment() {
         (requireActivity() as MainActivity).supportActionBar!!.show()
         floatingMenuServiceIntent = Intent(activity, FloatingMenuService::class.java)
         PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("alreadyRanOnce", true).apply()
-//        parentFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.settings_container, SettingsFragment())
-//            .commit()
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.settings_container, SettingsFragment())
+            .commit()
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
@@ -65,37 +65,37 @@ class HomeViewFragment : Fragment() {
 //
 //            }
 //        }
-        onButton.isChecked = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("isActive", false)
-
-        onButton.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                activity?.startService(floatingMenuServiceIntent)
-                activity?.finish()
-            } else {
-                activity?.stopService(floatingMenuServiceIntent)
-            }
-        }
-
-        resetButton.setOnClickListener {
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("width", 200).apply()
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
-            Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
-            activity?.stopService(floatingMenuServiceIntent)
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
-        }
-
-        override.isChecked = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("override",false)
-
-        override.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("override", true).apply()
-                // The toggle is enabled
-            } else {
-                PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("override", false).apply()
-                // The toggle is disabled
-            }
-        }
+//        onButton.isChecked = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("isActive", false)
+//
+//        onButton.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked) {
+//                activity?.startService(floatingMenuServiceIntent)
+//                activity?.finish()
+//            } else {
+//                activity?.stopService(floatingMenuServiceIntent)
+//            }
+//        }
+//
+//        resetButton.setOnClickListener {
+//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("width", 200).apply()
+//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
+//            Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
+//            activity?.stopService(floatingMenuServiceIntent)
+//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
+//            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
+//        }
+//
+//        override.isChecked = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("override",false)
+//
+//        override.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("override", true).apply()
+//                // The toggle is enabled
+//            } else {
+//                PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("override", false).apply()
+//                // The toggle is disabled
+//            }
+//        }
     }
 
 }

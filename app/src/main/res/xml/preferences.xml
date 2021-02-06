@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--    <Preference-->
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="turnServiceOn"
+        app:layout="@layout/start_button"
+        app:title="start" />
+
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="isActive"-->
+<!--        app:title="@string/start"-->
 <!--        app:iconSpaceReserved="false"-->
-<!--        app:key="turnServiceOn"-->
-<!--        app:layout="@layout/start_button"-->
-<!--        app:title="start" />-->
+<!--        />-->
 
     <SwitchPreferenceCompat
         app:key="override"
@@ -14,17 +20,11 @@
         app:iconSpaceReserved="false"
         />
 
-    <SwitchPreferenceCompat
-        app:key="isActive"
-        app:title="@string/start"
+    <Preference
+        app:key="reset"
+        app:title="@string/reset"
         app:iconSpaceReserved="false"
         />
-
-<!--    <Preference-->
-<!--        app:key="reset"-->
-<!--        app:title="@string/reset"-->
-<!--        app:iconSpaceReserved="false"-->
-<!--        />-->
 
 
 </PreferenceScreen>
