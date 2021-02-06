@@ -251,7 +251,33 @@ class FloatingMenuService : Service() {
             })
         }
         overrideButton = rightBarView.findViewById<ImageButton>(R.id.override_button).also {
+            it.setOnTouchListener(object : View.OnTouchListener {
+                var initialX: Int = 0
+                var initialTouchX: Float = 0.toFloat()
+                override fun onTouch(view: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            initialX = rightParam.x
+                            initialTouchX = event.rawX
+//                            stopLeftRightHideRunnables()
+                            return true
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            rightParam.x = (initialX - (event.rawX - initialTouchX)).toInt()
+                            updateLeftRight()
+//                            println("left: " + leftParam.x)
+//                            println("right: " + rightParam.x)
+                            return true
+                        }
+                        MotionEvent.ACTION_UP ->{
+//                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
+                            hideLeftRightButtons()
+                        }
+                    }
 
+                    return false
+                }
+            })
         }
     }
 
