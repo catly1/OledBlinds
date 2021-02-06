@@ -61,6 +61,8 @@ class FloatingMenuService : Service() {
             val stopIntent = Intent(context, FloatingMenuService::class.java)
             context.stopService(stopIntent)
         }
+
+        var isRunning = false
     }
 
     private var topHideRunnable: Runnable = Runnable {
@@ -152,6 +154,7 @@ class FloatingMenuService : Service() {
             topDownMode()
         }
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
+        isRunning = true
     }
 
     private fun setWidthHeightValues(){

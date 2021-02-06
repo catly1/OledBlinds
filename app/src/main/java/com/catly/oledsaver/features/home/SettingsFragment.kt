@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -19,12 +20,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
         findPreference<Preference>("reset")?.setOnPreferenceClickListener {
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("width", 200).apply()
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putInt("height", 200).apply()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity).edit()
+            sharedPreferences.putInt("width", 200).apply()
+            sharedPreferences.putInt("height", 200).apply()
             Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
             activity?.stopService(Intent(activity, FloatingMenuService::class.java))
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isActive", false).apply()
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("isLocked", false).apply()
+            sharedPreferences.putBoolean("isActive", false).apply()
+            sharedPreferences.putBoolean("isLocked", false).apply()
+            sharedPreferences.putString("statusBarSize", "92").apply()
+            findPreference<EditTextPreference>("statusBarSize")?.text = "92"
         true
         }
     }
