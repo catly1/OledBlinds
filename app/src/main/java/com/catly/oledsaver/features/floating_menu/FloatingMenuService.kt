@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -95,8 +96,14 @@ class FloatingMenuService : Service() {
     }
 
     private fun refresh() {
-        removeTopBottom()
-        topDownMode()
+        println("refreshing")
+        if (flipped) {
+            removeLeftRight()
+            leftRightMode()
+        } else {
+            removeTopBottom()
+            topDownMode()
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -128,7 +135,7 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
+
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
         isActive = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)
         override = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("override", false)
@@ -141,6 +148,7 @@ class FloatingMenuService : Service() {
         } else {
             topDownMode()
         }
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
     }
 
     private fun setWidthHeightValues(){
@@ -197,18 +205,19 @@ class FloatingMenuService : Service() {
         rightParam = WindowManager.LayoutParams(width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT
         )
         rightParam.gravity = Gravity.RIGHT
-
+        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_270){
+            rightParam.x = -92
+        }
         rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
                 var initialX: Int = 0
                 var initialTouchX: Float = 0.toFloat()
                 var initialWidth: Int = 0
                 var calculatedWidth = 0
-
                 override fun onTouch(view: View, event: MotionEvent): Boolean {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
@@ -223,9 +232,10 @@ class FloatingMenuService : Service() {
                             if (checkIfValidNumber(calculatedWidth)) {
                                 leftParam.width = calculatedWidth
                                 rightParam.width = leftParam.width
-                                mWindowManager.updateViewLayout(leftBarView, leftParam)
-                                mWindowManager.updateViewLayout(rightBarView, rightParam)
+                                updateLeftRight()
                             }
+                            println("left: " + leftParam.x)
+                            println("right: " + rightParam.x)
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
@@ -240,17 +250,24 @@ class FloatingMenuService : Service() {
         }
     }
 
+    fun updateLeftRight(){
+        mWindowManager.updateViewLayout(leftBarView, leftParam)
+        mWindowManager.updateViewLayout(rightBarView, rightParam)
+    }
+
     private fun createLeftBar(){
         leftBarView = LayoutInflater.from(this).inflate(R.layout.left_bar, null)
         leftParam = WindowManager.LayoutParams(
             width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT
         )
         leftParam.gravity = Gravity.LEFT
-
+        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_90){
+            leftParam.x = -92
+        }
         leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
             it.setOnClickListener {
                 stopSelf()
@@ -492,4 +509,30 @@ class FloatingMenuService : Service() {
             })
         }
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        refresh()
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            handleCutoutOnRotation(mWindowManager.defaultDisplay.rotation)
+//        }
+    }
+
+//    fun handleCutoutOnRotation(rotation: Int) {
+//        when (rotation){
+//            Surface.ROTATION_90 -> adjustLeftBar()
+////            Surface.ROTATION_180 -> println("rotation is : 180")
+//            Surface.ROTATION_270 -> adjustRightBar()
+//        }
+//    }
+//
+//    fun adjustRightBar(){
+//        println("camera on right")
+//        rightParam.x = -91
+//    }
+//
+//    fun adjustLeftBar(){
+//        println("camera on left")
+//        leftParam.x = -80
+//    }
 }
