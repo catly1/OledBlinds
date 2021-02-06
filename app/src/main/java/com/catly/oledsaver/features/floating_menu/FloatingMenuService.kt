@@ -11,6 +11,7 @@ import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
+import android.util.DisplayMetrics
 import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -46,6 +47,7 @@ class FloatingMenuService : Service() {
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
     var override = false
     var isActive = false
+    var statusBarSize = 0
 
     companion object {
         fun startService(context: Context){
@@ -96,7 +98,6 @@ class FloatingMenuService : Service() {
     }
 
     private fun refresh() {
-        println("refreshing")
         if (flipped) {
             removeLeftRight()
             leftRightMode()
@@ -201,7 +202,6 @@ class FloatingMenuService : Service() {
 
     private fun createRightBar(){
         rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
-
         rightParam = WindowManager.LayoutParams(width,
             MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
@@ -234,8 +234,8 @@ class FloatingMenuService : Service() {
                                 rightParam.width = leftParam.width
                                 updateLeftRight()
                             }
-                            println("left: " + leftParam.x)
-                            println("right: " + rightParam.x)
+//                            println("left: " + leftParam.x)
+//                            println("right: " + rightParam.x)
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
@@ -350,7 +350,7 @@ class FloatingMenuService : Service() {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT)
         if (override){
-            param.width = mWindowManager.defaultDisplay.width + 1000
+            param.width = mWindowManager.defaultDisplay.width + 184
         }
         return param
     }
