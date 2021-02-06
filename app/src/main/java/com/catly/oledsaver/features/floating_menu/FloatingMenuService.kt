@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.PixelFormat
+import android.media.Image
 import android.os.Build
 import android.os.IBinder
 import android.util.DisplayMetrics
@@ -48,6 +49,7 @@ class FloatingMenuService : Service() {
     var override = false
     var isActive = false
     var statusBarSize = 0
+    lateinit var overrideButton: ImageButton
 
     companion object {
         fun startService(context: Context){
@@ -247,6 +249,9 @@ class FloatingMenuService : Service() {
                     return false
                 }
             })
+        }
+        overrideButton = rightBarView.findViewById<ImageButton>(R.id.override_button).also {
+
         }
     }
 
