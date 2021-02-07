@@ -64,7 +64,6 @@ class FloatingMenuService : Service() {
 
         var isRunning = false
     }
-
     private var topHideRunnable: Runnable = Runnable {
         topCloseButton.visibility = View.GONE
         topRotateButton.visibility = View.GONE
@@ -326,6 +325,7 @@ class FloatingMenuService : Service() {
             removeTopBottom()
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
+        isActive = false
     }
 
     private fun removeTopBottom(){
