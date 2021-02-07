@@ -23,6 +23,7 @@ import com.catly.oledsaver.features.main.MainActivity
 
 class FloatingMenuService : Service() {
 
+    private lateinit var sharedpreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
     private lateinit var mWindowManager: WindowManager
     private lateinit var topBarView: View
@@ -139,20 +140,21 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", true).apply()
-        isActive = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)
-        override = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("override", false)
+        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedpreferences.edit().putBoolean("isActive", true).apply()
+        isActive = sharedpreferences.getBoolean("isActive", false)
+        override = sharedpreferences.getBoolean("override", false)
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        flipped = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isFlipped", false)
-        locked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isLocked", false)
+        flipped = sharedpreferences.getBoolean("isFlipped", false)
+        locked = sharedpreferences.getBoolean("isLocked", false)
+        statusBarSize = sharedpreferences.getString("statusBarSize", "92")!!.toInt()
         setWidthHeightValues()
         if (flipped){
             leftRightMode()
         } else {
             topDownMode()
         }
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(preferenceListener)
+        sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = true
     }
 
@@ -213,8 +215,8 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         rightParam.gravity = Gravity.RIGHT
-        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_270){
-            rightParam.x = -92
+        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
+            rightParam.x = -statusBarSize
         }
         rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
             it.setOnTouchListener(object : View.OnTouchListener {
@@ -298,8 +300,8 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         leftParam.gravity = Gravity.LEFT
-        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_90){
-            leftParam.x = -92
+        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_90 && override){
+            leftParam.x = -statusBarSize
         }
         leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
             it.setOnClickListener {
@@ -384,7 +386,7 @@ class FloatingMenuService : Service() {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT)
         if (override){
-            param.width = mWindowManager.defaultDisplay.width + 184
+            param.width = mWindowManager.defaultDisplay.width + statusBarSize*2
         }
         return param
     }
