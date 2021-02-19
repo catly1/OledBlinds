@@ -1,10 +1,15 @@
 package com.catly.oledsaver.features.floating_menu.bar
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.PixelFormat
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.preference.PreferenceManager
+import com.catly.oledsaver.features.floating_menu.FloatingMenuService
 
-class BaseButtonsBar {
+open class BaseButtonsBar(private val floatingMenuService: FloatingMenuService) {
     val param = WindowManager.LayoutParams(
         0,
         0,
@@ -13,6 +18,10 @@ class BaseButtonsBar {
         PixelFormat.TRANSLUCENT
     )
 
+    val context: Context = floatingMenuService.baseContext
+    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    lateinit var viewLayout : View
+    var TAG = ""
     init {
 
     }
