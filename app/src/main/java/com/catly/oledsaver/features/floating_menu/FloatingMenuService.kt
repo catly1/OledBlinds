@@ -44,7 +44,7 @@ class FloatingMenuService : Service() {
     private lateinit var leftLockButton: ImageButton
     private var width: Int = 0
     private var height: Int = 0
-    private var locked = false
+    var locked = false
     private val lockedIcon = R.drawable.baseline_lock_white_24dp
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
     var override = false
@@ -461,7 +461,7 @@ class FloatingMenuService : Service() {
     }
 
 
-    private fun rotate(view: View){
+    fun rotate(view: View){
             setWidthHeightValues()
             view.setOnClickListener {
                 flipped = if (flipped) {
