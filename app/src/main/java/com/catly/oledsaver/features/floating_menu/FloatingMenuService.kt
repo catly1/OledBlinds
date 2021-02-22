@@ -436,7 +436,7 @@ class FloatingMenuService : Service() {
         }
     }
 
-    private fun lockButtons(){
+    fun lockButtons(){
         if (flipped){
             leftCloseButton.isEnabled = false
             leftRotateButton.isEnabled = false
@@ -448,7 +448,7 @@ class FloatingMenuService : Service() {
         }
     }
 
-    private fun unlockButtons(){
+    fun unlockButtons(){
         if (flipped){
             leftCloseButton.isEnabled = true
             leftRotateButton.isEnabled = true

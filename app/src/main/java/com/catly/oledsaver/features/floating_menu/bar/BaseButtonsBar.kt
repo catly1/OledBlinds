@@ -21,28 +21,28 @@ open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar
             floatingMenuService.rotate(rotateButton)
         }
         lockButton.setOnClickListener {
-
+            handleLockIcon(it as ImageButton)
         }
     }
 
     private fun handleLockIcon(imageButton: ImageButton) {
-        if (locked) {
+        if (floatingMenuService.locked) {
             imageButton.setImageResource(lockedIcon)
-            lockButtons()
+            floatingMenuService.lockButtons()
         } else {
             imageButton.setImageResource(unlockedIcon)
         }
 
         imageButton.setOnClickListener {
-            locked = if (locked) {
+            floatingMenuService.locked = if (floatingMenuService.locked) {
                 imageButton.setImageResource(unlockedIcon)
-                unlockButtons()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", false).apply()
+                floatingMenuService.unlockButtons()
+                sharedPreferences.edit().putBoolean("isLocked", false).apply()
                 false
             } else {
                 imageButton.setImageResource(lockedIcon)
-                lockButtons()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", true).apply()
+                floatingMenuService.lockButtons()
+                sharedPreferences.edit().putBoolean("isLocked", true).apply()
                 true
             }
         }
