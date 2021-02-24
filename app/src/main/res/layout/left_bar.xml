@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/left_bar_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="left_close_button, left_rotate_button, left_lock_button"
+        />
+
     <ImageButton
         android:id="@+id/left_close_button"
         android:layout_width="50dp"
