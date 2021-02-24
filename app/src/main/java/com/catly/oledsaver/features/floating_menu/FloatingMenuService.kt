@@ -374,23 +374,21 @@ class FloatingMenuService : Service() {
     }
 
 
-    fun rotate(view: View){
-            setWidthHeightValues()
-            view.setOnClickListener {
-                flipped = if (flipped) {
-                    removeLeftRight()
-                    topDownMode()
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("isFlipped", false).apply()
-                    false
-                } else {
-                    removeTopBottom()
-                    leftRightMode()
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("isFlipped", true).apply()
-                    true
-                }
-            }
+    fun rotate(){
+        setWidthHeightValues()
+        flipped = if (flipped) {
+            removeLeftRight()
+            topDownMode()
+            PreferenceManager.getDefaultSharedPreferences(this).edit()
+                .putBoolean("isFlipped", false).apply()
+            false
+        } else {
+            removeTopBottom()
+            leftRightMode()
+            PreferenceManager.getDefaultSharedPreferences(this).edit()
+                .putBoolean("isFlipped", true).apply()
+            true
+        }
     }
 
     private fun hideTopBottomButtons() {

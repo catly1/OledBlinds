@@ -18,21 +18,21 @@ open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar
             floatingMenuService.stopSelf()
         }
         rotateButton.setOnClickListener {
-            floatingMenuService.rotate(rotateButton)
+            println("you're clicking it")
+            floatingMenuService.rotate()
         }
         lockButton.setOnClickListener {
-            handleLockIcon(it as ImageButton)
+            if (floatingMenuService.locked) {
+                (it as ImageButton).setImageResource(lockedIcon)
+                floatingMenuService.lockButtons()
+            } else {
+                (it as ImageButton).setImageResource(unlockedIcon)
+            }
+            handleLockIcon(it)
         }
     }
 
     private fun handleLockIcon(imageButton: ImageButton) {
-        if (floatingMenuService.locked) {
-            imageButton.setImageResource(lockedIcon)
-            floatingMenuService.lockButtons()
-        } else {
-            imageButton.setImageResource(unlockedIcon)
-        }
-
         imageButton.setOnClickListener {
             floatingMenuService.locked = if (floatingMenuService.locked) {
                 imageButton.setImageResource(unlockedIcon)
