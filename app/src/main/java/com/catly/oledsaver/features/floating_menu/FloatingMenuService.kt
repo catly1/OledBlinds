@@ -9,23 +9,23 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.PixelFormat
-import android.media.Image
 import android.os.Build
 import android.os.IBinder
-import android.util.DisplayMetrics
 import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import androidx.core.app.NotificationCompat
 import com.catly.oledsaver.R
+import com.catly.oledsaver.features.floating_menu.bar.LeftBar
+import com.catly.oledsaver.features.floating_menu.bar.RightBar
 import com.catly.oledsaver.features.main.MainActivity
 
 class FloatingMenuService : Service() {
 
     private lateinit var sharedpreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
-    private lateinit var mWindowManager: WindowManager
+    lateinit var windowManager: WindowManager
     private lateinit var topBarView: View
     private lateinit var bottomBarView: View
     private lateinit var leftBarView: View
@@ -51,6 +51,8 @@ class FloatingMenuService : Service() {
     var isActive = false
     var statusBarSize = 0
     lateinit var overrideButton: ImageButton
+    lateinit var leftBar: LeftBar
+    lateinit var rightBar: RightBar
 
     companion object {
         fun startService(context: Context){
@@ -137,17 +139,20 @@ class FloatingMenuService : Service() {
         }
     }
 
-
-    override fun onCreate() {
-        super.onCreate()
+    private fun getPrefValues(){
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedpreferences.edit().putBoolean("isActive", true).apply()
         isActive = sharedpreferences.getBoolean("isActive", false)
         override = sharedpreferences.getBoolean("override", false)
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         flipped = sharedpreferences.getBoolean("isFlipped", false)
         locked = sharedpreferences.getBoolean("isLocked", false)
         statusBarSize = sharedpreferences.getString("statusBarSize", "92")!!.toInt()
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        getPrefValues()
         setWidthHeightValues()
         if (flipped){
             leftRightMode()
@@ -183,21 +188,23 @@ class FloatingMenuService : Service() {
     }
 
     private fun addTopBottomViews(){
-        mWindowManager.addView(topBarView, topParam)
-        mWindowManager.addView(bottomBarView, bottomParam)
+        windowManager.addView(topBarView, topParam)
+        windowManager.addView(bottomBarView, bottomParam)
     }
 
     private fun leftRightMode(){
-        createRightBar()
-        createLeftBar()
-        addLeftRightViews()
-        hideLeftRightButtons()
-        manageLeftRightVisibility()
+        rightBar = RightBar(this)
+        leftBar = LeftBar(this)
+        windowManager.addView(leftBar.viewLayout,leftBar.param)
+        windowManager.addView(rightBar.viewLayout,rightBar.param)
+//        addLeftRightViews()
+//        hideLeftRightButtons()
+//        manageLeftRightVisibility()
     }
 
     private fun addLeftRightViews(){
-        mWindowManager.addView(leftBarView,leftParam)
-        mWindowManager.addView(rightBarView,rightParam)
+        windowManager.addView(leftBarView,leftParam)
+        windowManager.addView(rightBarView,rightParam)
     }
 
 //    private fun calcLeftRightDimensions() : WindowManager.LayoutParams {
@@ -215,7 +222,7 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         rightParam.gravity = Gravity.RIGHT
-        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
+        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
             rightParam.x = -statusBarSize
         }
         rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
@@ -286,8 +293,8 @@ class FloatingMenuService : Service() {
     }
 
     fun updateLeftRight(){
-        mWindowManager.updateViewLayout(leftBarView, leftParam)
-        mWindowManager.updateViewLayout(rightBarView, rightParam)
+        windowManager.updateViewLayout(leftBarView, leftParam)
+        windowManager.updateViewLayout(rightBarView, rightParam)
     }
 
     private fun createLeftBar(){
@@ -300,7 +307,7 @@ class FloatingMenuService : Service() {
             PixelFormat.TRANSLUCENT
         )
         leftParam.gravity = Gravity.LEFT
-        if (mWindowManager.defaultDisplay.rotation == Surface.ROTATION_90 && override){
+        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_90 && override){
             leftParam.x = -statusBarSize
         }
         leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
@@ -331,13 +338,13 @@ class FloatingMenuService : Service() {
     }
 
     private fun removeTopBottom(){
-        mWindowManager.removeView(bottomBarView)
-        mWindowManager.removeView(topBarView)
+        windowManager.removeView(bottomBarView)
+        windowManager.removeView(topBarView)
     }
 
     private fun removeLeftRight(){
-        mWindowManager.removeView(leftBarView)
-        mWindowManager.removeView(rightBarView)
+        windowManager.removeView(leftBarView)
+        windowManager.removeView(rightBarView)
     }
 
     private fun manageTopBottomVisibility() {
@@ -386,7 +393,7 @@ class FloatingMenuService : Service() {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT)
         if (override){
-            param.width = mWindowManager.defaultDisplay.width + statusBarSize*2
+            param.width = windowManager.defaultDisplay.width + statusBarSize*2
         }
         return param
     }
@@ -529,8 +536,8 @@ class FloatingMenuService : Service() {
                             if (checkIfValidNumber(calculatedHeight)){
                                 bottomParam.height = calculatedHeight
                                 topParam.height = bottomParam.height
-                                mWindowManager.updateViewLayout(topBarView, topParam)
-                                mWindowManager.updateViewLayout(bottomBarView, bottomParam)
+                                windowManager.updateViewLayout(topBarView, topParam)
+                                windowManager.updateViewLayout(bottomBarView, bottomParam)
                             }
                             return true
                         }

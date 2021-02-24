@@ -1,5 +1,6 @@
 package com.catly.oledsaver.features.floating_menu.bar
 
+import android.app.Service
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.PixelFormat
@@ -9,7 +10,7 @@ import android.view.WindowManager
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.features.floating_menu.FloatingMenuService
 
-open class BaseBar(private val floatingMenuService: FloatingMenuService) {
+open class BaseBar(floatingMenuService: FloatingMenuService) {
     val param = WindowManager.LayoutParams(
         0,
         0,
@@ -20,6 +21,11 @@ open class BaseBar(private val floatingMenuService: FloatingMenuService) {
 
     val context: Context = floatingMenuService.baseContext
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val windowManager = floatingMenuService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
     lateinit var viewLayout : View
     var TAG = ""
+
+    fun update(){
+        windowManager.updateViewLayout(viewLayout, param)
+    }
 }
