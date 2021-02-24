@@ -17,8 +17,10 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import androidx.core.app.NotificationCompat
 import com.catly.oledsaver.R
+import com.catly.oledsaver.features.floating_menu.bar.BottomBar
 import com.catly.oledsaver.features.floating_menu.bar.LeftBar
 import com.catly.oledsaver.features.floating_menu.bar.RightBar
+import com.catly.oledsaver.features.floating_menu.bar.TopBar
 import com.catly.oledsaver.features.main.MainActivity
 
 class FloatingMenuService : Service() {
@@ -30,10 +32,6 @@ class FloatingMenuService : Service() {
     private lateinit var bottomBarView: View
     private lateinit var leftBarView: View
     private lateinit var rightBarView: View
-    private lateinit var topParam: WindowManager.LayoutParams
-    private lateinit var bottomParam: WindowManager.LayoutParams
-    private lateinit var leftParam: WindowManager.LayoutParams
-    private lateinit var rightParam: WindowManager.LayoutParams
     private lateinit var topCloseButton: ImageButton
     private lateinit var leftCloseButton: ImageButton
     private lateinit var bottomResizeButton: ImageButton
@@ -42,8 +40,8 @@ class FloatingMenuService : Service() {
     private lateinit var leftRotateButton: ImageButton
     private lateinit var topLockButton: ImageButton
     private lateinit var leftLockButton: ImageButton
-    private var width: Int = 0
-    private var height: Int = 0
+    var width: Int = 0
+    var height: Int = 0
     var locked = false
     private val lockedIcon = R.drawable.baseline_lock_white_24dp
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
@@ -53,6 +51,8 @@ class FloatingMenuService : Service() {
     lateinit var overrideButton: ImageButton
     lateinit var leftBar: LeftBar
     lateinit var rightBar: RightBar
+    lateinit var topBar: TopBar
+    lateinit var bottomBar: BottomBar
 
     companion object {
         fun startService(context: Context){
@@ -153,13 +153,12 @@ class FloatingMenuService : Service() {
     override fun onCreate() {
         super.onCreate()
         getPrefValues()
-//        setWidthHeightValues()
-        leftRightMode()
-//        if (flipped){
-//            leftRightMode()
-//        } else {
-//            topDownMode()
-//        }
+        setWidthHeightValues()
+        if (flipped){
+            leftRightMode()
+        } else {
+            topDownMode()
+        }
         sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = true
     }
@@ -181,22 +180,17 @@ class FloatingMenuService : Service() {
     }
 
     private fun topDownMode(){
-        createBottomBar()
-        createTopBar()
-        addTopBottomViews()
-        hideTopBottomButtons()
-        manageTopBottomVisibility()
-    }
-
-    private fun addTopBottomViews(){
-        windowManager.addView(topBarView, topParam)
-        windowManager.addView(bottomBarView, bottomParam)
+        bottomBar = BottomBar(this)
+        topBar = TopBar(this)
+        windowManager.addView(bottomBar.viewLayout, bottomBar.param)
+        windowManager.addView(topBar.viewLayout, topBar.param)
+//        hideTopBottomButtons()
+//        manageTopBottomVisibility()
     }
 
     private fun leftRightMode(){
         rightBar = RightBar(this)
         leftBar = LeftBar(this)
-        println(rightBar.param.width)
         windowManager.addView(leftBar.viewLayout,leftBar.param)
         windowManager.addView(rightBar.viewLayout,rightBar.param)
 //        addLeftRightViews()
@@ -204,129 +198,84 @@ class FloatingMenuService : Service() {
 //        manageLeftRightVisibility()
     }
 
-    private fun addLeftRightViews(){
-        windowManager.addView(leftBarView,leftParam)
-        windowManager.addView(rightBarView,rightParam)
-    }
-
-//    private fun calcLeftRightDimensions() : WindowManager.LayoutParams {
-//        val param =
-//
-//        return param
-//    }
-
-    private fun createRightBar(){
-        rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
-        rightParam = WindowManager.LayoutParams(width,
-            MATCH_PARENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            PixelFormat.TRANSLUCENT
-        )
-        rightParam.gravity = Gravity.RIGHT
-        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
-            rightParam.x = -statusBarSize
-        }
-        rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
-            it.setOnTouchListener(object : View.OnTouchListener {
-                var initialX: Int = 0
-                var initialTouchX: Float = 0.toFloat()
-                var initialWidth: Int = 0
-                var calculatedWidth = 0
-                override fun onTouch(view: View, event: MotionEvent): Boolean {
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            initialX = rightParam.x
-                            initialWidth = rightParam.width
-                            initialTouchX = event.rawX
-                            stopLeftRightHideRunnables()
-                            return true
-                        }
-                        MotionEvent.ACTION_MOVE -> {
-                            calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
-                            if (checkIfValidNumber(calculatedWidth)) {
-                                leftParam.width = calculatedWidth
-                                rightParam.width = leftParam.width
-                                updateLeftRight()
-                            }
-//                            println("left: " + leftParam.x)
-//                            println("right: " + rightParam.x)
-                            return true
-                        }
-                        MotionEvent.ACTION_UP ->{
-                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
-                            hideLeftRightButtons()
-                        }
-                    }
-
-                    return false
-                }
-            })
-        }
-        overrideButton = rightBarView.findViewById<ImageButton>(R.id.override_button).also {
-            it.setOnTouchListener(object : View.OnTouchListener {
-                var initialX: Int = 0
-                var initialTouchX: Float = 0.toFloat()
-                override fun onTouch(view: View, event: MotionEvent): Boolean {
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            initialX = rightParam.x
-                            initialTouchX = event.rawX
+//    private fun createRightBar(){
+//        rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
+//        rightParam = WindowManager.LayoutParams(width,
+//            MATCH_PARENT,
+//            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            PixelFormat.TRANSLUCENT
+//        )
+//        rightParam.gravity = Gravity.RIGHT
+//        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
+//            rightParam.x = -statusBarSize
+//        }
+//        rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
+//            it.setOnTouchListener(object : View.OnTouchListener {
+//                var initialX: Int = 0
+//                var initialTouchX: Float = 0.toFloat()
+//                var initialWidth: Int = 0
+//                var calculatedWidth = 0
+//                override fun onTouch(view: View, event: MotionEvent): Boolean {
+//                    when (event.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            initialX = rightParam.x
+//                            initialWidth = rightParam.width
+//                            initialTouchX = event.rawX
 //                            stopLeftRightHideRunnables()
-                            return true
-                        }
-                        MotionEvent.ACTION_MOVE -> {
-                            rightParam.x = (initialX - (event.rawX - initialTouchX)).toInt()
-                            updateLeftRight()
-//                            println("left: " + leftParam.x)
-//                            println("right: " + rightParam.x)
-                            return true
-                        }
-                        MotionEvent.ACTION_UP ->{
+//                            return true
+//                        }
+//                        MotionEvent.ACTION_MOVE -> {
+//                            calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
+//                            if (checkIfValidNumber(calculatedWidth)) {
+//                                leftParam.width = calculatedWidth
+//                                rightParam.width = leftParam.width
+//                                updateLeftRight()
+//                            }
+////                            println("left: " + leftParam.x)
+////                            println("right: " + rightParam.x)
+//                            return true
+//                        }
+//                        MotionEvent.ACTION_UP ->{
 //                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
-                            hideLeftRightButtons()
-                        }
-                    }
-
-                    return false
-                }
-            })
-        }
-    }
-
-    fun updateLeftRight(){
-        windowManager.updateViewLayout(leftBarView, leftParam)
-        windowManager.updateViewLayout(rightBarView, rightParam)
-    }
-
-    private fun createLeftBar(){
-        leftBarView = LayoutInflater.from(this).inflate(R.layout.left_bar, null)
-        leftParam = WindowManager.LayoutParams(
-            width,
-            MATCH_PARENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            PixelFormat.TRANSLUCENT
-        )
-        leftParam.gravity = Gravity.LEFT
-        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_90 && override){
-            leftParam.x = -statusBarSize
-        }
-        leftCloseButton = leftBarView.findViewById<ImageButton>(R.id.left_close_button).also {
-            it.setOnClickListener {
-                stopSelf()
-            }
-        }
-
-        leftRotateButton = leftBarView.findViewById<ImageButton>(R.id.left_rotate_button).also {
-            rotate(it)
-        }
-
-        leftLockButton = leftBarView.findViewById<ImageButton>(R.id.left_lock_button).also{
-            handleLockIcon(it)
-        }
-
-    }
+//                            hideLeftRightButtons()
+//                        }
+//                    }
+//
+//                    return false
+//                }
+//            })
+//        }
+//        overrideButton = rightBarView.findViewById<ImageButton>(R.id.override_button).also {
+//            it.setOnTouchListener(object : View.OnTouchListener {
+//                var initialX: Int = 0
+//                var initialTouchX: Float = 0.toFloat()
+//                override fun onTouch(view: View, event: MotionEvent): Boolean {
+//                    when (event.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            initialX = rightParam.x
+//                            initialTouchX = event.rawX
+////                            stopLeftRightHideRunnables()
+//                            return true
+//                        }
+//                        MotionEvent.ACTION_MOVE -> {
+//                            rightParam.x = (initialX - (event.rawX - initialTouchX)).toInt()
+//                            updateLeftRight()
+////                            println("left: " + leftParam.x)
+////                            println("right: " + rightParam.x)
+//                            return true
+//                        }
+//                        MotionEvent.ACTION_UP ->{
+////                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
+//                            hideLeftRightButtons()
+//                        }
+//                    }
+//
+//                    return false
+//                }
+//            })
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -340,8 +289,8 @@ class FloatingMenuService : Service() {
     }
 
     private fun removeTopBottom(){
-        windowManager.removeView(bottomBarView)
-        windowManager.removeView(topBarView)
+        windowManager.removeView(bottomBar.viewLayout)
+        windowManager.removeView(topBar.viewLayout)
     }
 
     private fun removeLeftRight(){
@@ -398,51 +347,6 @@ class FloatingMenuService : Service() {
             param.width = windowManager.defaultDisplay.width + statusBarSize*2
         }
         return param
-    }
-
-    private fun createTopBar() {
-        topBarView = LayoutInflater.from(this).inflate(R.layout.top_bar, null)
-        topParam = calcDimensions()
-        topParam.gravity = Gravity.TOP
-
-        topCloseButton = topBarView.findViewById<ImageButton>(R.id.top_close_button).also {
-                it.setOnClickListener {
-                    stopSelf()
-                }
-        }
-
-        topRotateButton = topBarView.findViewById<ImageButton>(R.id.top_rotate_button).also {
-            rotate(it)
-        }
-
-        topLockButton = topBarView.findViewById<ImageButton>(R.id.top_lock_button).also {
-            handleLockIcon(it)
-        }
-    }
-
-
-
-    private fun handleLockIcon(imageButton: ImageButton) {
-        if (locked) {
-            imageButton.setImageResource(lockedIcon)
-            lockButtons()
-        } else {
-            imageButton.setImageResource(unlockedIcon)
-        }
-
-        imageButton.setOnClickListener {
-            locked = if (locked) {
-                imageButton.setImageResource(unlockedIcon)
-                unlockButtons()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", false).apply()
-                false
-            } else {
-                imageButton.setImageResource(lockedIcon)
-                lockButtons()
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isLocked", true).apply()
-                true
-            }
-        }
     }
 
     fun lockButtons(){
@@ -513,48 +417,6 @@ class FloatingMenuService : Service() {
         return num > 60
     }
 
-    private fun createBottomBar() {
-        bottomBarView = LayoutInflater.from(this).inflate(R.layout.bottom_bar, null)
-        bottomParam = calcDimensions()
-        bottomParam.gravity = Gravity.BOTTOM
-        bottomResizeButton = bottomBarView.findViewById<ImageButton>(R.id.bottom_resize_button).also {
-            it.setOnTouchListener(object : View.OnTouchListener {
-                var initialY: Int = 0
-                var initialTouchY: Float = 0.toFloat()
-                var initialHeight: Int = 0
-                var calculatedHeight = 0
-
-                override fun onTouch(view: View, event: MotionEvent): Boolean {
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            initialY = bottomParam.y
-                            initialHeight = bottomParam.height
-                            initialTouchY = event.rawY
-                            stopTopBottomHideRunnables()
-                            return true
-                        }
-                        MotionEvent.ACTION_MOVE -> {
-                            calculatedHeight = (initialHeight - (event.rawY - initialTouchY)).toInt()
-                            if (checkIfValidNumber(calculatedHeight)){
-                                bottomParam.height = calculatedHeight
-                                topParam.height = bottomParam.height
-                                windowManager.updateViewLayout(topBarView, topParam)
-                                windowManager.updateViewLayout(bottomBarView, bottomParam)
-                            }
-                            return true
-                        }
-                        MotionEvent.ACTION_UP ->{
-                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("height", bottomParam.height).apply()
-                            hideTopBottomButtons()
-                        }
-                    }
-
-                    return false
-                }
-            })
-        }
-    }
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         refresh()
@@ -562,22 +424,4 @@ class FloatingMenuService : Service() {
 //            handleCutoutOnRotation(mWindowManager.defaultDisplay.rotation)
 //        }
     }
-
-//    fun handleCutoutOnRotation(rotation: Int) {
-//        when (rotation){
-//            Surface.ROTATION_90 -> adjustLeftBar()
-////            Surface.ROTATION_180 -> println("rotation is : 180")
-//            Surface.ROTATION_270 -> adjustRightBar()
-//        }
-//    }
-//
-//    fun adjustRightBar(){
-//        println("camera on right")
-//        rightParam.x = -91
-//    }
-//
-//    fun adjustLeftBar(){
-//        println("camera on left")
-//        leftParam.x = -80
-//    }
 }

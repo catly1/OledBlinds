@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.right_bar.view.*
 class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(floatingMenuService) {
     init {
         TAG = "RightBar"
-        param.width = sharedPreferences.getInt("width",200)
+        param.width = floatingMenuService.width
         param.height = MATCH_PARENT
         param.gravity = Gravity.RIGHT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.right_bar, null)
-        resizeButton = viewLayout.findViewById<ImageButton>(R.id.right_resize_button)
+        resizeButton = viewLayout.findViewById(R.id.right_resize_button)
         setListeners()
     }
 

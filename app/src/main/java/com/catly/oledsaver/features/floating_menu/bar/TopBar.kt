@@ -11,6 +11,7 @@ class TopBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingM
     init {
         TAG = "TopBar"
         param.width = MATCH_PARENT
+        param.height = floatingMenuService.height
         param.gravity = Gravity.TOP
         viewLayout = LayoutInflater.from(context).inflate(R.layout.top_bar,null)
         closeButton = viewLayout.findViewById<ImageButton>(R.id.top_close_button)

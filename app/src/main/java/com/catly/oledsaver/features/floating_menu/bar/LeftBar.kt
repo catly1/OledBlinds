@@ -11,6 +11,7 @@ class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floating
     init {
         TAG = "LeftBar"
         param.height = MATCH_PARENT
+        param.width = floatingMenuService.width
         param.gravity = Gravity.LEFT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.left_bar,null)
         closeButton = viewLayout.findViewById<ImageButton>(R.id.left_close_button)
