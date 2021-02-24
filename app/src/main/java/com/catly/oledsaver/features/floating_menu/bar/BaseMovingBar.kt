@@ -11,5 +11,11 @@ import com.catly.oledsaver.features.utils.Utils.checkIfValidNumber
 open class BaseMovingBar(floatingMenuService: FloatingMenuService): BaseBar(floatingMenuService) {
     lateinit var resizeButton: ImageButton
 
+    fun lockButtons(){
+        resizeButton.isEnabled = false
+    }
 
+    fun unlockButtons(){
+        resizeButton.isEnabled = true
+    }
 }

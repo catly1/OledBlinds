@@ -14,9 +14,10 @@ class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floating
         param.width = floatingMenuService.width
         param.gravity = Gravity.LEFT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.left_bar,null)
-        closeButton = viewLayout.findViewById<ImageButton>(R.id.left_close_button)
-        rotateButton = viewLayout.findViewById<ImageButton>(R.id.left_rotate_button)
-        lockButton = viewLayout.findViewById<ImageButton>(R.id.left_lock_button)
+        closeButton = viewLayout.findViewById(R.id.left_close_button)
+        rotateButton = viewLayout.findViewById(R.id.left_rotate_button)
+        lockButton = viewLayout.findViewById(R.id.left_lock_button)
         setListeners()
+        setLockIconFromPrefs(lockButton)
     }
 }

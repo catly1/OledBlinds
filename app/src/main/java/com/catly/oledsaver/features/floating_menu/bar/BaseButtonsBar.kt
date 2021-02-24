@@ -18,33 +18,42 @@ open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar
             floatingMenuService.stopSelf()
         }
         rotateButton.setOnClickListener {
-            println("you're clicking it")
             floatingMenuService.rotate()
         }
         lockButton.setOnClickListener {
-            if (floatingMenuService.locked) {
-                (it as ImageButton).setImageResource(lockedIcon)
-                floatingMenuService.lockButtons()
-            } else {
-                (it as ImageButton).setImageResource(unlockedIcon)
-            }
-            handleLockIcon(it)
+            handleLockIcon(it as ImageButton)
         }
     }
 
     private fun handleLockIcon(imageButton: ImageButton) {
-        imageButton.setOnClickListener {
-            floatingMenuService.locked = if (floatingMenuService.locked) {
-                imageButton.setImageResource(unlockedIcon)
-                floatingMenuService.unlockButtons()
-                sharedPreferences.edit().putBoolean("isLocked", false).apply()
-                false
-            } else {
-                imageButton.setImageResource(lockedIcon)
-                floatingMenuService.lockButtons()
-                sharedPreferences.edit().putBoolean("isLocked", true).apply()
-                true
-            }
+        floatingMenuService.locked = if (floatingMenuService.locked) {
+            imageButton.setImageResource(unlockedIcon)
+            floatingMenuService.unlockButtons()
+            sharedPreferences.edit().putBoolean("isLocked", false).apply()
+            false
+        } else {
+            imageButton.setImageResource(lockedIcon)
+            floatingMenuService.lockButtons()
+            sharedPreferences.edit().putBoolean("isLocked", true).apply()
+            true
         }
+    }
+
+    fun setLockIconFromPrefs(imageButton: ImageButton){
+        if (floatingMenuService.locked) {
+            imageButton.setImageResource(lockedIcon)
+        } else {
+            imageButton.setImageResource(unlockedIcon)
+        }
+    }
+
+    fun lockButtons(){
+        closeButton.isEnabled = false
+        rotateButton.isEnabled = false
+    }
+
+    fun unlockButtons(){
+        closeButton.isEnabled = true
+        rotateButton.isEnabled = true
     }
 }

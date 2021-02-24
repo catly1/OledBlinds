@@ -43,8 +43,6 @@ class FloatingMenuService : Service() {
     var width: Int = 0
     var height: Int = 0
     var locked = false
-    private val lockedIcon = R.drawable.baseline_lock_white_24dp
-    private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
     var override = false
     var isActive = false
     var statusBarSize = 0
@@ -159,8 +157,15 @@ class FloatingMenuService : Service() {
         } else {
             topDownMode()
         }
+        setLockState()
         sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = true
+    }
+
+    private fun setLockState(){
+        if (locked){
+            lockButtons()
+        }
     }
 
     private fun setWidthHeightValues(){
@@ -193,7 +198,6 @@ class FloatingMenuService : Service() {
         leftBar = LeftBar(this)
         windowManager.addView(leftBar.viewLayout,leftBar.param)
         windowManager.addView(rightBar.viewLayout,rightBar.param)
-//        addLeftRightViews()
 //        hideLeftRightButtons()
 //        manageLeftRightVisibility()
     }
@@ -351,25 +355,21 @@ class FloatingMenuService : Service() {
 
     fun lockButtons(){
         if (flipped){
-            leftCloseButton.isEnabled = false
-            leftRotateButton.isEnabled = false
-            rightResizeButton.isEnabled = false
+            leftBar.lockButtons()
+            rightBar.lockButtons()
         } else {
-            topCloseButton.isEnabled = false
-            topRotateButton.isEnabled = false
-            bottomResizeButton.isEnabled = false
+            bottomBar.lockButtons()
+            topBar.lockButtons()
         }
     }
 
     fun unlockButtons(){
         if (flipped){
-            leftCloseButton.isEnabled = true
-            leftRotateButton.isEnabled = true
-            rightResizeButton.isEnabled = true
+            leftBar.unlockButtons()
+            rightBar.unlockButtons()
         } else {
-            topCloseButton.isEnabled = true
-            topRotateButton.isEnabled = true
-            bottomResizeButton.isEnabled = true
+            topBar.unlockButtons()
+            bottomBar.unlockButtons()
         }
     }
 

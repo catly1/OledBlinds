@@ -14,9 +14,10 @@ class TopBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingM
         param.height = floatingMenuService.height
         param.gravity = Gravity.TOP
         viewLayout = LayoutInflater.from(context).inflate(R.layout.top_bar,null)
-        closeButton = viewLayout.findViewById<ImageButton>(R.id.top_close_button)
-        rotateButton = viewLayout.findViewById<ImageButton>(R.id.top_rotate_button)
-        lockButton = viewLayout.findViewById<ImageButton>(R.id.top_lock_button)
+        closeButton = viewLayout.findViewById(R.id.top_close_button)
+        rotateButton = viewLayout.findViewById(R.id.top_rotate_button)
+        lockButton = viewLayout.findViewById(R.id.top_lock_button)
         setListeners()
+        setLockIconFromPrefs(lockButton)
     }
 }
