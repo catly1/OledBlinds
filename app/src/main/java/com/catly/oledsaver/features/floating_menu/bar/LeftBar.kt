@@ -24,5 +24,6 @@ class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floating
         setListeners()
         setLockIconFromPrefs(lockButton)
         hideButtons()
+        handleBarVisibility(floatingMenuService)
     }
 }

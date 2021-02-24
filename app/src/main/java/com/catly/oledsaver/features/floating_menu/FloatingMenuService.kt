@@ -422,4 +422,18 @@ class FloatingMenuService : Service() {
 //            handleCutoutOnRotation(mWindowManager.defaultDisplay.rotation)
 //        }
     }
+
+    fun showButtons() {
+        if (flipped){
+            leftBar.showButtons()
+            leftBar.hideButtons()
+            rightBar.showButtons()
+            rightBar.hideButtons()
+        } else {
+            topBar.showButtons()
+            topBar.hideButtons()
+            bottomBar.showButtons()
+            bottomBar.hideButtons()
+        }
+    }
 }

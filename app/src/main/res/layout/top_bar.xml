@@ -6,6 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black">
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/top_bar_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="top_close_button, top_rotate_button, top_lock_button"
+        />
 
     <ImageButton
         android:id="@+id/top_close_button"

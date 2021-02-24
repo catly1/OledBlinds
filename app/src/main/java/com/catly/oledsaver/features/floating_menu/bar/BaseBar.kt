@@ -34,4 +34,14 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
     fun hideButtons(){
         viewLayout.postDelayed(hideRunnable , hideDuration)
     }
+
+    fun showButtons(){
+        viewLayout.removeCallbacks(hideRunnable)
+    }
+
+    fun handleBarVisibility(floatingMenuService: FloatingMenuService){
+        viewLayout.setOnClickListener {
+            floatingMenuService.showButtons()
+        }
+    }
 }

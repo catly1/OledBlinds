@@ -22,7 +22,12 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
         param.gravity = Gravity.RIGHT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.right_bar, null)
         resizeButton = viewLayout.findViewById(R.id.right_resize_button)
+        hideRunnable = Runnable {
+            viewLayout.findViewById<View>(R.id.right_bar_buttons).visibility = View.GONE
+        }
         setListeners()
+        hideButtons()
+        handleBarVisibility(floatingMenuService)
     }
 
     @SuppressLint("ClickableViewAccessibility")

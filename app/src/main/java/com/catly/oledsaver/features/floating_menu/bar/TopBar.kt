@@ -2,6 +2,7 @@ package com.catly.oledsaver.features.floating_menu.bar
 
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import com.catly.oledsaver.R
@@ -17,7 +18,12 @@ class TopBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingM
         closeButton = viewLayout.findViewById(R.id.top_close_button)
         rotateButton = viewLayout.findViewById(R.id.top_rotate_button)
         lockButton = viewLayout.findViewById(R.id.top_lock_button)
+        hideRunnable = Runnable {
+            viewLayout.findViewById<View>(R.id.top_bar_buttons).visibility = View.GONE
+        }
         setListeners()
         setLockIconFromPrefs(lockButton)
+        hideButtons()
+        handleBarVisibility(floatingMenuService)
     }
 }
