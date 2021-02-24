@@ -153,12 +153,13 @@ class FloatingMenuService : Service() {
     override fun onCreate() {
         super.onCreate()
         getPrefValues()
-        setWidthHeightValues()
-        if (flipped){
-            leftRightMode()
-        } else {
-            topDownMode()
-        }
+//        setWidthHeightValues()
+        leftRightMode()
+//        if (flipped){
+//            leftRightMode()
+//        } else {
+//            topDownMode()
+//        }
         sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = true
     }
@@ -195,6 +196,7 @@ class FloatingMenuService : Service() {
     private fun leftRightMode(){
         rightBar = RightBar(this)
         leftBar = LeftBar(this)
+        println(rightBar.param.width)
         windowManager.addView(leftBar.viewLayout,leftBar.param)
         windowManager.addView(rightBar.viewLayout,rightBar.param)
 //        addLeftRightViews()
@@ -343,8 +345,8 @@ class FloatingMenuService : Service() {
     }
 
     private fun removeLeftRight(){
-        windowManager.removeView(leftBarView)
-        windowManager.removeView(rightBarView)
+        windowManager.removeView(leftBar.viewLayout)
+        windowManager.removeView(rightBar.viewLayout)
     }
 
     private fun manageTopBottomVisibility() {

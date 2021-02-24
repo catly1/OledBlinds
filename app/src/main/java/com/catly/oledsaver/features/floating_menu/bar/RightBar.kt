@@ -1,9 +1,11 @@
 package com.catly.oledsaver.features.floating_menu.bar
 
 import android.annotation.SuppressLint
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
@@ -15,6 +17,9 @@ import kotlinx.android.synthetic.main.right_bar.view.*
 class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(floatingMenuService) {
     init {
         TAG = "RightBar"
+        param.width = sharedPreferences.getInt("width",200)
+        param.height = MATCH_PARENT
+        param.gravity = Gravity.RIGHT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.right_bar, null)
         resizeButton = viewLayout.findViewById<ImageButton>(R.id.right_resize_button)
         setListeners()
