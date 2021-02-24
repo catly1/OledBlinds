@@ -24,6 +24,7 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
     val windowManager = floatingMenuService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
     lateinit var viewLayout : View
     lateinit var hideRunnable: Runnable
+    lateinit var buttonsGroup: View
     var hideDuration: Long = 3000
     var TAG = ""
 
@@ -36,7 +37,7 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
     }
 
     fun showButtons(){
-        viewLayout.removeCallbacks(hideRunnable)
+        buttonsGroup.visibility = View.VISIBLE
     }
 
     fun handleBarVisibility(floatingMenuService: FloatingMenuService){

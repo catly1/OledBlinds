@@ -28,58 +28,30 @@ class FloatingMenuService : Service() {
     private lateinit var sharedpreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
     lateinit var windowManager: WindowManager
-    private lateinit var topBarView: View
-    private lateinit var bottomBarView: View
-    private lateinit var leftBarView: View
-    private lateinit var rightBarView: View
-    private lateinit var topCloseButton: ImageButton
-    private lateinit var leftCloseButton: ImageButton
-    private lateinit var bottomResizeButton: ImageButton
-    private lateinit var rightResizeButton: ImageButton
-    private lateinit var topRotateButton: ImageButton
-    private lateinit var leftRotateButton: ImageButton
-    private lateinit var topLockButton: ImageButton
-    private lateinit var leftLockButton: ImageButton
+    lateinit var leftBar: LeftBar
+    lateinit var rightBar: RightBar
+    lateinit var topBar: TopBar
+    lateinit var bottomBar: BottomBar
     var width: Int = 0
     var height: Int = 0
     var locked = false
     var override = false
     var isActive = false
     var statusBarSize = 0
-    lateinit var overrideButton: ImageButton
-    lateinit var leftBar: LeftBar
-    lateinit var rightBar: RightBar
-    lateinit var topBar: TopBar
-    lateinit var bottomBar: BottomBar
 
     companion object {
-        fun startService(context: Context){
+        fun startService(context: Context) {
             val startIntent = Intent(context, FloatingMenuService::class.java)
             context.startForegroundService(startIntent)
         }
 
-        fun stopService(context: Context){
+        fun stopService(context: Context) {
             val stopIntent = Intent(context, FloatingMenuService::class.java)
             context.stopService(stopIntent)
         }
 
         var isRunning = false
     }
-    private var topHideRunnable: Runnable = Runnable {
-        topCloseButton.visibility = View.GONE
-        topRotateButton.visibility = View.GONE
-        topLockButton.visibility = View.GONE
-    }
-    private var bottomHideRunnable: Runnable = Runnable {
-        bottomResizeButton.visibility = View.GONE }
-
-    private var leftHideRunnable: Runnable = Runnable {
-        leftCloseButton.visibility = View.GONE
-        leftRotateButton.visibility = View.GONE
-        leftLockButton.visibility = View.GONE
-    }
-    private var rightHideRunnable: Runnable = Runnable {
-        rightResizeButton.visibility = View.GONE }
 
     private var flipped = false
 
@@ -189,8 +161,6 @@ class FloatingMenuService : Service() {
         topBar = TopBar(this)
         windowManager.addView(bottomBar.viewLayout, bottomBar.param)
         windowManager.addView(topBar.viewLayout, topBar.param)
-//        hideTopBottomButtons()
-//        manageTopBottomVisibility()
     }
 
     private fun leftRightMode(){
@@ -198,8 +168,6 @@ class FloatingMenuService : Service() {
         leftBar = LeftBar(this)
         windowManager.addView(leftBar.viewLayout,leftBar.param)
         windowManager.addView(rightBar.viewLayout,rightBar.param)
-//        hideLeftRightButtons()
-//        manageLeftRightVisibility()
     }
 
 //    private fun createRightBar(){
@@ -250,35 +218,6 @@ class FloatingMenuService : Service() {
 //                }
 //            })
 //        }
-//        overrideButton = rightBarView.findViewById<ImageButton>(R.id.override_button).also {
-//            it.setOnTouchListener(object : View.OnTouchListener {
-//                var initialX: Int = 0
-//                var initialTouchX: Float = 0.toFloat()
-//                override fun onTouch(view: View, event: MotionEvent): Boolean {
-//                    when (event.action) {
-//                        MotionEvent.ACTION_DOWN -> {
-//                            initialX = rightParam.x
-//                            initialTouchX = event.rawX
-////                            stopLeftRightHideRunnables()
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_MOVE -> {
-//                            rightParam.x = (initialX - (event.rawX - initialTouchX)).toInt()
-//                            updateLeftRight()
-////                            println("left: " + leftParam.x)
-////                            println("right: " + rightParam.x)
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_UP ->{
-////                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
-//                            hideLeftRightButtons()
-//                        }
-//                    }
-//
-//                    return false
-//                }
-//            })
-//        }
 //    }
 
     override fun onDestroy() {
@@ -300,44 +239,6 @@ class FloatingMenuService : Service() {
     private fun removeLeftRight(){
         windowManager.removeView(leftBar.viewLayout)
         windowManager.removeView(rightBar.viewLayout)
-    }
-
-    private fun manageTopBottomVisibility() {
-        topBarView.setOnClickListener {
-            makeTopBottomButtonsVisible()
-            hideTopBottomButtons()
-        }
-
-        bottomBarView.setOnClickListener {
-            makeTopBottomButtonsVisible()
-            hideTopBottomButtons()
-        }
-    }
-
-    private fun manageLeftRightVisibility() {
-        leftBarView.setOnClickListener {
-            makeLeftRightButtonsVisible()
-            hideLeftRightButtons()
-        }
-
-        rightBarView.setOnClickListener {
-            makeLeftRightButtonsVisible()
-            hideLeftRightButtons()
-        }
-    }
-
-    private fun makeTopBottomButtonsVisible() {
-        topCloseButton.visibility = View.VISIBLE
-        topRotateButton.visibility = View.VISIBLE
-        topLockButton.visibility = View.VISIBLE
-        bottomResizeButton.visibility = View.VISIBLE
-    }
-
-    private fun makeLeftRightButtonsVisible() {
-        leftCloseButton.visibility = View.VISIBLE
-        leftRotateButton.visibility = View.VISIBLE
-        leftLockButton.visibility = View.VISIBLE
-        rightResizeButton.visibility = View.VISIBLE
     }
 
     private fun calcDimensions() : WindowManager.LayoutParams{
@@ -391,26 +292,6 @@ class FloatingMenuService : Service() {
         }
     }
 
-    private fun hideTopBottomButtons() {
-        topBarView.postDelayed(topHideRunnable, 3000)
-        bottomBarView.postDelayed(bottomHideRunnable, 3000)
-    }
-
-    private fun hideLeftRightButtons(){
-        leftBarView.postDelayed(leftHideRunnable, 3000)
-        rightBarView.postDelayed(rightHideRunnable,3000)
-    }
-
-    private fun stopTopBottomHideRunnables(){
-        bottomBarView.removeCallbacks(bottomHideRunnable)
-        topBarView.removeCallbacks(topHideRunnable)
-    }
-
-    private fun stopLeftRightHideRunnables(){
-        leftBarView.removeCallbacks(leftHideRunnable)
-        rightBarView.removeCallbacks(rightHideRunnable)
-    }
-
     private fun checkIfValidNumber(num: Int) : Boolean{
         return num > 60
     }
@@ -425,15 +306,31 @@ class FloatingMenuService : Service() {
 
     fun showButtons() {
         if (flipped){
-            leftBar.showButtons()
-            leftBar.hideButtons()
-            rightBar.showButtons()
-            rightBar.hideButtons()
+            showLeftRightButtons()
+            hideLeftRightButtons()
         } else {
-            topBar.showButtons()
-            topBar.hideButtons()
-            bottomBar.showButtons()
-            bottomBar.hideButtons()
+            showTopBottomButtons()
+            hideLeftRightButtons()
         }
+    }
+
+    fun showLeftRightButtons(){
+        leftBar.showButtons()
+        rightBar.showButtons()
+    }
+
+    fun hideLeftRightButtons(){
+        leftBar.hideButtons()
+        rightBar.hideButtons()
+    }
+
+    fun showTopBottomButtons(){
+        topBar.showButtons()
+        bottomBar.showButtons()
+    }
+
+    fun hideTopBottomButtons(){
+        topBar.hideButtons()
+        bottomBar.hideButtons()
     }
 }

@@ -18,8 +18,9 @@ class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floating
         closeButton = viewLayout.findViewById(R.id.left_close_button)
         rotateButton = viewLayout.findViewById(R.id.left_rotate_button)
         lockButton = viewLayout.findViewById(R.id.left_lock_button)
+        buttonsGroup = viewLayout.findViewById<View>(R.id.left_bar_buttons)
         hideRunnable = Runnable {
-            viewLayout.findViewById<View>(R.id.left_bar_buttons).visibility = View.GONE
+            buttonsGroup.visibility = View.GONE
         }
         setListeners()
         setLockIconFromPrefs(lockButton)

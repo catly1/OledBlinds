@@ -20,8 +20,9 @@ class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(fl
         param.gravity = Gravity.BOTTOM
         viewLayout = LayoutInflater.from(context).inflate(R.layout.bottom_bar, null)
         resizeButton = viewLayout.findViewById<ImageButton>(R.id.bottom_resize_button)
+        buttonsGroup = viewLayout.findViewById<View>(R.id.bottom_bar_buttons)
         hideRunnable = Runnable {
-            viewLayout.findViewById<View>(R.id.bottom_bar_buttons).visibility = View.GONE
+            buttonsGroup.visibility = View.GONE
         }
         setListeners()
         hideButtons()
@@ -42,7 +43,7 @@ class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(fl
                         initialY = param.y
                         initialHeight = param.height
                         initialTouchY = event.rawY
-//                        stopTopBottomHideRunnables()
+                        floatingMenuService.showTopBottomButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
@@ -57,7 +58,7 @@ class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(fl
                     }
                     MotionEvent.ACTION_UP ->{
                         sharedPreferences.edit().putInt("height", param.height).apply()
-//                        hideTopBottomButtons()
+                        floatingMenuService.hideTopBottomButtons()
                     }
                 }
 

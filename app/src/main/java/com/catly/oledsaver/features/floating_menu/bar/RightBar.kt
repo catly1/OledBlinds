@@ -22,8 +22,10 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
         param.gravity = Gravity.RIGHT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.right_bar, null)
         resizeButton = viewLayout.findViewById(R.id.right_resize_button)
+        overrideButton = viewLayout.findViewById(R.id.right_override_button)
+        buttonsGroup = viewLayout.findViewById<View>(R.id.right_bar_buttons)
         hideRunnable = Runnable {
-            viewLayout.findViewById<View>(R.id.right_bar_buttons).visibility = View.GONE
+            buttonsGroup.visibility = View.GONE
         }
         setListeners()
         hideButtons()
@@ -43,7 +45,7 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
                         initialX = param.x
                         initialWidth = param.width
                         initialTouchX = event.rawX
-//                        stopLeftRightHideRunnables()
+                        floatingMenuService.showLeftRightButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
@@ -54,18 +56,44 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
                             floatingMenuService.leftBar.update()
                             update()
                         }
-//                            println("left: " + leftParam.x)
-//                            println("right: " + rightParam.x)
                         return true
                     }
                     MotionEvent.ACTION_UP ->{
                         sharedPreferences.edit().putInt("width", param.width).apply()
-//                        hideLeftRightButtons()
+                        floatingMenuService.hideLeftRightButtons()
                     }
                 }
 
                 return false
             }
+        })
+
+        overrideButton.setOnTouchListener(object : View.OnTouchListener {
+                var initialX: Int = 0
+                var initialTouchX: Float = 0.toFloat()
+                override fun onTouch(view: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            initialX = param.x
+                            initialTouchX = event.rawX
+                            floatingMenuService.showLeftRightButtons()
+                            return true
+                        }
+                        MotionEvent.ACTION_MOVE -> {
+                            param.x = (initialX - (event.rawX - initialTouchX)).toInt()
+                            update()
+//                            println("left: " + leftParam.x)
+//                            println("right: " + rightParam.x)
+                            return true
+                        }
+                        MotionEvent.ACTION_UP ->{
+//                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
+                            floatingMenuService.hideLeftRightButtons()
+                        }
+                    }
+
+                    return false
+                }
         })
     }
 }

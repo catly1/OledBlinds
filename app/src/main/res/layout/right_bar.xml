@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="right_resize_button, override_button"
+        app:constraint_referenced_ids="right_resize_button, right_override_button"
         />
 
     <ImageButton
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/override_button"
+        android:id="@+id/right_override_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/black"
