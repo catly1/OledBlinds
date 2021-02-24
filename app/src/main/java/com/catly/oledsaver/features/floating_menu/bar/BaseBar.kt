@@ -37,6 +37,7 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
     }
 
     fun showButtons(){
+        viewLayout.removeCallbacks(hideRunnable)
         buttonsGroup.visibility = View.VISIBLE
     }
 

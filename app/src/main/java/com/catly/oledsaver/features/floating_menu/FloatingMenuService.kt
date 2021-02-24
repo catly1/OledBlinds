@@ -170,56 +170,6 @@ class FloatingMenuService : Service() {
         windowManager.addView(rightBar.viewLayout,rightBar.param)
     }
 
-//    private fun createRightBar(){
-//        rightBarView = LayoutInflater.from(this).inflate(R.layout.right_bar, null)
-//        rightParam = WindowManager.LayoutParams(width,
-//            MATCH_PARENT,
-//            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//            PixelFormat.TRANSLUCENT
-//        )
-//        rightParam.gravity = Gravity.RIGHT
-//        if (windowManager.defaultDisplay.rotation == Surface.ROTATION_270 && override){
-//            rightParam.x = -statusBarSize
-//        }
-//        rightResizeButton = rightBarView.findViewById<ImageButton>(R.id.right_resize_button).also {
-//            it.setOnTouchListener(object : View.OnTouchListener {
-//                var initialX: Int = 0
-//                var initialTouchX: Float = 0.toFloat()
-//                var initialWidth: Int = 0
-//                var calculatedWidth = 0
-//                override fun onTouch(view: View, event: MotionEvent): Boolean {
-//                    when (event.action) {
-//                        MotionEvent.ACTION_DOWN -> {
-//                            initialX = rightParam.x
-//                            initialWidth = rightParam.width
-//                            initialTouchX = event.rawX
-//                            stopLeftRightHideRunnables()
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_MOVE -> {
-//                            calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
-//                            if (checkIfValidNumber(calculatedWidth)) {
-//                                leftParam.width = calculatedWidth
-//                                rightParam.width = leftParam.width
-//                                updateLeftRight()
-//                            }
-////                            println("left: " + leftParam.x)
-////                            println("right: " + rightParam.x)
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_UP ->{
-//                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
-//                            hideLeftRightButtons()
-//                        }
-//                    }
-//
-//                    return false
-//                }
-//            })
-//        }
-//    }
-
     override fun onDestroy() {
         super.onDestroy()
         if (flipped) {
