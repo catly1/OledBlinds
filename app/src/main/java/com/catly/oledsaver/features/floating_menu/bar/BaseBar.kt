@@ -23,9 +23,15 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     val windowManager = floatingMenuService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
     lateinit var viewLayout : View
+    lateinit var hideRunnable: Runnable
+    var hideDuration: Long = 3000
     var TAG = ""
 
     fun update(){
         windowManager.updateViewLayout(viewLayout, param)
+    }
+
+    fun hideButtons(){
+        viewLayout.postDelayed(hideRunnable , hideDuration)
     }
 }
