@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.main.MainActivity
-import kotlinx.android.synthetic.main.welcome_fragment.*
+import kotlinx.android.synthetic.main.permissions_fragment.*
 
 class WelcomeFragment : Fragment() {
     private val drawOtherAppPermissionCode = 2084
@@ -46,7 +46,7 @@ class WelcomeFragment : Fragment() {
         }
 
 
-        return inflater.inflate(R.layout.welcome_fragment, container, false)
+        return inflater.inflate(R.layout.permissions_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

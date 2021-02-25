@@ -126,7 +126,7 @@ class FloatingWindowService : Service() {
         }
     }
 
-    fun handleOverrideButton(){
+    private fun handleOverrideButton(){
         rightBar.showOverrideButton()
         if (!locked){
             rightBar.enableOverrideButton()
@@ -299,9 +299,7 @@ class FloatingWindowService : Service() {
             leftRightMode()
             PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putBoolean("isFlipped", true).apply()
-            if (override){
-                handleLeftRightBarCutoutAdjustment()
-            }
+            handleLeftRightBarCutoutAdjustment()
             true
         }
     }

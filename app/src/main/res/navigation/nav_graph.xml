@@ -16,7 +16,7 @@
         android:id="@+id/welcomeFragment"
         android:name="com.catly.oledsaver.features.home.WelcomeFragment"
         android:label="WelcomeFragment"
-        tools:layout="@layout/welcome_fragment">
+        tools:layout="@layout/permissions_fragment">
         <action
             android:id="@+id/action_welcomeFragment_to_guideFragment"
             app:destination="@id/guideFragment" />
