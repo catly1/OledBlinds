@@ -1,18 +1,17 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ImageButton
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
-class TopBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingMenuService) {
+class TopBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {
     init {
         TAG = "TopBar"
-        param.width = MATCH_PARENT
-        param.height = floatingMenuService.height
+        param.width = floatingWindowService.overrideWidth
+        param.height = floatingWindowService.height
         param.gravity = Gravity.TOP
         viewLayout = LayoutInflater.from(context).inflate(R.layout.top_bar,null)
         closeButton = viewLayout.findViewById(R.id.top_close_button)
@@ -25,6 +24,6 @@ class TopBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingM
         setListeners()
         setLockIconFromPrefs(lockButton)
         hideButtons()
-        handleBarVisibility(floatingMenuService)
+        handleBarVisibility(floatingWindowService)
     }
 }

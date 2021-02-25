@@ -7,15 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 import com.catly.oledsaver.features.main.MainActivity
-import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -42,7 +37,7 @@ class HomeViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         (requireActivity() as MainActivity).supportActionBar!!.show()
-        floatingMenuServiceIntent = Intent(activity, FloatingMenuService::class.java)
+        floatingMenuServiceIntent = Intent(activity, FloatingWindowService::class.java)
         PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("alreadyRanOnce", true).apply()
         parentFragmentManager
             .beginTransaction()

@@ -1,18 +1,17 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ImageButton
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
-class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floatingMenuService) {
+class LeftBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {
     init {
         TAG = "LeftBar"
         param.height = MATCH_PARENT
-        param.width = floatingMenuService.width
+        param.width = floatingWindowService.width
         param.gravity = Gravity.LEFT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.left_bar,null)
         closeButton = viewLayout.findViewById(R.id.left_close_button)
@@ -25,6 +24,6 @@ class LeftBar(floatingMenuService: FloatingMenuService): BaseButtonsBar(floating
         setListeners()
         setLockIconFromPrefs(lockButton)
         hideButtons()
-        handleBarVisibility(floatingMenuService)
+        handleBarVisibility(floatingWindowService)
     }
 }

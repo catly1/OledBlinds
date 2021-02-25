@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
 import android.annotation.SuppressLint
 import android.view.Gravity
@@ -7,16 +7,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
-import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 import com.catly.oledsaver.features.utils.Utils
 
-class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(floatingMenuService) {
+class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar(floatingWindowService) {
     init {
         TAG = "BottomBar"
-        param.width = MATCH_PARENT
-        param.height = floatingMenuService.height
+        param.width = floatingWindowService.overrideWidth
+        param.height = floatingWindowService.height
         param.gravity = Gravity.BOTTOM
         viewLayout = LayoutInflater.from(context).inflate(R.layout.bottom_bar, null)
         resizeButton = viewLayout.findViewById<ImageButton>(R.id.bottom_resize_button)
@@ -26,7 +25,7 @@ class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(fl
         }
         setListeners()
         hideButtons()
-        handleBarVisibility(floatingMenuService)
+        handleBarVisibility(floatingWindowService)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -43,22 +42,22 @@ class BottomBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(fl
                         initialY = param.y
                         initialHeight = param.height
                         initialTouchY = event.rawY
-                        floatingMenuService.showTopBottomButtons()
+                        floatingWindowService.showTopBottomButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
                         calculatedHeight = (initialHeight - (event.rawY - initialTouchY)).toInt()
                         if (Utils.checkIfValidNumber(calculatedHeight)){
                             param.height = calculatedHeight
-                            floatingMenuService.topBar.param.height = calculatedHeight
-                            floatingMenuService.topBar.update()
+                            floatingWindowService.topBar.param.height = calculatedHeight
+                            floatingWindowService.topBar.update()
                             update()
                         }
                         return true
                     }
                     MotionEvent.ACTION_UP ->{
                         sharedPreferences.edit().putInt("height", param.height).apply()
-                        floatingMenuService.hideTopBottomButtons()
+                        floatingWindowService.hideTopBottomButtons()
                     }
                 }
 

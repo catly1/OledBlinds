@@ -1,16 +1,15 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
 import android.app.Service
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.PixelFormat
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.preference.PreferenceManager
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
-open class BaseBar(floatingMenuService: FloatingMenuService) {
+open class BaseBar(floatingWindowService: FloatingWindowService) {
     val param = WindowManager.LayoutParams(
         0,
         0,
@@ -19,9 +18,9 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
         PixelFormat.TRANSLUCENT
     )
 
-    val context: Context = floatingMenuService.baseContext
+    val context: Context = floatingWindowService.baseContext
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    val windowManager = floatingMenuService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
+    val windowManager = floatingWindowService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
     lateinit var viewLayout : View
     lateinit var hideRunnable: Runnable
     lateinit var buttonsGroup: View
@@ -41,9 +40,9 @@ open class BaseBar(floatingMenuService: FloatingMenuService) {
         buttonsGroup.visibility = View.VISIBLE
     }
 
-    fun handleBarVisibility(floatingMenuService: FloatingMenuService){
+    fun handleBarVisibility(floatingWindowService: FloatingWindowService){
         viewLayout.setOnClickListener {
-            floatingMenuService.showButtons()
+            floatingWindowService.showButtons()
         }
     }
 }

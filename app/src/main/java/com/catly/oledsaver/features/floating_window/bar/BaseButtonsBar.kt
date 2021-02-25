@@ -1,12 +1,10 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
-import android.view.LayoutInflater
 import android.widget.ImageButton
-import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
-open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar(floatingMenuService) {
+open class BaseButtonsBar(val floatingWindowService: FloatingWindowService): BaseBar(floatingWindowService) {
     lateinit var closeButton: ImageButton
     lateinit var lockButton: ImageButton
     lateinit var rotateButton: ImageButton
@@ -15,10 +13,10 @@ open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar
 
     fun setListeners(){
         closeButton.setOnClickListener {
-            floatingMenuService.stopSelf()
+            floatingWindowService.stopSelf()
         }
         rotateButton.setOnClickListener {
-            floatingMenuService.rotate()
+            floatingWindowService.rotate()
         }
         lockButton.setOnClickListener {
             handleLockIcon(it as ImageButton)
@@ -26,21 +24,21 @@ open class BaseButtonsBar(val floatingMenuService: FloatingMenuService): BaseBar
     }
 
     private fun handleLockIcon(imageButton: ImageButton) {
-        floatingMenuService.locked = if (floatingMenuService.locked) {
+        floatingWindowService.locked = if (floatingWindowService.locked) {
             imageButton.setImageResource(unlockedIcon)
-            floatingMenuService.unlockButtons()
+            floatingWindowService.unlockButtons()
             sharedPreferences.edit().putBoolean("isLocked", false).apply()
             false
         } else {
             imageButton.setImageResource(lockedIcon)
-            floatingMenuService.lockButtons()
+            floatingWindowService.lockButtons()
             sharedPreferences.edit().putBoolean("isLocked", true).apply()
             true
         }
     }
 
     fun setLockIconFromPrefs(imageButton: ImageButton){
-        if (floatingMenuService.locked) {
+        if (floatingWindowService.locked) {
             imageButton.setImageResource(lockedIcon)
         } else {
             imageButton.setImageResource(unlockedIcon)

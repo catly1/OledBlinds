@@ -1,8 +1,6 @@
-package com.catly.oledsaver.features.floating_menu
+package com.catly.oledsaver.features.floating_window
 
-import android.app.ActivityManager
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -15,13 +13,13 @@ class OLEDBlindsTileService : TileService() {
         super.onClick()
         status = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)
         if (status) {
-            if (!FloatingMenuService.isRunning) {
-                FloatingMenuService.startService(this)
+            if (!FloatingWindowService.isRunning) {
+                FloatingWindowService.startService(this)
                 return
             }
-            FloatingMenuService.stopService(this)
+            FloatingWindowService.stopService(this)
         } else {
-            FloatingMenuService.startService(this)
+            FloatingWindowService.startService(this)
         }
         var closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
         this.sendBroadcast(closeNotificationPanelIntent)

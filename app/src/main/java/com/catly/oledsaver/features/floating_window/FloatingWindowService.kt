@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.floating_menu
+package com.catly.oledsaver.features.floating_window
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -14,16 +14,15 @@ import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ImageButton
 import androidx.core.app.NotificationCompat
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.bar.BottomBar
-import com.catly.oledsaver.features.floating_menu.bar.LeftBar
-import com.catly.oledsaver.features.floating_menu.bar.RightBar
-import com.catly.oledsaver.features.floating_menu.bar.TopBar
+import com.catly.oledsaver.features.floating_window.bar.BottomBar
+import com.catly.oledsaver.features.floating_window.bar.LeftBar
+import com.catly.oledsaver.features.floating_window.bar.RightBar
+import com.catly.oledsaver.features.floating_window.bar.TopBar
 import com.catly.oledsaver.features.main.MainActivity
 
-class FloatingMenuService : Service() {
+class FloatingWindowService : Service() {
 
     private lateinit var sharedpreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
@@ -33,7 +32,9 @@ class FloatingMenuService : Service() {
     lateinit var topBar: TopBar
     lateinit var bottomBar: BottomBar
     var width: Int = 0
+    var overrideWidth: Int = 0
     var height: Int = 0
+    var overrideHeight: Int = 0
     var locked = false
     var override = false
     var isActive = false
@@ -41,12 +42,12 @@ class FloatingMenuService : Service() {
 
     companion object {
         fun startService(context: Context) {
-            val startIntent = Intent(context, FloatingMenuService::class.java)
+            val startIntent = Intent(context, FloatingWindowService::class.java)
             context.startForegroundService(startIntent)
         }
 
         fun stopService(context: Context) {
-            val stopIntent = Intent(context, FloatingMenuService::class.java)
+            val stopIntent = Intent(context, FloatingWindowService::class.java)
             context.stopService(stopIntent)
         }
 
@@ -124,6 +125,7 @@ class FloatingMenuService : Service() {
         super.onCreate()
         getPrefValues()
         setWidthHeightValues()
+        handleOverrideDimensions()
         if (flipped){
             leftRightMode()
         } else {
@@ -137,6 +139,14 @@ class FloatingMenuService : Service() {
     private fun setLockState(){
         if (locked){
             lockButtons()
+        }
+    }
+
+    private fun handleOverrideDimensions(){
+        overrideWidth = if (override){
+            windowManager.defaultDisplay.width + 100
+        } else {
+            MATCH_PARENT
         }
     }
 

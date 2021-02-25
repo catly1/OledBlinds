@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.floating_menu.bar
+package com.catly.oledsaver.features.floating_window.bar
 
 import android.annotation.SuppressLint
 import android.view.Gravity
@@ -6,18 +6,15 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ImageButton
-import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.floating_menu.FloatingMenuService
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
 import com.catly.oledsaver.features.utils.Utils
-import kotlinx.android.synthetic.main.right_bar.view.*
 
 
-class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(floatingMenuService) {
+class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar(floatingWindowService) {
     init {
         TAG = "RightBar"
-        param.width = floatingMenuService.width
+        param.width = floatingWindowService.width
         param.height = MATCH_PARENT
         param.gravity = Gravity.RIGHT
         viewLayout = LayoutInflater.from(context).inflate(R.layout.right_bar, null)
@@ -29,7 +26,7 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
         }
         setListeners()
         hideButtons()
-        handleBarVisibility(floatingMenuService)
+        handleBarVisibility(floatingWindowService)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -45,22 +42,22 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
                         initialX = param.x
                         initialWidth = param.width
                         initialTouchX = event.rawX
-                        floatingMenuService.showLeftRightButtons()
+                        floatingWindowService.showLeftRightButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
                         calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
                         if (Utils.checkIfValidNumber(calculatedWidth)) {
-                            floatingMenuService.leftBar.param.width = calculatedWidth
+                            floatingWindowService.leftBar.param.width = calculatedWidth
                             param.width = calculatedWidth
-                            floatingMenuService.leftBar.update()
+                            floatingWindowService.leftBar.update()
                             update()
                         }
                         return true
                     }
                     MotionEvent.ACTION_UP ->{
                         sharedPreferences.edit().putInt("width", param.width).apply()
-                        floatingMenuService.hideLeftRightButtons()
+                        floatingWindowService.hideLeftRightButtons()
                     }
                 }
 
@@ -76,7 +73,7 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
                         MotionEvent.ACTION_DOWN -> {
                             initialX = param.x
                             initialTouchX = event.rawX
-                            floatingMenuService.showLeftRightButtons()
+                            floatingWindowService.showLeftRightButtons()
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
@@ -88,7 +85,7 @@ class RightBar(val floatingMenuService: FloatingMenuService) : BaseMovingBar(flo
                         }
                         MotionEvent.ACTION_UP ->{
 //                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
-                            floatingMenuService.hideLeftRightButtons()
+                            floatingWindowService.hideLeftRightButtons()
                         }
                     }
 

@@ -24,13 +24,13 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.catly.oledsaver.features.floating_menu.FloatingMenuService"
+            android:name="com.catly.oledsaver.features.floating_window.FloatingWindowService"
             android:enabled="true"
             android:exported="false"
             />
 
         <service
-            android:name="com.catly.oledsaver.features.floating_menu.OLEDBlindsTileService"
+            android:name="com.catly.oledsaver.features.floating_window.OLEDBlindsTileService"
             android:label="@string/app_tile_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             >
