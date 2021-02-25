@@ -26,4 +26,6 @@ class LeftBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floa
         hideButtons()
         handleBarVisibility(floatingWindowService)
     }
+
+
 }

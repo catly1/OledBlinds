@@ -19,7 +19,6 @@ open class BaseBar(floatingWindowService: FloatingWindowService) {
         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
         PixelFormat.TRANSLUCENT
     )
-
     val context: Context = floatingWindowService.baseContext
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     val windowManager = floatingWindowService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
@@ -59,6 +58,16 @@ open class BaseBar(floatingWindowService: FloatingWindowService) {
 
     fun updateWidth(int: Int){
         param.width = (int)
+        update()
+    }
+
+    fun revertX(){
+        param.x = 0
+        update()
+    }
+
+    fun adjustForCutoff(cutoff: Int){
+        param.x = -cutoff
         update()
     }
 }

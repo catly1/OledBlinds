@@ -77,14 +77,18 @@ class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar
                             return true
                         }
                         MotionEvent.ACTION_MOVE -> {
-                            param.x = (initialX - (event.rawX - initialTouchX)).toInt()
-                            update()
+                            val calculatedX = (initialX - (event.rawX - initialTouchX)).toInt()
+//                            param.x = (initialX - (event.rawX - initialTouchX)).toInt()
+                            when (floatingWindowService.rotation){
+                                90 -> {floatingWindowService.setAndUpdateOffset(calculatedX)}
+                                270 -> {floatingWindowService.setAndUpdateOffset(-calculatedX)}
+                            }
 //                            println("left: " + leftParam.x)
 //                            println("right: " + rightParam.x)
                             return true
                         }
                         MotionEvent.ACTION_UP ->{
-//                            PreferenceManager.getDefaultSharedPreferences(this@FloatingMenuService).edit().putInt("width", rightParam.width).apply()
+                            floatingWindowService.saveOffset()
                             floatingWindowService.hideLeftRightButtons()
                         }
                     }

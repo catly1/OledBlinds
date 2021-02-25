@@ -8,13 +8,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.graphics.PixelFormat
+import android.hardware.display.DisplayManager
+import android.hardware.display.DisplayManager.DisplayListener
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
-import androidx.preference.PreferenceManager
+import android.os.PowerManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.core.app.NotificationCompat
+import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.bar.BottomBar
 import com.catly.oledsaver.features.floating_window.bar.LeftBar
@@ -22,23 +25,26 @@ import com.catly.oledsaver.features.floating_window.bar.RightBar
 import com.catly.oledsaver.features.floating_window.bar.TopBar
 import com.catly.oledsaver.features.main.MainActivity
 
+
 class FloatingWindowService : Service() {
 
     private lateinit var sharedpreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
     lateinit var windowManager: WindowManager
+    lateinit var powerManager: PowerManager
+    lateinit var displayManager: DisplayManager
     lateinit var leftBar: LeftBar
     lateinit var rightBar: RightBar
     lateinit var topBar: TopBar
     lateinit var bottomBar: BottomBar
     var width: Int = 0
-    var overrideWidth: Int = 0
+    var overrideWidthForTopBottom: Int = 0
     var height: Int = 0
-    var overrideHeight: Int = 0
     var locked = false
     var override = false
     var isActive = false
     var statusBarSize = 0
+    var rotation = 0
 
     companion object {
         fun startService(context: Context) {
@@ -60,38 +66,87 @@ class FloatingWindowService : Service() {
         return null
     }
 
-    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key : String->
+    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key: String->
         when (key) {
-            "override"->{
+            "override" -> {
                 override = sharedPreferences.getBoolean(key, false)
-                if (isActive){
+                if (isActive) {
                     refresh()
                 }
             }
-            "isActive"->{
+            "isActive" -> {
                 isActive = sharedPreferences.getBoolean(key, false)
             }
         }
     }
 
-    private fun refresh() {
-        handleOverrideDimensions()
-        if (flipped) {
-            leftBar.update()
-            rightBar.update()
-        } else {
-            topBar.updateWidth(overrideWidth)
-            bottomBar.updateWidth(overrideWidth)
+    private val displayListener: DisplayListener = object : DisplayListener {
+        override fun onDisplayAdded(displayId: Int) {
+        }
+
+        override fun onDisplayChanged(displayId: Int) {
+            if (powerManager.isInteractive and override and flipped){
+                handleLeftRightBarCutoutAdjustment()
+            }
+        }
+
+        override fun onDisplayRemoved(displayId: Int) {
         }
     }
 
 
+    private fun refresh() {
+        handleOverrideDimensions()
+        if (flipped) {
+            handleLeftRightBarCutoutAdjustment()
+        } else {
+            topBar.updateWidth(overrideWidthForTopBottom)
+            bottomBar.updateWidth(overrideWidthForTopBottom)
+        }
+    }
+
+    private fun handleLeftRightBarCutoutAdjustment(){
+        if (override) {
+            handleOverrideButton()
+            when (windowManager.defaultDisplay.rotation) {
+                Surface.ROTATION_90 -> {
+                    rotation = 90
+                    rightBar.revertX()
+                    leftBar.adjustForCutoff(statusBarSize)
+                }
+                Surface.ROTATION_270 -> {
+                    rotation = 270
+                    leftBar.revertX()
+                    rightBar.adjustForCutoff(statusBarSize)
+                }
+            }
+        } else {
+            rightBar.hideOverrideButton()
+            rightBar.disableOverrideButton()
+        }
+    }
+
+    fun handleOverrideButton(){
+        rightBar.showOverrideButton()
+        if (!locked){
+            rightBar.enableOverrideButton()
+        }
+    }
+
+    fun setAndUpdateOffset(offset: Int){
+        statusBarSize = offset
+        handleLeftRightBarCutoutAdjustment()
+    }
+
+    fun saveOffset(){
+        sharedpreferences.edit().putString("statusBarSize", statusBarSize.toString()).apply()
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("OLED Blinds")
@@ -100,25 +155,29 @@ class FloatingWindowService : Service() {
             .setContentIntent(pendingIntent)
             .build()
 
-        startForeground(1,notification)
+        startForeground(1, notification)
         return super.onStartCommand(intent, flags, startId)
     }
 
     private fun createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val serviceChannel = NotificationChannel(channelID, "OLED Blinds Service Channel",
-                NotificationManager.IMPORTANCE_DEFAULT)
+            val serviceChannel = NotificationChannel(
+                channelID, "OLED Blinds Service Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             val manager = getSystemService(NotificationManager::class.java)
             manager!!.createNotificationChannel(serviceChannel)
         }
     }
 
-    private fun getPrefValues(){
+    private fun getPrefValuesAndSystemServices(){
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedpreferences.edit().putBoolean("isActive", true).apply()
         isActive = sharedpreferences.getBoolean("isActive", false)
         override = sharedpreferences.getBoolean("override", false)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        powerManager = getSystemService(POWER_SERVICE) as PowerManager
+        displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
         flipped = sharedpreferences.getBoolean("isFlipped", false)
         locked = sharedpreferences.getBoolean("isLocked", false)
         statusBarSize = sharedpreferences.getString("statusBarSize", "92")!!.toInt()
@@ -126,16 +185,18 @@ class FloatingWindowService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        getPrefValues()
+        getPrefValuesAndSystemServices()
         setWidthHeightValues()
         handleOverrideDimensions()
         if (flipped){
             leftRightMode()
+            handleLeftRightBarCutoutAdjustment()
         } else {
             topDownMode()
         }
         setLockState()
         sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
+        displayManager.registerDisplayListener(displayListener, Handler())
         isRunning = true
     }
 
@@ -146,7 +207,7 @@ class FloatingWindowService : Service() {
     }
 
     private fun handleOverrideDimensions(){
-        overrideWidth = if (override){
+        overrideWidthForTopBottom = if (override){
             windowManager.defaultDisplay.width + statusBarSize * 2
         } else {
             MATCH_PARENT
@@ -154,14 +215,13 @@ class FloatingWindowService : Service() {
     }
 
     private fun setWidthHeightValues(){
-        width = PreferenceManager.getDefaultSharedPreferences(this).getInt("width",200)
+        width = sharedpreferences.getInt("width", 200)
         width = if (checkIfValidNumber(width)){
             width
         } else {
             200
         }
-
-        height = PreferenceManager.getDefaultSharedPreferences(this).getInt("height",200)
+        height = sharedpreferences.getInt("height", 200)
         height = if (checkIfValidNumber(height)){
             height
         } else {
@@ -190,7 +250,8 @@ class FloatingWindowService : Service() {
         } else {
             removeTopBottom()
         }
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("isActive", false).apply()
+        displayManager.unregisterDisplayListener(displayListener)
+        sharedpreferences.edit().putBoolean("isActive", false).apply()
         isActive = false
     }
 
@@ -238,20 +299,15 @@ class FloatingWindowService : Service() {
             leftRightMode()
             PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putBoolean("isFlipped", true).apply()
+            if (override){
+                handleLeftRightBarCutoutAdjustment()
+            }
             true
         }
     }
 
     private fun checkIfValidNumber(num: Int) : Boolean{
         return num > 60
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        refresh()
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            handleCutoutOnRotation(mWindowManager.defaultDisplay.rotation)
-//        }
     }
 
     fun showButtons() {

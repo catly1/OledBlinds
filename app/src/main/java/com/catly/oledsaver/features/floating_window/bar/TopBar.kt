@@ -3,14 +3,13 @@ package com.catly.oledsaver.features.floating_window.bar
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
 class TopBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {
     init {
         TAG = "TopBar"
-        param.width = floatingWindowService.overrideWidth
+        param.width = floatingWindowService.overrideWidthForTopBottom
         param.height = floatingWindowService.height
         param.gravity = Gravity.TOP
         viewLayout = LayoutInflater.from(context).inflate(R.layout.top_bar,null)

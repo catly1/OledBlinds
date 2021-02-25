@@ -1,6 +1,8 @@
 package com.catly.oledsaver.features.floating_window.bar
 
+import android.view.View
 import android.widget.ImageButton
+import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
 open class BaseMovingBar(floatingWindowService: FloatingWindowService): BaseBar(floatingWindowService) {
@@ -9,9 +11,27 @@ open class BaseMovingBar(floatingWindowService: FloatingWindowService): BaseBar(
 
     fun lockButtons(){
         resizeButton.isEnabled = false
+        overrideButton.isEnabled = false
     }
 
     fun unlockButtons(){
         resizeButton.isEnabled = true
+        overrideButton.isEnabled = true
+    }
+
+    fun hideOverrideButton(){
+        overrideButton.setImageResource(R.color.black)
+    }
+
+    fun showOverrideButton(){
+        overrideButton.setImageResource(R.drawable.baseline_api_white_24dp)
+    }
+
+    fun disableOverrideButton(){
+        overrideButton.isEnabled = false
+    }
+
+    fun enableOverrideButton(){
+        overrideButton.isEnabled = true
     }
 }

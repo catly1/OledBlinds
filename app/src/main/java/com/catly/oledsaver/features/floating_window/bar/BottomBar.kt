@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageButton
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
@@ -14,7 +13,7 @@ import com.catly.oledsaver.features.utils.Utils
 class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar(floatingWindowService) {
     init {
         TAG = "BottomBar"
-        param.width = floatingWindowService.overrideWidth
+        param.width = floatingWindowService.overrideWidthForTopBottom
         param.height = floatingWindowService.height
         param.gravity = Gravity.BOTTOM
         viewLayout = LayoutInflater.from(context).inflate(R.layout.bottom_bar, null)
