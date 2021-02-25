@@ -4,10 +4,12 @@ import android.app.Service
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.PixelFormat
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
+import java.lang.Exception
 
 open class BaseBar(floatingWindowService: FloatingWindowService) {
     val param = WindowManager.LayoutParams(
@@ -44,5 +46,19 @@ open class BaseBar(floatingWindowService: FloatingWindowService) {
         viewLayout.setOnClickListener {
             floatingWindowService.showButtons()
         }
+    }
+
+    fun remove(){
+        windowManager.removeView(viewLayout)
+
+    }
+
+    fun attach(){
+        windowManager.addView(viewLayout,param)
+    }
+
+    fun updateWidth(int: Int){
+        param.width = (int)
+        update()
     }
 }

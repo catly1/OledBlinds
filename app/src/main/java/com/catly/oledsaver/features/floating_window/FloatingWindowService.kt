@@ -75,14 +75,17 @@ class FloatingWindowService : Service() {
     }
 
     private fun refresh() {
+        handleOverrideDimensions()
         if (flipped) {
-            removeLeftRight()
-            leftRightMode()
+            leftBar.update()
+            rightBar.update()
         } else {
-            removeTopBottom()
-            topDownMode()
+            topBar.updateWidth(overrideWidth)
+            bottomBar.updateWidth(overrideWidth)
         }
     }
+
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
@@ -169,15 +172,15 @@ class FloatingWindowService : Service() {
     private fun topDownMode(){
         bottomBar = BottomBar(this)
         topBar = TopBar(this)
-        windowManager.addView(bottomBar.viewLayout, bottomBar.param)
-        windowManager.addView(topBar.viewLayout, topBar.param)
+        bottomBar.attach()
+        topBar.attach()
     }
 
     private fun leftRightMode(){
         rightBar = RightBar(this)
         leftBar = LeftBar(this)
-        windowManager.addView(leftBar.viewLayout,leftBar.param)
-        windowManager.addView(rightBar.viewLayout,rightBar.param)
+        leftBar.attach()
+        rightBar.attach()
     }
 
     override fun onDestroy() {
@@ -192,13 +195,13 @@ class FloatingWindowService : Service() {
     }
 
     private fun removeTopBottom(){
-        windowManager.removeView(bottomBar.viewLayout)
-        windowManager.removeView(topBar.viewLayout)
+        bottomBar.remove()
+        topBar.remove()
     }
 
     private fun removeLeftRight(){
-        windowManager.removeView(leftBar.viewLayout)
-        windowManager.removeView(rightBar.viewLayout)
+        leftBar.remove()
+        rightBar.remove()
     }
 
     fun lockButtons(){
@@ -257,7 +260,7 @@ class FloatingWindowService : Service() {
             hideLeftRightButtons()
         } else {
             showTopBottomButtons()
-            hideLeftRightButtons()
+            hideTopBottomButtons()
         }
     }
 
