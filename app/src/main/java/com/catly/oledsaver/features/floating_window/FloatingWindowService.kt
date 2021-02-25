@@ -144,7 +144,7 @@ class FloatingWindowService : Service() {
 
     private fun handleOverrideDimensions(){
         overrideWidth = if (override){
-            windowManager.defaultDisplay.width + 100
+            windowManager.defaultDisplay.width + statusBarSize * 2
         } else {
             MATCH_PARENT
         }
@@ -199,19 +199,6 @@ class FloatingWindowService : Service() {
     private fun removeLeftRight(){
         windowManager.removeView(leftBar.viewLayout)
         windowManager.removeView(rightBar.viewLayout)
-    }
-
-    private fun calcDimensions() : WindowManager.LayoutParams{
-        val param = WindowManager.LayoutParams(
-            MATCH_PARENT,
-                height,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                PixelFormat.TRANSLUCENT)
-        if (override){
-            param.width = windowManager.defaultDisplay.width + statusBarSize*2
-        }
-        return param
     }
 
     fun lockButtons(){
