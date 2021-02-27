@@ -29,6 +29,16 @@ class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar
         handleBarVisibility(floatingWindowService)
     }
 
+    override fun lockButtons(){
+        resizeButton.isEnabled = false
+        overrideButton.isEnabled = false
+    }
+
+    override fun unlockButtons(){
+        resizeButton.isEnabled = true
+        overrideButton.isEnabled = true
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     fun setListeners(){
         resizeButton.setOnTouchListener(object : View.OnTouchListener {

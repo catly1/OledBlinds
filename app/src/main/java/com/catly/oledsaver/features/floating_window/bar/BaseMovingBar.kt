@@ -9,14 +9,12 @@ open class BaseMovingBar(floatingWindowService: FloatingWindowService): BaseBar(
     lateinit var resizeButton: ImageButton
     lateinit var overrideButton: ImageButton
 
-    fun lockButtons(){
+    open fun lockButtons(){
         resizeButton.isEnabled = false
-        overrideButton.isEnabled = false
     }
 
-    fun unlockButtons(){
+    open fun unlockButtons(){
         resizeButton.isEnabled = true
-        overrideButton.isEnabled = true
     }
 
     fun hideOverrideButton(){
