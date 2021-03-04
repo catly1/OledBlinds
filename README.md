@@ -28,5 +28,9 @@ Both links have the same app. If you want to support my work then consider buyin
 
 ![](images/SamsungButtonGuide.jpg)
 
+## Troubleshooting:
+* After an update, the button in the quick bar/notification panel is gone!
+    * See if you can add it back by following the step about it in the installation section.
+
 ## Disclaimer:
 This app does not directly interact with other apps. It just draws black bars on the screen. It's the same as how Facebook messenger draws floating chat heads.
