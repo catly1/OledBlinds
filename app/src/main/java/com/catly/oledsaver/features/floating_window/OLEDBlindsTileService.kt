@@ -15,7 +15,6 @@ class OLEDBlindsTileService : TileService() {
             FloatingWindowService.startService(this)
         } else {
             FloatingWindowService.stopService(this)
-            return
         }
 
         val closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)

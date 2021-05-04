@@ -14,8 +14,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         findPreference<Preference>("turnServiceOn")?.setOnPreferenceClickListener {
-            activity?.startService(Intent(activity, FloatingWindowService::class.java))
-            activity?.finish()
+            if (!FloatingWindowService.isRunning) {
+                context?.let { it1 -> FloatingWindowService.startService(it1)}
+                activity?.finish()
+            } else {
+                context?.let { it1 -> FloatingWindowService.stopService(it1) }
+            }
             true
         }
         findPreference<Preference>("reset")?.setOnPreferenceClickListener {
