@@ -11,17 +11,14 @@ class OLEDBlindsTileService : TileService() {
     private var status = false
     override fun onClick() {
         super.onClick()
-        status = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)
-        if (status) {
-            if (!FloatingWindowService.isRunning) {
-                FloatingWindowService.startService(this)
-                return
-            }
-            FloatingWindowService.stopService(this)
-        } else {
+        if (!FloatingWindowService.isRunning) {
             FloatingWindowService.startService(this)
+        } else {
+            FloatingWindowService.stopService(this)
+            return
         }
-        var closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+
+        val closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
         this.sendBroadcast(closeNotificationPanelIntent)
     }
 
@@ -30,7 +27,7 @@ class OLEDBlindsTileService : TileService() {
 
         val tile = qsTile
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isActive", false)) {
+        if (FloatingWindowService.isRunning) {
             tile.state = Tile.STATE_ACTIVE
             tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
             status = true
