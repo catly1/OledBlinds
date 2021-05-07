@@ -45,6 +45,7 @@ class FloatingWindowService : Service() {
     var isActive = false
     var statusBarSize = 0
     var rotation = 0
+    var tapBehind = false
 
     companion object {
         fun startService(context: Context) {
@@ -76,6 +77,12 @@ class FloatingWindowService : Service() {
             }
             "isActive" -> {
                 isActive = sharedPreferences.getBoolean(key, false)
+            }
+            "tapBehind"->{
+                tapBehind = sharedPreferences.getBoolean(key, false)
+                if (isActive) {
+                    refresh()
+                }
             }
         }
     }
@@ -181,6 +188,7 @@ class FloatingWindowService : Service() {
         flipped = sharedpreferences.getBoolean("isFlipped", false)
         locked = sharedpreferences.getBoolean("isLocked", false)
         statusBarSize = sharedpreferences.getString("statusBarSize", "92")!!.toInt()
+        tapBehind = sharedpreferences.getBoolean("tapBehind", false)
     }
 
     override fun onCreate() {
