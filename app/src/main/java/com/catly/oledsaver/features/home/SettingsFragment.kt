@@ -28,7 +28,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             sharedPreferences.putInt("height", 200).apply()
             Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
             activity?.stopService(Intent(activity, FloatingWindowService::class.java))
-            sharedPreferences.putBoolean("isActive", false).apply()
+//            sharedPreferences.putBoolean("isActive", false).apply()
             sharedPreferences.putBoolean("isLocked", false).apply()
             sharedPreferences.putString("statusBarSize", "92").apply()
             findPreference<EditTextPreference>("statusBarSize")?.text = "92"

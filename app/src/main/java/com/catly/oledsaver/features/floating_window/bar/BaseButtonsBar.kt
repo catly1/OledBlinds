@@ -45,9 +45,10 @@ open class BaseButtonsBar(val floatingWindowService: FloatingWindowService): Bas
         }
     }
 
-    fun lockButtons(){
+    override fun lockButtons(){
         closeButton.isEnabled = false
         rotateButton.isEnabled = false
+        super.lockButtons()
     }
 
     fun unlockButtons(){

@@ -172,7 +172,7 @@ class FloatingWindowService : Service() {
 
     private fun getPrefValuesAndSystemServices(){
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        sharedpreferences.edit().putBoolean("isActive", true).apply()
+//        sharedpreferences.edit().putBoolean("isActive", true).apply()
 //        isActive = sharedpreferences.getBoolean("isActive", false)
         override = sharedpreferences.getBoolean("override", false)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
@@ -252,7 +252,7 @@ class FloatingWindowService : Service() {
             removeTopBottom()
         }
         displayManager.unregisterDisplayListener(displayListener)
-        sharedpreferences.edit().putBoolean("isActive", false).apply()
+//        sharedpreferences.edit().putBoolean("isActive", false).apply()
 //        isActive = false
         isRunning = false
     }
@@ -266,6 +266,8 @@ class FloatingWindowService : Service() {
         leftBar.remove()
         rightBar.remove()
     }
+
+
 
     fun lockButtons(){
         if (flipped){
