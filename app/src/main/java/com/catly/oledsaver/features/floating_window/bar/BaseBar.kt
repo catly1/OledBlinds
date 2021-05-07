@@ -11,7 +11,7 @@ import androidx.preference.PreferenceManager
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 import java.lang.Exception
 
-open class BaseBar(floatingWindowService: FloatingWindowService) {
+open class BaseBar(private val floatingWindowService: FloatingWindowService) {
     val param = WindowManager.LayoutParams(
         0,
         0,
@@ -49,7 +49,6 @@ open class BaseBar(floatingWindowService: FloatingWindowService) {
 
     fun remove(){
         windowManager.removeView(viewLayout)
-
     }
 
     fun attach(){
@@ -68,6 +67,15 @@ open class BaseBar(floatingWindowService: FloatingWindowService) {
 
     fun adjustForCutoff(cutoff: Int){
         param.x = -cutoff
+        update()
+    }
+
+    fun handleTapBehind(){
+        if (floatingWindowService.tapBehind){
+            param.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        } else {
+            param.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        }
         update()
     }
 }

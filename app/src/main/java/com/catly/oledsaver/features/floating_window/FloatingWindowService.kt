@@ -42,7 +42,7 @@ class FloatingWindowService : Service() {
     var height: Int = 0
     var locked = false
     var override = false
-    var isActive = false
+//    var isActive = false
     var statusBarSize = 0
     var rotation = 0
     var tapBehind = false
@@ -71,18 +71,11 @@ class FloatingWindowService : Service() {
         when (key) {
             "override" -> {
                 override = sharedPreferences.getBoolean(key, false)
-                if (isActive) {
-                    refresh()
-                }
-            }
-            "isActive" -> {
-                isActive = sharedPreferences.getBoolean(key, false)
+                refresh()
             }
             "tapBehind"->{
                 tapBehind = sharedPreferences.getBoolean(key, false)
-                if (isActive) {
-                    refresh()
-                }
+                refresh()
             }
         }
     }
@@ -180,7 +173,7 @@ class FloatingWindowService : Service() {
     private fun getPrefValuesAndSystemServices(){
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedpreferences.edit().putBoolean("isActive", true).apply()
-        isActive = sharedpreferences.getBoolean("isActive", false)
+//        isActive = sharedpreferences.getBoolean("isActive", false)
         override = sharedpreferences.getBoolean("override", false)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         powerManager = getSystemService(POWER_SERVICE) as PowerManager
@@ -260,7 +253,7 @@ class FloatingWindowService : Service() {
         }
         displayManager.unregisterDisplayListener(displayListener)
         sharedpreferences.edit().putBoolean("isActive", false).apply()
-        isActive = false
+//        isActive = false
         isRunning = false
     }
 
@@ -316,6 +309,8 @@ class FloatingWindowService : Service() {
     private fun checkIfValidNumber(num: Int) : Boolean{
         return num > 60
     }
+
+
 
     fun showButtons() {
         if (flipped){
