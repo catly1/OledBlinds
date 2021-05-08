@@ -70,11 +70,11 @@ class FloatingWindowService : Service() {
         when (key) {
             "override" -> {
                 override = sharedPreferences.getBoolean(key, false)
-                refresh()
+                    refresh()
             }
             "tapBehind"->{
                 tapBehind = sharedPreferences.getBoolean(key, false)
-                refresh()
+                    refresh()
             }
         }
     }

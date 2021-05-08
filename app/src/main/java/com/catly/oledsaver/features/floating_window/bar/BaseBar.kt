@@ -72,9 +72,9 @@ open class BaseBar(private val floatingWindowService: FloatingWindowService) {
 
     private fun handleTapBehind(){
         if (floatingWindowService.tapBehind){
-            param.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            param.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         } else {
-            param.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            param.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         }
         update()
     }
