@@ -42,7 +42,6 @@ class FloatingWindowService : Service() {
     var height: Int = 0
     var locked = false
     var override = false
-//    var isActive = false
     var statusBarSize = 0
     var rotation = 0
     var tapBehind = false
