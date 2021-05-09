@@ -172,7 +172,6 @@ class FloatingWindowService : Service() {
     private fun getPrefValuesAndSystemServices(){
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
 //        sharedpreferences.edit().putBoolean("isActive", true).apply()
-//        isActive = sharedpreferences.getBoolean("isActive", false)
         override = sharedpreferences.getBoolean("override", false)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         powerManager = getSystemService(POWER_SERVICE) as PowerManager
