@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.home
+package com.catly.oledsaver.features.view
 
 import android.content.Intent
 import android.os.Bundle
