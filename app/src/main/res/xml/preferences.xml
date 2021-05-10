@@ -38,6 +38,12 @@
         />
 
     <Preference
+        app:key="help"
+        app:title="@string/help"
+        app:iconSpaceReserved="false"
+        />
+
+    <Preference
         app:key="reset"
         app:title="@string/reset"
         app:iconSpaceReserved="false"
