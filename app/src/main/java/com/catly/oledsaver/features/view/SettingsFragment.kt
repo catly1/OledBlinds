@@ -3,10 +3,7 @@ package com.catly.oledsaver.features.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
+import androidx.preference.*
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
@@ -33,6 +30,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
             sharedPreferences.putString("statusBarSize", "92").apply()
             findPreference<EditTextPreference>("statusBarSize")?.text = "92"
         true
+        }
+
+        findPreference<SwitchPreferenceCompat>("tapBehind")?.setOnPreferenceChangeListener { preference, newValue ->
+            if (newValue == true){
+                MessageDialogFragment().show(parentFragmentManager, MessageDialogFragment.TAG)
+            }
+
+            true
         }
     }
 }
