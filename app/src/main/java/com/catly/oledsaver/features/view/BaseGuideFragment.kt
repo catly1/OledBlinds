@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import kotlinx.android.synthetic.main.guide_fragment.*
 
 open class BaseGuideFragment(private val viewLayout: Int, private val nextDestination: Int) : Fragment() {
 
