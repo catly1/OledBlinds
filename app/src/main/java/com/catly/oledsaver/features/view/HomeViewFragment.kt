@@ -17,16 +17,6 @@ import com.catly.oledsaver.features.main.MainActivity
 class HomeViewFragment : Fragment() {
 
     private lateinit var floatingMenuServiceIntent : Intent
-//    private var isActive = false
-
-
-//    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key : String->
-//        when (key) {
-////            "isActive"->{
-////               isActive = sharedPreferences.getBoolean(key, false)
-////            }
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +30,6 @@ class HomeViewFragment : Fragment() {
             .replace(R.id.settings_container, SettingsFragment())
             .commit()
         return inflater.inflate(R.layout.home_fragment, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        PreferenceManager.getDefaultSharedPreferences(activity).registerOnSharedPreferenceChangeListener(preferenceListener)
     }
 
 }
