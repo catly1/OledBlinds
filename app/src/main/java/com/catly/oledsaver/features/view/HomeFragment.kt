@@ -14,7 +14,7 @@ import com.catly.oledsaver.features.main.MainActivity
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeViewFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     private lateinit var floatingMenuServiceIntent : Intent
 

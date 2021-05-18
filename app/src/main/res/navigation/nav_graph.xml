@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeViewFragment"
-        android:name="com.catly.oledsaver.features.view.HomeViewFragment"
+        android:name="com.catly.oledsaver.features.view.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
 
@@ -41,7 +41,7 @@
         tools:layout="@layout/tile_guide_fragment">
 
         <action
-            android:id="@+id/action_tileGuideFragment_to_homeViewFragment"
+            android:id="@+id/action_tileGuideFragment_to_homeFragment"
             app:destination="@id/homeViewFragment" />
     </fragment>
 
