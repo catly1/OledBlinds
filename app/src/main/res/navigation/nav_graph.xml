@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/homeViewFragment"
+        android:id="@+id/homeFragment"
         android:name="com.catly.oledsaver.features.view.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
 
     </fragment>
     <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.catly.oledsaver.features.view.WelcomeFragment"
+        android:id="@+id/permissionFragment"
+        android:name="com.catly.oledsaver.features.view.PermissionGuideFragment"
         android:label="WelcomeFragment"
-        tools:layout="@layout/permissions_fragment">
+        tools:layout="@layout/permission_fragment">
         <action
-            android:id="@+id/action_welcomeFragment_to_guideFragment"
+            android:id="@+id/action_permissionFragment_to_guideFragment"
             app:destination="@id/guideFragment" />
         <action
-            android:id="@+id/action_welcomeFragment_to_homeViewFragment"
-            app:destination="@id/homeViewFragment" />
+            android:id="@+id/action_welcomeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
 
     </fragment>
     <fragment
@@ -42,7 +42,7 @@
 
         <action
             android:id="@+id/action_tileGuideFragment_to_homeFragment"
-            app:destination="@id/homeViewFragment" />
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>

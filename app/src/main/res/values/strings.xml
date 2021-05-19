@@ -15,7 +15,7 @@
     <string name="next">Next</string>
     <string name="tileGuideText">You can turn it on from the notification panel too! Just add it in. This varies by phone manufacturer</string>
     <string name="permissionFragmentText">Display Over Other Apps permission is needed</string>
-    <string name="set_permission">Set Permission</string>
+    <string name="setPermission">Set Permission</string>
     <string name="tap_behind">Tap Behind</string>
     <string name="tap_behind_description">Items behind the bars become touchable</string>
     <string name="help">Help</string>
