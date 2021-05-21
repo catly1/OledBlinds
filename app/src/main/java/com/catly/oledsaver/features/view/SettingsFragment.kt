@@ -3,6 +3,7 @@ package com.catly.oledsaver.features.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
@@ -41,8 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("help")?.setOnPreferenceClickListener {
-            MessageDialogFragment().show(parentFragmentManager, MessageDialogFragment.TAG)
-//            findNavController().navigate(R.id.action_homeFragment_to_guideIndexFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_guideIndexFragment)
             true
         }
     }

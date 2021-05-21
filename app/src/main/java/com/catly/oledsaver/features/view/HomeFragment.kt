@@ -36,14 +36,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        (requireActivity() as MainActivity).supportActionBar!!.show()
-//        floatingMenuServiceIntent = Intent(activity, FloatingWindowService::class.java)
-//        PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("alreadyRanOnce", true).apply()
-//        parentFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.settings_container, SettingsFragment())
-//            .commit()
-
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
@@ -67,14 +59,11 @@ class HomeFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId){
                 R.id.feedback -> {
-                    composeEmail(arrayOf("ccatly@gmail.com"), "Floating Translate App Feedback")
+                    composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
                     true
                 }
                 else -> false
             }
         }
-//        onButton.setOnClickListener {
-//            startMediaProjection.launch()
-//        }
     }
 }

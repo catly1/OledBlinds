@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_homeFragment_to_permissionFragment"
             app:destination="@id/permissionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_guideIndexFragment"
+            app:destination="@id/guideIndexFragment" />
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"
@@ -24,8 +27,11 @@
             android:id="@+id/action_permissionFragment_to_guideFragment"
             app:destination="@id/guideFragment" />
         <action
-            android:id="@+id/action_welcomeFragment_to_homeFragment"
+            android:id="@+id/action_permissionFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_permissionFragment_to_guideIndexFragment"
+            app:destination="@id/guideIndexFragment" />
 
     </fragment>
     <fragment
@@ -36,6 +42,9 @@
         <action
             android:id="@+id/action_guideFragment_to_tileGuideFragment"
             app:destination="@id/tileGuideFragment" />
+        <action
+            android:id="@+id/action_guideFragment_to_guideIndexFragment"
+            app:destination="@id/guideIndexFragment" />
     </fragment>
     <fragment
         android:id="@+id/tileGuideFragment"
@@ -46,6 +55,26 @@
         <action
             android:id="@+id/action_tileGuideFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tileGuideFragment_to_guideIndexFragment"
+            app:destination="@id/guideIndexFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideIndexFragment"
+        android:name="com.catly.oledsaver.features.view.GuideIndexFragment"
+        android:label="GuideIndexFragment" >
+        <action
+            android:id="@+id/action_guideIndexFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_guideIndexFragment_to_permissionFragment"
+            app:destination="@id/permissionFragment" />
+        <action
+            android:id="@+id/action_guideIndexFragment_to_guideFragment"
+            app:destination="@id/guideFragment" />
+        <action
+            android:id="@+id/action_guideIndexFragment_to_tileGuideFragment"
+            app:destination="@id/tileGuideFragment" />
     </fragment>
 
 </navigation>

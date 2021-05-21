@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import kotlinx.android.synthetic.main.guide_fragment.*
+import com.catly.oledsaver.R
 
 open class BaseGuideFragment(private val viewLayout: Int, private val nextDestination: Int) : Fragment() {
 
@@ -15,14 +16,13 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(viewLayout, container, false)
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        next_button.setOnClickListener {
+        val view = inflater.inflate(viewLayout, container, false)
+        view.findViewById<Button>(R.id.next_button).setOnClickListener {
             setRanOnce()
             findNavController().navigate(nextDestination)
         }
+
+        return view
     }
 
     override fun onPause() {

@@ -11,13 +11,19 @@
     <string name="app_tile_name">OLED Blinds</string>
     <string name="status_bar_size">Status Bar Size</string>
     <string name="status_bar_dialog">Put the size of your status bar</string>
+    <string name="help">Help</string>
+    <string name="feedback">Feedback</string>
+    <string name="tap_behind">Tap Behind</string>
+    <string name="tap_behind_description">Items behind the bars become touchable</string>
+
+    <!--Guide-->
     <string name="guideFragmentText">Press and drag to resize. Override is press and drag too. Use the quick toggle when locked.</string>
     <string name="next">Next</string>
     <string name="tileGuideText">You can turn it on from the notification panel too! Just add it in. This varies by phone manufacturer</string>
     <string name="permissionFragmentText">Display Over Other Apps permission is needed</string>
     <string name="setPermission">Set Permission</string>
-    <string name="tap_behind">Tap Behind</string>
-    <string name="tap_behind_description">Items behind the bars become touchable</string>
-    <string name="help">Help</string>
-    <string name="feedback">Feedback</string>
+    <string name="guide1">How to give permission to the app?</string>
+    <string name="guide2">What does each button do?</string>
+    <string name="guide3">Add app to notification panel</string>
+
 </resources>
