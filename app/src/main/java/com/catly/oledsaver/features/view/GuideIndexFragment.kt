@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.adapter.GuideIndexItemAdapter
@@ -30,9 +31,14 @@ class GuideIndexFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        guideModeOn()
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_guideIndexFragment_to_homeFragment)
         }
+    }
+
+    fun guideModeOn(){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
     }
 }

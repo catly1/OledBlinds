@@ -18,12 +18,18 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
     ): View? {
         val view = inflater.inflate(viewLayout, container, false)
         view.findViewById<Button>(R.id.next_button).setOnClickListener {
-            setRanOnce()
-            findNavController().navigate(nextDestination)
+            if (getGuideMode()){
+                guideModeOff()
+                activity?.onBackPressed()
+            } else {
+                setRanOnce()
+                findNavController().navigate(nextDestination)
+            }
         }
 
         return view
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -41,9 +47,6 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
         )
     }
 
-    fun guideModeOn(){
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
-    }
 
     fun guideModeOff(){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", false).apply()
