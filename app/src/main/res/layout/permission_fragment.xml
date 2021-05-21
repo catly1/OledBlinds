@@ -27,10 +27,9 @@
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/set_permission_button"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.222" />
 
     <Button
         android:id="@+id/set_permission_button"
@@ -39,18 +38,18 @@
         android:text="@string/setPermission"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/next_button"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="30dp"
+        android:adjustViewBounds="true"
+        android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@id/welcome_text"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

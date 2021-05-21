@@ -20,7 +20,7 @@
     <string name="guideFragmentText">Press and drag to resize. Override is press and drag too. Use the quick toggle when locked.</string>
     <string name="next">Next</string>
     <string name="tileGuideText">You can turn it on from the notification panel too! Just add it in. This varies by phone manufacturer</string>
-    <string name="permissionFragmentText">Display Over Other Apps permission is needed</string>
+    <string name="permissionFragmentText">Display Over Other Apps permission is needed for the app to function correctly.</string>
     <string name="setPermission">Set Permission</string>
     <string name="guide1">How to give permission to the app?</string>
     <string name="guide2">What does each button do?</string>
