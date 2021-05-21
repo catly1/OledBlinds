@@ -39,5 +39,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             true
         }
+
+        findPreference<Preference>("help")?.setOnPreferenceClickListener {
+            MessageDialogFragment().show(parentFragmentManager, MessageDialogFragment.TAG)
+//            findNavController().navigate(R.id.action_homeFragment_to_guideIndexFragment)
+            true
+        }
     }
 }

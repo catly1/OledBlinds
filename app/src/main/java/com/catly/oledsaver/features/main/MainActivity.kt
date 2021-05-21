@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import com.catly.oledsaver.R
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,19 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Settings.canDrawOverlays(this))
-//        {
-//            //If the draw over permission is not available open the settings screen
-//            //to grant the permission.
-//            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-//                Uri.parse("package:$packageName"))
-//            startActivityForResult(intent, drawOtherAppPermissionCode)
-//        } else {
-////            initializeView()
-//        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -37,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.action_settings -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == drawOtherAppPermissionCode){
@@ -56,7 +43,5 @@ class MainActivity : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-
 
 }

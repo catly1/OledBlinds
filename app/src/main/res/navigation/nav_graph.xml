@@ -11,6 +11,9 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
 
+        <action
+            android:id="@+id/action_homeFragment_to_permissionFragment"
+            app:destination="@id/permissionFragment" />
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"
