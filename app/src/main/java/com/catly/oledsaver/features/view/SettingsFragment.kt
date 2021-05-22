@@ -9,6 +9,7 @@ import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private var currentDialog : MessageDialogFragment? = null
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         findPreference<Preference>("turnServiceOn")?.setOnPreferenceClickListener {
@@ -35,7 +36,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SwitchPreferenceCompat>("tapBehind")?.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue == true){
-                MessageDialogFragment(getString(R.string.tap_behind_dialog_message), getString(R.string.close)).show(parentFragmentManager, MessageDialogFragment.TAG)
+                currentDialog = MessageDialogFragment(getString(R.string.tap_behind_dialog_message), getString(R.string.close))
+                currentDialog?.show(parentFragmentManager, MessageDialogFragment.TAG)
             }
 
             true
@@ -45,5 +47,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.action_homeFragment_to_guideIndexFragment)
             true
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        currentDialog?.dismiss()
     }
 }

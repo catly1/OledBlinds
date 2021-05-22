@@ -16,4 +16,5 @@ class MessageDialogFragment(private val message: String, private val posButton: 
     companion object {
         const val TAG = "MessageDialog"
     }
+
 }
