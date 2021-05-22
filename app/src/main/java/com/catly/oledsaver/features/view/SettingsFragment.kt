@@ -14,7 +14,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("turnServiceOn")?.setOnPreferenceClickListener {
             if (!FloatingWindowService.isRunning) {
                 context?.let { it1 -> FloatingWindowService.startService(it1)}
-                activity?.finish()
+//                activity?.finish()
             } else {
                 context?.let { it1 -> FloatingWindowService.stopService(it1) }
             }
@@ -35,7 +35,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SwitchPreferenceCompat>("tapBehind")?.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue == true){
-                MessageDialogFragment().show(parentFragmentManager, MessageDialogFragment.TAG)
+                MessageDialogFragment(getString(R.string.tap_behind_dialog_message), getString(R.string.close)).show(parentFragmentManager, MessageDialogFragment.TAG)
             }
 
             true
