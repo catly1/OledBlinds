@@ -1,7 +1,7 @@
 package com.catly.oledsaver.features.data
 
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.model.GuideIndexItem
+import com.catly.oledsaver.features.data.model.GuideIndexItem
 
 class Datasource {
     fun loadGuideIndexItems(): List<GuideIndexItem>{

@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledsaver.R
-import com.catly.oledsaver.features.model.GuideIndexItem
+import com.catly.oledsaver.features.data.model.GuideIndexItem
 
 class GuideIndexItemAdapter(
     private val context: Context,
