@@ -1,4 +1,6 @@
 package com.catly.oledsaver.features.view
 
-class GuideViewModel {
+import androidx.lifecycle.ViewModel
+
+class GuideViewModel: ViewModel() {
 }
