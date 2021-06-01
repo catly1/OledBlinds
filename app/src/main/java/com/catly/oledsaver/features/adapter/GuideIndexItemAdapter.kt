@@ -13,9 +13,10 @@ import com.catly.oledsaver.features.data.model.GuideIndexItem
 
 class GuideIndexItemAdapter(
     private val context: Context,
-    private val dataSet: List<GuideIndexItem>,
     private val findNavController: NavController
 ) : RecyclerView.Adapter<GuideIndexItemAdapter.ItemViewHolder>() {
+
+    var guideList: List<GuideIndexItem> = mutableListOf()
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         val textView: TextView = view.findViewById(R.id.item_title)
@@ -28,13 +29,18 @@ class GuideIndexItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataSet[position]
+        val item = guideList[position]
         holder.textView.setOnClickListener {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
+//            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
             findNavController.navigate(item.navId)
         }
         holder.textView.text =  context.resources.getString(item.stringResourceId)
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = guideList.size
+
+    fun update(fetchedList: List<GuideIndexItem>) {
+        guideList = fetchedList
+        notifyDataSetChanged()
+    }
 }
