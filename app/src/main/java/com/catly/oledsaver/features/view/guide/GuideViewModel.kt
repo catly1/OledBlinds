@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.view
+package com.catly.oledsaver.features.view.guide
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import java.lang.Exception
 class GuideViewModel(guideItemRepository: GuideItemRepository): ViewModel() {
     val guideList = MutableLiveData<List<GuideIndexItem>>()
     private val TAG = "GuideViewModel"
+    var guideMode = false
     init {
         try {
             guideList.value = guideItemRepository.getGuideIndexItems()

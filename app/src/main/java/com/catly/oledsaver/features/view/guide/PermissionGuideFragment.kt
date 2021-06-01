@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.view
+package com.catly.oledsaver.features.view.guide
 
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.catly.oledsaver.R
+import com.catly.oledsaver.features.view.guide.BaseGuideFragment
 import kotlinx.android.synthetic.main.permission_fragment.*
 
 class PermissionGuideFragment : BaseGuideFragment(R.layout.permission_fragment,R.id.action_permissionFragment_to_guideFragment) {

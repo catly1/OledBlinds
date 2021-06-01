@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.catly.oledsaver.features.data.Datasource
 import com.catly.oledsaver.features.data.GuideItemRepository
+import com.catly.oledsaver.features.view.guide.GuideViewModel
 
 class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory  {
 

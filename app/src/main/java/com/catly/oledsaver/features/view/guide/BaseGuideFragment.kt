@@ -1,4 +1,4 @@
-package com.catly.oledsaver.features.view
+package com.catly.oledsaver.features.view.guide
 
 import android.os.Bundle
 import android.view.LayoutInflater
