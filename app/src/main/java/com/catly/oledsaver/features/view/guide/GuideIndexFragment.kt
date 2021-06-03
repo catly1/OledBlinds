@@ -23,13 +23,15 @@ class GuideIndexFragment: Fragment() {
     ): View? {
         guideViewModel = ViewModelProvider(this, ViewModelFactory(requireActivity().application)).get(
             GuideViewModel::class.java)
+
         val view = inflater.inflate(R.layout.fragment_guide_index, container, false)
-//        val myDataSet = Datasource().loadGuideIndexItems()
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val adapter = GuideIndexItemAdapter(requireContext(), findNavController())
         recyclerView.adapter = adapter
         guideViewModel.guideList.observe(viewLifecycleOwner) {
             adapter.update(it)
+            guideViewModel.guideMode = true
+            println("guide mode? " + guideViewModel.guideMode)
         }
         recyclerView.setHasFixedSize(true)
         return view
@@ -37,14 +39,14 @@ class GuideIndexFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        guideModeOn()
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_guideIndexFragment_to_homeFragment)
         }
     }
 
-//    fun guideModeOn(){
-//        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        guideViewModel.guideMode = false
 //    }
 }
