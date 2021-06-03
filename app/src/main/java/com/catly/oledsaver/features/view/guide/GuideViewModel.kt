@@ -10,7 +10,6 @@ import java.lang.Exception
 class GuideViewModel(guideItemRepository: GuideItemRepository): ViewModel() {
     val guideList = MutableLiveData<List<GuideIndexItem>>()
     private val TAG = "GuideViewModel"
-    var guideMode = false
     init {
         try {
             guideList.value = guideItemRepository.getGuideIndexItems()

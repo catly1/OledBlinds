@@ -34,7 +34,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         true
         }
 
-        findPreference<SwitchPreferenceCompat>("tapBehind")?.setOnPreferenceChangeListener { preference, newValue ->
+        findPreference<SwitchPreferenceCompat>("tapBehind")?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue == true){
                 currentDialog = MessageDialogFragment(getString(R.string.tap_behind_dialog_message), getString(R.string.close))
                 currentDialog?.show(parentFragmentManager, MessageDialogFragment.TAG)

@@ -8,24 +8,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
-import com.catly.oledsaver.databinding.HomeFragmentBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class HomeFragment : Fragment() {
 
-//    private lateinit var floatingMenuServiceIntent : Intent
-    private lateinit var binding: HomeFragmentBinding
     override fun onResume() {
         super.onResume()
         if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
                 "alreadyRanOnce",
                 false
-            ) || !Settings.canDrawOverlays(activity)){
+            ) || !Settings.canDrawOverlays(activity)
+        ) {
             findNavController().navigate(R.id.action_homeFragment_to_permissionFragment)
         }
     }
@@ -34,12 +33,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = HomeFragmentBinding.inflate(layoutInflater)
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
             .commit()
-        return binding.root
+        return inflater.inflate(R.layout.home_fragment, null)
     }
 
     fun composeEmail(addresses: Array<String?>?, subject: String?) {
@@ -54,10 +52,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = binding.toolbar
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.feedback -> {
                     composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
                     true
