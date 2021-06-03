@@ -32,6 +32,10 @@
         <action
             android:id="@+id/action_permissionFragment_to_guideIndexFragment"
             app:destination="@id/guideIndexFragment" />
+        <argument
+            android:name="guide_mode"
+            app:argType="boolean"
+            android:defaultValue="false" />
 
     </fragment>
     <fragment
@@ -45,6 +49,10 @@
         <action
             android:id="@+id/action_guideFragment_to_guideIndexFragment"
             app:destination="@id/guideIndexFragment" />
+        <argument
+            android:name="guide_mode"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/tileGuideFragment"
@@ -58,6 +66,10 @@
         <action
             android:id="@+id/action_tileGuideFragment_to_guideIndexFragment"
             app:destination="@id/guideIndexFragment" />
+        <argument
+            android:name="guide_mode"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/guideIndexFragment"
