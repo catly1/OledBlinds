@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.preference.PreferenceManager
+
 import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.data.model.GuideIndexItem
+import com.catly.oledsaver.features.view.guide.GuideIndexFragmentDirections
 
 class GuideIndexItemAdapter(
     private val context: Context,
@@ -31,8 +33,9 @@ class GuideIndexItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = guideList[position]
         holder.textView.setOnClickListener {
+            val args = bundleOf("guideMode" to true)
 //            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
-            findNavController.navigate(item.navId)
+            findNavController.navigate(item.navId, args)
         }
         holder.textView.text =  context.resources.getString(item.stringResourceId)
     }

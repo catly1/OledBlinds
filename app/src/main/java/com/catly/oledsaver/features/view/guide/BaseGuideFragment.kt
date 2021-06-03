@@ -14,6 +14,7 @@ import com.catly.oledsaver.features.view.ViewModelFactory
 
 open class BaseGuideFragment(private val viewLayout: Int, private val nextDestination: Int) : Fragment() {
     private lateinit var guideViewModel: GuideViewModel
+    var guideMode = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,9 +22,11 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
         val view = inflater.inflate(viewLayout, container, false)
         guideViewModel = ViewModelProvider(this, ViewModelFactory(requireActivity().application)).get(
             GuideViewModel::class.java)
+        guideMode = arguments?.getBoolean("guideMode")!!
         view.findViewById<Button>(R.id.next_button).setOnClickListener {
-            println("guide mode? " + guideViewModel.guideMode)
-            if (guideViewModel.guideMode){
+//            println("guide mode? " + guideViewModel.guideMode)
+            println("guide mode is: $guideMode")
+            if (guideMode){
                 println("gets here")
 //                guideViewModel.guideMode = false
                 activity?.onBackPressed()

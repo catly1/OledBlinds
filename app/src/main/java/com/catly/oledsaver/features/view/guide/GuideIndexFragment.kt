@@ -8,14 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledsaver.R
+import com.catly.oledsaver.databinding.GuideIndexFragmentBinding
 import com.catly.oledsaver.features.adapter.GuideIndexItemAdapter
 import com.catly.oledsaver.features.view.ViewModelFactory
-import kotlinx.android.synthetic.main.home_fragment.*
+
 
 class GuideIndexFragment: Fragment() {
     private lateinit var guideViewModel: GuideViewModel
+    private lateinit var binding: GuideIndexFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,30 +25,21 @@ class GuideIndexFragment: Fragment() {
     ): View? {
         guideViewModel = ViewModelProvider(this, ViewModelFactory(requireActivity().application)).get(
             GuideViewModel::class.java)
-
-        val view = inflater.inflate(R.layout.fragment_guide_index, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        binding = GuideIndexFragmentBinding.inflate(layoutInflater)
+//        val view = inflater.inflate(R.layout.guide_index_fragment, container, false)
         val adapter = GuideIndexItemAdapter(requireContext(), findNavController())
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
         guideViewModel.guideList.observe(viewLifecycleOwner) {
             adapter.update(it)
-            guideViewModel.guideMode = true
-            println("guide mode? " + guideViewModel.guideMode)
         }
-        recyclerView.setHasFixedSize(true)
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24dp)
-        toolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24dp)
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_guideIndexFragment_to_homeFragment)
         }
     }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        guideViewModel.guideMode = false
-//    }
 }

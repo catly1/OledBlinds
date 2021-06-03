@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 
     //Safe Args
     id "androidx.navigation.safeargs.kotlin"
@@ -49,7 +48,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
