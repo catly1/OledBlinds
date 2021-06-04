@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.data.model.GuideIndexItem
-import com.catly.oledsaver.features.view.guide.GuideIndexFragmentDirections
 
 class GuideIndexItemAdapter(
     private val context: Context,
@@ -34,7 +33,6 @@ class GuideIndexItemAdapter(
         val item = guideList[position]
         holder.textView.setOnClickListener {
             val args = bundleOf("guideMode" to true)
-//            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("guideMode", true).apply()
             findNavController.navigate(item.navId, args)
         }
         holder.textView.text =  context.resources.getString(item.stringResourceId)

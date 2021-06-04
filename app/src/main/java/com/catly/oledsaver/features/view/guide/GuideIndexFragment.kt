@@ -22,7 +22,7 @@ class GuideIndexFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        guideViewModel = ViewModelProvider(this, ViewModelFactory(requireActivity().application)).get(
+        guideViewModel = ViewModelProvider(this, ViewModelFactory()).get(
             GuideViewModel::class.java)
         val view = inflater.inflate(R.layout.guide_index_fragment, container, false)
         val adapter = GuideIndexItemAdapter(requireContext(), findNavController())
