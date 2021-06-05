@@ -250,8 +250,7 @@ class FloatingWindowService : Service() {
             removeTopBottom()
         }
         displayManager.unregisterDisplayListener(displayListener)
-//        sharedpreferences.edit().putBoolean("isActive", false).apply()
-//        isActive = false
+        sharedpreferences.unregisterOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = false
     }
 
