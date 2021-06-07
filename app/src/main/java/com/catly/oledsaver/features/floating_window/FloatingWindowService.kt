@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.Point
 import android.hardware.display.DisplayManager
 import android.hardware.display.DisplayManager.DisplayListener
 import android.os.Build
@@ -74,7 +75,7 @@ class FloatingWindowService : Service() {
             }
             "tapBehind"->{
                 tapBehind = sharedPreferences.getBoolean(key, false)
-                    refresh()
+                    handleTapBehind()
             }
         }
     }
@@ -207,7 +208,9 @@ class FloatingWindowService : Service() {
 
     private fun handleOverrideDimensions(){
         overrideWidthForTopBottom = if (override){
-            windowManager.defaultDisplay.width + statusBarSize * 2
+            val size = Point()
+            windowManager.defaultDisplay.getSize(size)
+            size.x + statusBarSize * 2
         } else {
             MATCH_PARENT
         }
@@ -264,7 +267,15 @@ class FloatingWindowService : Service() {
         rightBar.remove()
     }
 
-
+    fun handleTapBehind(){
+        if (flipped){
+            leftBar.handleTapBehind()
+            rightBar.handleTapBehind()
+        } else {
+            bottomBar.handleTapBehind()
+            topBar.handleTapBehind()
+        }
+    }
 
     fun lockButtons(){
         if (flipped){
