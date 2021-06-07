@@ -8,7 +8,7 @@ import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
 
 class OLEDBlindsTileService : TileService() {
-    private var status = false
+
     override fun onClick() {
         super.onClick()
         if (!FloatingWindowService.isRunning) {
@@ -29,11 +29,9 @@ class OLEDBlindsTileService : TileService() {
         if (FloatingWindowService.isRunning) {
             tile.state = Tile.STATE_ACTIVE
             tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
-            status = true
         } else {
             tile.state = Tile.STATE_INACTIVE
             tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveronoff)
-            status = false
         }
 
         tile.updateTile()

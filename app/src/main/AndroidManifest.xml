@@ -31,6 +31,7 @@
         <service
             android:name="com.catly.oledsaver.features.floating_window.OLEDBlindsTileService"
             android:label="@string/app_tile_name"
+            android:icon="@drawable/ic_oledsaveronoff"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             >
             <intent-filter>
