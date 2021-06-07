@@ -1,5 +1,7 @@
 package com.catly.oledsaver.features.view.guide
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,5 +41,16 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
     fun setRanOnce() {
         PreferenceManager.getDefaultSharedPreferences(context).edit()
             .putBoolean("alreadyRanOnce", true).apply()
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
     }
 }
