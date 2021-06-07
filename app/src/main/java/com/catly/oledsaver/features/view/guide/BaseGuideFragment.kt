@@ -24,7 +24,9 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(viewLayout, container, false)
-        guideMode = arguments?.getBoolean("guideMode")!!
+        arguments?.let {
+            guideMode = it.getBoolean("guideMode")
+        }
         nextButton = view.findViewById(R.id.next_button)
         nextButton.setOnClickListener {
             if (guideMode) {
@@ -46,11 +48,11 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onResume() {
         super.onResume()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onPause() {
         super.onPause()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 }
