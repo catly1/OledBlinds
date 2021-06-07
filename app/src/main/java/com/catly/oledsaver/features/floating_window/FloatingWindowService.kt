@@ -1,5 +1,6 @@
 package com.catly.oledsaver.features.floating_window
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -7,7 +8,6 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.graphics.Point
 import android.hardware.display.DisplayManager
 import android.hardware.display.DisplayManager.DisplayListener
@@ -29,21 +29,21 @@ import com.catly.oledsaver.features.main.MainActivity
 
 class FloatingWindowService : Service() {
 
-    private lateinit var sharedpreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val channelID = "OLED Blinds Service"
-    lateinit var windowManager: WindowManager
+    private lateinit var windowManager: WindowManager
     lateinit var powerManager: PowerManager
-    lateinit var displayManager: DisplayManager
+    private lateinit var displayManager: DisplayManager
     lateinit var leftBar: LeftBar
-    lateinit var rightBar: RightBar
+    private lateinit var rightBar: RightBar
     lateinit var topBar: TopBar
-    lateinit var bottomBar: BottomBar
+    private lateinit var bottomBar: BottomBar
     var width: Int = 0
     var overrideWidthForTopBottom: Int = 0
     var height: Int = 0
     var locked = false
     var override = false
-    var statusBarSize = 0
+    private var statusBarSize = 0
     var rotation = 0
     var tapBehind = false
 
@@ -67,7 +67,7 @@ class FloatingWindowService : Service() {
         return null
     }
 
-    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener(){ sharedPreferences: SharedPreferences, key: String->
+    private val preferenceListener = SharedPreferences.OnSharedPreferenceChangeListener{ sharedPreferences: SharedPreferences, key: String->
         when (key) {
             "override" -> {
                 override = sharedPreferences.getBoolean(key, false)
@@ -105,6 +105,7 @@ class FloatingWindowService : Service() {
         }
     }
 
+    @SuppressLint("SwitchIntDef")
     private fun handleLeftRightBarCutoutAdjustment(){
         if (override) {
             handleOverrideButton()
@@ -139,7 +140,7 @@ class FloatingWindowService : Service() {
     }
 
     fun saveOffset(){
-        sharedpreferences.edit().putString("statusBarSize", statusBarSize.toString()).apply()
+        sharedPreferences.edit().putString("statusBarSize", statusBarSize.toString()).apply()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -171,16 +172,15 @@ class FloatingWindowService : Service() {
     }
 
     private fun getPrefValuesAndSystemServices(){
-        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
-//        sharedpreferences.edit().putBoolean("isActive", true).apply()
-        override = sharedpreferences.getBoolean("override", false)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        override = sharedPreferences.getBoolean("override", false)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         powerManager = getSystemService(POWER_SERVICE) as PowerManager
         displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
-        flipped = sharedpreferences.getBoolean("isFlipped", false)
-        locked = sharedpreferences.getBoolean("isLocked", false)
-        statusBarSize = sharedpreferences.getString("statusBarSize", "92")!!.toInt()
-        tapBehind = sharedpreferences.getBoolean("tapBehind", false)
+        flipped = sharedPreferences.getBoolean("isFlipped", false)
+        locked = sharedPreferences.getBoolean("isLocked", false)
+        statusBarSize = sharedPreferences.getString("statusBarSize", "92")!!.toInt()
+        tapBehind = sharedPreferences.getBoolean("tapBehind", false)
     }
 
     override fun onCreate() {
@@ -195,7 +195,7 @@ class FloatingWindowService : Service() {
             topDownMode()
         }
         setLockState()
-        sharedpreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         displayManager.registerDisplayListener(displayListener, Handler())
         isRunning = true
     }
@@ -217,13 +217,13 @@ class FloatingWindowService : Service() {
     }
 
     private fun setWidthHeightValues(){
-        width = sharedpreferences.getInt("width", 200)
+        width = sharedPreferences.getInt("width", 200)
         width = if (checkIfValidNumber(width)){
             width
         } else {
             200
         }
-        height = sharedpreferences.getInt("height", 200)
+        height = sharedPreferences.getInt("height", 200)
         height = if (checkIfValidNumber(height)){
             height
         } else {
@@ -253,7 +253,7 @@ class FloatingWindowService : Service() {
             removeTopBottom()
         }
         displayManager.unregisterDisplayListener(displayListener)
-        sharedpreferences.unregisterOnSharedPreferenceChangeListener(preferenceListener)
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceListener)
         isRunning = false
     }
 
@@ -267,7 +267,7 @@ class FloatingWindowService : Service() {
         rightBar.remove()
     }
 
-    fun handleTapBehind(){
+    private fun handleTapBehind(){
         if (flipped){
             leftBar.handleTapBehind()
             rightBar.handleTapBehind()
