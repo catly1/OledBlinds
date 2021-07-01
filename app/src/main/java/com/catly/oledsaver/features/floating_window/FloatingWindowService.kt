@@ -269,11 +269,11 @@ class FloatingWindowService : Service() {
 
     private fun handleTapBehind(){
         if (flipped){
-            leftBar.handleTapBehind()
-            rightBar.handleTapBehind()
+            leftBar.handleTapBehindAndUpdate()
+            rightBar.handleTapBehindAndUpdate()
         } else {
-            bottomBar.handleTapBehind()
-            topBar.handleTapBehind()
+            bottomBar.handleTapBehindAndUpdate()
+            topBar.handleTapBehindAndUpdate()
         }
     }
 

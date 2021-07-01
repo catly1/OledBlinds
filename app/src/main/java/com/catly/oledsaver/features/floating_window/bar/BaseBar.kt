@@ -28,6 +28,10 @@ open class BaseBar(private val floatingWindowService: FloatingWindowService) {
     var hideDuration: Long = 3000
     var TAG = ""
 
+    init{
+        handleTapBehind()
+    }
+
     fun update(){
         windowManager.updateViewLayout(viewLayout, param)
     }
@@ -70,13 +74,17 @@ open class BaseBar(private val floatingWindowService: FloatingWindowService) {
         update()
     }
 
+    open fun handleTapBehindAndUpdate(){
+        handleTapBehind()
+        update()
+    }
+
     open fun handleTapBehind(){
         if (floatingWindowService.tapBehind){
             param.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         } else {
             param.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         }
-        update()
     }
 
     open fun lockButtons(){
