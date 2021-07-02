@@ -18,8 +18,8 @@ android {
         applicationId "com.catly.oledsaver"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 7
-        versionName "5.0"
+        versionCode 8
+        versionName "5.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
