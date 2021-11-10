@@ -27,17 +27,12 @@ class PermissionGuideFragment : BaseGuideFragment(R.layout.permission_fragment,R
         super.onViewCreated(view, savedInstanceState)
         setPermissionButton = view.findViewById<Button>(R.id.set_permission_button)
        setPermissionButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Settings.canDrawOverlays(activity))
-            {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:${activity?.packageName}")
-                )
-                startActivityForResult(intent, drawOtherAppPermissionCode)
-            } else {
-                findNavController().navigate(R.id.action_permissionFragment_to_guideFragment)
-            }
-        }
+            val intent = Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:${activity?.packageName}")
+            )
+           startActivityForResult(intent, drawOtherAppPermissionCode)
+       }
     }
 
 }
