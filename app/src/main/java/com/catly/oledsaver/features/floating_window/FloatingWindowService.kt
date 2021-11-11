@@ -154,6 +154,7 @@ class FloatingWindowService : Service() {
             .setContentText("OLED Blinds is running.")
             .setSmallIcon(R.drawable.ic_stat_oledsaver)
             .setContentIntent(pendingIntent)
+            .setSilent(true)
             .build()
 
         startForeground(1, notification)
