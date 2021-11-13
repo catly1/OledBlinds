@@ -3,13 +3,21 @@ plugins {
     id 'kotlin-android'
 }
 
+def computeVersionName() {
+    return String.format('%d.%d.%d', versionMajor, versionMinor, versionPatch)
+}
+
+def computeVersionCode() {
+    return (versionMajor * 1000000) + (versionMinor * 100000) + (versionPatch * 10000) + Integer.valueOf(System.env.BUILD_NUMBER ?: 0)
+}
+
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\OneDrive\\AndroidKey\\upload-keystore.jks')
-            storePassword 'aurelio1960'
-            keyAlias = 'upload'
-            keyPassword 'aurelio1960'
+            keyAlias alias
+            keyPassword keyPass
+            storeFile file(keystore)
+            storePassword storePass
         }
     }
     compileSdkVersion 31

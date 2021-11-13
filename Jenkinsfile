@@ -34,7 +34,7 @@ def isDeployCandidate() {
 pipeline {
     agent { dockerfile true }
     environment {
-        appName = 'jenkins-blog'
+        appName = 'OLED Blinds'
 
         KEY_PASSWORD = credentials('keyPassword')
         KEY_ALIAS = credentials('keyAlias')
