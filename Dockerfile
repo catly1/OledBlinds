@@ -1,30 +1,48 @@
-FROM openjdk:11
+FROM ubuntu:18.04
 
 WORKDIR project/
 
-# Install Build Essentials
-RUN apt-get update \
-    && apt-get install build-essential -y
+ENV ANDROID_SDK_HOME /opt/android-sdk-linux
+ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_SDK /opt/android-sdk-linux
 
-# Set Environment Variables
-ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \
-    ANDROID_HOME="/usr/local/android-sdk" \
-    ANDROID_VERSION=31
+ENV DEBIAN_FRONTEND noninteractive
 
-# Download Android SDK
-RUN mkdir "$ANDROID_HOME" .android \
-    && cd "$ANDROID_HOME" \
-    && curl -o sdk.zip $SDK_URL \
-    && unzip sdk.zip \
-    && rm sdk.zip \
-    && mkdir "$ANDROID_HOME/licenses" || true \
-    && echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license" \
-    && yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+# Install required tools
+# Dependencies to execute Android builds
 
-# Install Android Build Tool and Libraries
-RUN $ANDROID_HOME/tools/bin/sdkmanager --update
-RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.2" \
-    "platforms;android-${ANDROID_VERSION}" \
-    "platform-tools"
+RUN dpkg --add-architecture i386 && apt-get update -yqq && apt-get install -y \
+  curl \
+  expect \
+  git \
+  make \
+  libc6:i386 \
+  libgcc1:i386 \
+  libncurses5:i386 \
+  libstdc++6:i386 \
+  zlib1g:i386 \
+  openjdk-11-jdk \
+  wget \
+  unzip \
+  vim \
+  openssh-client \
+  locales \
+  bsdtar \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
-CMD ["/bin/bash"]
+ENV LANG en_US.UTF-8
+
+RUN groupadd android && useradd -d /opt/android-sdk-linux -g android -u 1000 android
+
+COPY tools /opt/tools
+
+COPY licenses /opt/licenses
+
+WORKDIR /opt/android-sdk-linux
+
+RUN /opt/tools/entrypoint.sh built-in
+
+CMD /opt/tools/entrypoint.sh built-in
