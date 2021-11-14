@@ -204,8 +204,8 @@ RUN echo "Flutter sdk" && \
     rm -f flutter.tar.xz
 
 # Copy sdk license agreement files.
-RUN mkdir -p $ANDROID_HOME/licenses
-COPY sdk/licenses/* $ANDROID_HOME/licenses/
+RUN mkdir -p $ANDROID_HOME/licenses \
+    && echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license" 
 
 # Create some jenkins required directory to allow this image run with Jenkins
 RUN mkdir -p /var/lib/jenkins/workspace && \
