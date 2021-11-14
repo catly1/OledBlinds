@@ -36,10 +36,10 @@ pipeline {
     environment {
         appName = 'OLED Blinds'
 
-        KEY_PASSWORD = credentials('keyPassword')
+        KEY_PASSWORD = credentials('keyPass')
         KEY_ALIAS = credentials('keyAlias')
         KEYSTORE = credentials('keystore')
-        STORE_PASSWORD = credentials('storePassword')
+        STORE_PASSWORD = credentials('storePass')
     }
     stages {
         stage('Run Tests') {
