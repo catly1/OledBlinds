@@ -85,7 +85,8 @@ pipeline {
                     androidApkUpload googleCredentialsId: 'play-store-credentials',
                             filesPattern: "**/outputs/bundle/${VARIANT.toLowerCase()}/*.aab",
                             trackName: TRACK,
-                            recentChangeList: [[language: 'en-US', text: CHANGELOG]]
+                            recentChangeList: [[language: 'en-US', text: CHANGELOG]],
+                            rolloutPercentage: 100
                 }
             }
         }
