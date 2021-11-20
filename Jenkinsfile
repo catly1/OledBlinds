@@ -95,7 +95,7 @@ pipeline {
                     // id=sh (returnStdout:  true, script: "echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
                     id= getReleaseInfo(release)
                     archive = "app/build/outputs/apk/release/app-release.apk"
-                    sh "curl -XPOST -H \"Content-Type:application/octet-stream\" --data-binary @target/{archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${id}/assets?access_token=${GITHUB_CREDS_PSW}\\&name=app-release.apk"
+                    sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @path/{archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${id}/assets?name=app-release.apk"
                 }
             }
         }
