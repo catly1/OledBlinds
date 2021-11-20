@@ -94,7 +94,7 @@ pipeline {
                     if(info != null) {
                         def release_id = info[1]
                         def archive = "**/*.apk"
-                        sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary ${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
+                        sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     }
                 }
             }
