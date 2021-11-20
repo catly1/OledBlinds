@@ -82,7 +82,7 @@ pipeline {
             steps {
                 echo "Publishing on Github..."
                 script {
-                    tag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
+                    def tag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
 
                     try {
                         CHANGELOG = readFile(file: 'CHANGELOG.txt')
@@ -97,7 +97,7 @@ pipeline {
                     // id=sh (returnStdout:  true, script: "echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
                     def release = readFile('RELEASE').trim()
                     id= getReleaseInfo(release)
-                    archive = readFile "app/build/outputs/apk/release/app-release.apk"
+                    def archive = readFile "app/build/outputs/apk/release/app-release.apk"
                     sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @{archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${id}/assets?name=app-release.apk"
                 }
             }
