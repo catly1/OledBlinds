@@ -87,8 +87,8 @@ pipeline {
                         CHANGELOG = ''
                     }
 
-                    release= sh (script: 'curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
-                    id=$(echo "${release}" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g')
+                    release= sh (script: 'curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
+                    id= release | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'
 
                     curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/catly1/OledBlinds/releases/$id/assets?name=artifact.zip
                 }
