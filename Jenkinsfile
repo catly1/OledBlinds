@@ -30,6 +30,11 @@ def getTrackType() {
 def isDeployCandidate() {
     return ("${env.BRANCH_NAME}" =~ /(develop|master)/)
 }
+def getReleaseInfo(String data) {
+    def m = (data.replaceAll("\n"," ").trim() =~ /\{[^{]*"id": *([^,]*),.*/)
+    if(!m) return null
+    return m[0]
+}
 
 pipeline {
     agent { dockerfile true }
@@ -89,7 +94,7 @@ pipeline {
 
                     release= sh (script: 'curl -XPOST -H "Authorization:token ${GITHUB_TOKEN}" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
                     // id=sh (returnStdout:  true, script: "echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
-                    id= release.replaceAll("\n"," ").trim() =~ /\{[^{]*"id": *([^,]*),.*/)
+                    id= getReleaseInfo(release)
 
                     curl -XPOST -H "Authorization:token $GITHUB_TOKEN" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/catly1/OledBlinds/releases/$id/assets?name=artifact.zip
                 }
