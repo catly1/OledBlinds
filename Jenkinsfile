@@ -93,10 +93,9 @@ pipeline {
                     def info = getReleaseInfo(release)
                     if(info != null) {
                         def release_id = info[1]
-                        def test = sh (script: "find . -name '*.apk'", returnStdout: true)
-                        echo "file location ${test}"
-                        def archive = "**/build/*.apk"
-                        sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
+                        def location = sh (script: "find . -name '*.apk'", returnStdout: true)
+                        echo "file location ${location}"
+                        sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${location} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     }
                 }
             }
