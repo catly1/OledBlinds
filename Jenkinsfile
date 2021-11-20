@@ -54,10 +54,20 @@ pipeline {
         stage('Build Bundle') {
             when { expression { return isDeployCandidate() } }
             steps {
-                echo 'Building'
+                echo 'Building AAB'
                 script {
                     VARIANT = getBuildType()
-                    sh "./gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}"
+                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}'
+                }
+            }
+        }
+        stage('Build APK') {
+            when { expression { return isDeployCandidate() } }
+            steps {
+                echo 'Building APK'
+                script {
+                    VARIANT = getBuildType()
+                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assembleRelease}'
                 }
             }
         }
