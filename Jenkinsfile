@@ -87,10 +87,11 @@ pipeline {
                         CHANGELOG = ''
                     }
 
-                    release= sh (script: 'curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
-                    id=sh (returnStdout:  true, script: "${release} | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
+                    release= sh (script: 'curl -XPOST -H "Authorization:token ${GITHUB_TOKEN}" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
+                    // id=sh (returnStdout:  true, script: "echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
+                    id= release.replaceAll("\n"," ").trim() =~ /\{[^{]*"id": *([^,]*),.*/)
 
-                    curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/catly1/OledBlinds/releases/$id/assets?name=artifact.zip
+                    curl -XPOST -H "Authorization:token $GITHUB_TOKEN" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/catly1/OledBlinds/releases/$id/assets?name=artifact.zip
                 }
             }
         }
