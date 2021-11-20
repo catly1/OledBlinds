@@ -82,8 +82,11 @@ pipeline {
             steps {
                 echo "Publishing on Github..."
                 script {
-                    def tag = bat (script: "./gradlew -q versionName", returnStdout: true).trim().split('\n')[1]
-
+                    def tag = sh (
+                        script: './gradlew -q printVersion',
+                        returnStdout: true
+                    ).trim()
+                    echo "VersionInfo: ${tag}"
                     try {
                         CHANGELOG = readFile(file: 'CHANGELOG.txt')
                     } catch (err) {
