@@ -91,7 +91,8 @@ pipeline {
                         CHANGELOG = ''
                     }
                     sh "rm -rf RELEASE"
-                    sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}\" https://api.github.com/repos/catly1/OledBlinds/releases > RELEASE"
+                    def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}"
+                    sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" --data '${API_create}' https://api.github.com/repos/catly1/OledBlinds/releases > RELEASE"
                     // release= sh (script: 'curl -XPOST -H "Authorization:token ${GITHUB_CREDS_PSW}" --data "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases', returnStdout: true)
                     // id=sh (returnStdout:  true, script: "echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g'")
                     def release = readFile('RELEASE').trim()
