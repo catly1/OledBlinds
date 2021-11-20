@@ -40,6 +40,8 @@ pipeline {
         KEY_ALIAS = credentials('keyAlias')
         KEYSTORE = credentials('keystore')
         STORE_PASSWORD = credentials('storePass')
+        GITHUB_TOKEN = credentials('catly')
+        
     }
     stages {
         stage('Run Tests') {
@@ -67,7 +69,28 @@ pipeline {
                 echo 'Building APK'
                 script {
                     VARIANT = getBuildType()
-                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assembleRelease}'
+                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assemble${VARIANT}'
+                }
+            }
+        }
+        stage('Deploy to Github') {
+            when { expression { return isDeployCandidate() } }
+            steps {
+                echo "Publishing on Github..."
+                script {
+                    tag = $(git describe --tags)
+
+                    try {
+                        CHANGELOG = readFile(file: 'CHANGELOG.txt')
+                    } catch (err) {
+                        echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
+                        CHANGELOG = ''
+                    }
+
+                    release=$(curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"master\", \"name\": \"${TAG}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/catly1/OledBlinds/releases)
+                    id=$(echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g')
+
+                    curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/catly1/OledBlinds/releases/$id/assets?name=artifact.zip
                 }
             }
         }
