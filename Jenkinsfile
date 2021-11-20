@@ -82,8 +82,8 @@ pipeline {
             steps {
                 echo "Publishing on Github..."
                 script {
-                    def tag = sh (
-                        script: './gradlew -q printVersion',
+                    def tag =  sh (
+                        script: "gradle properties | grep 'version' | awk '{print $2}'",
                         returnStdout: true
                     ).trim()
                     echo "VersionInfo: ${tag}"
