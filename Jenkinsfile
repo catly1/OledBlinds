@@ -58,22 +58,13 @@ pipeline {
                 }
             }
         }
-        stage('Build Bundle') {
-            when { expression { return isDeployCandidate() } }
-            steps {
-                echo 'Building AAB'
-                script {
-                    VARIANT = getBuildType()
-                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}'
-                }
-            }
-        }
         stage('Build APK') {
             when { expression { return isDeployCandidate() } }
             steps {
                 echo 'Building APK'
                 script {
                     sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assembleRelease'
+                    archiveArtifacts '**/*.apk'
                 }
             }
         }
@@ -102,9 +93,19 @@ pipeline {
                     def info = getReleaseInfo(release)
                     if(info != null) {
                         def release_id = info[1]
-                        def archive = "app/build/outputs/apk/release/app-release.apk"
+                        def archive = "**/*.apk"
                         sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary ${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     }
+                }
+            }
+        }
+        stage('Build Bundle') {
+            when { expression { return isDeployCandidate() } }
+            steps {
+                echo 'Building AAB'
+                script {
+                    VARIANT = getBuildType()
+                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}'
                 }
             }
         }
