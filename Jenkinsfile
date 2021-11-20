@@ -93,7 +93,7 @@ pipeline {
                     def info = getReleaseInfo(release)
                     if(info != null) {
                         def release_id = info[1]
-                        def location = "/app/build/outputs/apk/release/app-release.apk"
+                        def location = "./app/build/outputs/apk/release/app-release.apk"
                         echo "file location ${location}"
                         sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${location} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     }
