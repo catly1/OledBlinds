@@ -82,7 +82,7 @@ pipeline {
             steps {
                 echo "Publishing on Github..."
                 script {
-                    def tag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
+                    def tag = bat (script: "./gradlew -q versionName", returnStdout: true).trim().split('\n')[1]
 
                     try {
                         CHANGELOG = readFile(file: 'CHANGELOG.txt')
