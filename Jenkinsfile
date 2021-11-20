@@ -64,7 +64,7 @@ pipeline {
                 echo 'Building APK'
                 script {
                     sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assembleRelease'
-                    archiveArtifacts '**/*.apk'
+                    // archiveArtifacts '**/*.apk'
                 }
             }
         }
@@ -93,7 +93,7 @@ pipeline {
                     def info = getReleaseInfo(release)
                     if(info != null) {
                         def release_id = info[1]
-                        def archive = "**/*.apk"
+                        def archive = "app/build/outputs/apk/release/app-release.apk"
                         sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     }
                 }
