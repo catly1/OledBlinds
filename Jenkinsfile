@@ -83,7 +83,7 @@ pipeline {
                 echo "Publishing on Github..."
                 script {
                     def tag =  sh (
-                        script: "gradle properties | grep 'version' | awk '{print \$2}'",
+                        script: './gradlew -q printVersion',
                         returnStdout: true
                     ).trim()
                     echo "VersionInfo: ${tag}"
@@ -101,7 +101,7 @@ pipeline {
                     def release = readFile('RELEASE').trim()
                     def id= getReleaseInfo(release)
                     def archive = readFile "app/build/outputs/apk/release/app-release.apk"
-                    sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @{archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${id}/assets?name=app-release.apk"
+                    sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary ${archive} https://uploads.github.com/repos/catly1/OledBlinds/releases/${id}/assets?name=app-release.apk"
                 }
             }
         }
