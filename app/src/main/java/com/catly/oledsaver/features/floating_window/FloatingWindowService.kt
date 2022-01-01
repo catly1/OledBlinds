@@ -147,7 +147,7 @@ class FloatingWindowService : Service() {
         createNotificationChannel()
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("OLED Blinds")
@@ -162,14 +162,12 @@ class FloatingWindowService : Service() {
     }
 
     private fun createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val serviceChannel = NotificationChannel(
-                channelID, "OLED Blinds Service Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            val manager = getSystemService(NotificationManager::class.java)
-            manager!!.createNotificationChannel(serviceChannel)
-        }
+        val serviceChannel = NotificationChannel(
+            channelID, "OLED Blinds Service Channel",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        val manager = getSystemService(NotificationManager::class.java)
+        manager!!.createNotificationChannel(serviceChannel)
     }
 
     private fun getPrefValuesAndSystemServices(){
