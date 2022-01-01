@@ -13,8 +13,10 @@ class OLEDBlindsTileService : TileService() {
         super.onClick()
         if (!FloatingWindowService.isRunning) {
             FloatingWindowService.startService(this)
+            setOnIcon()
         } else {
             FloatingWindowService.stopService(this)
+            setOffIcon()
         }
 
         val closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
@@ -24,16 +26,24 @@ class OLEDBlindsTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
 
-        val tile = qsTile
-
         if (FloatingWindowService.isRunning) {
-            tile.state = Tile.STATE_ACTIVE
-            tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
+            setOnIcon()
         } else {
-            tile.state = Tile.STATE_INACTIVE
-            tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveronoff)
+            setOffIcon()
         }
+    }
 
+    fun setOnIcon(){
+        val tile = qsTile
+        tile.state = Tile.STATE_ACTIVE
+        tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
+        tile.updateTile()
+    }
+
+    fun setOffIcon(){
+        val tile = qsTile
+        tile.state = Tile.STATE_INACTIVE
+        tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveronoff)
         tile.updateTile()
     }
 }
