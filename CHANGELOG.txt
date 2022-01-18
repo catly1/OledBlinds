@@ -1,1 +1,1 @@
-Made the notification sound on launch silent.
+Made changes for Notification Tile behavior per Google's guidelines.
