@@ -1,2 +1,2 @@
-- Made changes for Notification Tile behavior per Google's guidelines.
-- Touch Passthrough will be unusable for Android 12 and newer versions due to a policy change. Currently looking for a work around.
+Made changes for Notification Tile behavior per Google's guidelines.
+Touch Passthrough will be unusable for Android 12 and newer versions due to a policy change. Currently looking for a work around.
