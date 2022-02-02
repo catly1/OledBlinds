@@ -1,1 +1,1 @@
-Made changes for Notification Tile behavior per Google's guidelines.
+Made changes for Notification Tile behavior per Google guidelines.
