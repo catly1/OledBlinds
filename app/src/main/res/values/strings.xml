@@ -16,7 +16,7 @@
     <string name="tap_behind">Touch Passthrough</string>
     <string name="tap_behind_description">Items behind the bars become touchable</string>
     <string name="close">Close</string>
-    <string name="tap_behind_dialog_message">Buttons in the black bars will be untouchable when this option is on</string>
+    <string name="tap_behind_dialog_message">Buttons in the black bars will be untouchable when this option is on. Won\'t work for Android 12 and above.</string>
 
     <!--Guide-->
     <string name="guideFragmentText">Press and drag to resize. Override is press and drag too. Use the quick toggle when locked.</string>
