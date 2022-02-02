@@ -49,54 +49,54 @@ pipeline {
         
     }
     stages {
-//         stage('Run Tests') {
-//             steps {
-//                 echo 'Running Tests'
-//                 script {
-//                     VARIANT = getBuildType()
-//                     sh "./gradlew test${VARIANT}UnitTest"
-//                 }
-//             }
-//         }
-//         stage('Build Bundle') {
-//             when { expression { return isDeployCandidate() } }
-//             steps {
-//                 echo 'Building AAB'
-//                 script {
-//                     VARIANT = getBuildType()
-//                     sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}'
-//                 }
-//             }
-//         }
-//         stage('Deploy App to Store') {
-//             when { expression { return isDeployCandidate() } }
-//             steps {
-//                 echo 'Deploying'
-//                 script {
-//                     VARIANT = getBuildType()
-//                     TRACK = getTrackType()
-//
-//                     if (TRACK == Constants.RELEASE_TRACK) {
-//                         timeout(time: 5, unit: 'MINUTES') {
-//                             input "Proceed with deployment to ${TRACK}?"
-//                         }
-//                     }
-//
-//                     try {
-//                         CHANGELOG = readFile(file: 'CHANGELOG.txt')
-//                     } catch (err) {
-//                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
-//                         CHANGELOG = ''
-//                     }
-//
-//                     androidApkUpload googleCredentialsId: 'play-store-credentials',
-//                             filesPattern: "**/outputs/bundle/${VARIANT.toLowerCase()}/*.aab",
-//                             trackName: TRACK,
-//                             recentChangeList: [[language: 'en-US', text: CHANGELOG]],
-//                             rolloutPercentage: '100'
-//                 }
-//             }
-//         }
+        stage('Run Tests') {
+            steps {
+                echo 'Running Tests'
+                script {
+                    VARIANT = getBuildType()
+                    sh "./gradlew test${VARIANT}UnitTest"
+                }
+            }
+        }
+        stage('Build Bundle') {
+            when { expression { return isDeployCandidate() } }
+            steps {
+                echo 'Building AAB'
+                script {
+                    VARIANT = getBuildType()
+                    sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} bundle${VARIANT}'
+                }
+            }
+        }
+        stage('Deploy App to Store') {
+            when { expression { return isDeployCandidate() } }
+            steps {
+                echo 'Deploying'
+                script {
+                    VARIANT = getBuildType()
+                    TRACK = getTrackType()
+
+                    if (TRACK == Constants.RELEASE_TRACK) {
+                        timeout(time: 5, unit: 'MINUTES') {
+                            input "Proceed with deployment to ${TRACK}?"
+                        }
+                    }
+
+                    try {
+                        CHANGELOG = readFile(file: 'CHANGELOG.txt')
+                    } catch (err) {
+                        echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
+                        CHANGELOG = ''
+                    }
+
+                    androidApkUpload googleCredentialsId: 'play-store-credentials',
+                            filesPattern: "**/outputs/bundle/${VARIANT.toLowerCase()}/*.aab",
+                            trackName: TRACK,
+                            recentChangeList: [[language: 'en-US', text: CHANGELOG]],
+                            rolloutPercentage: '100'
+                }
+            }
+        }
         stage('Build APK') {
             when { expression { return isDeployCandidate() } }
             steps {
