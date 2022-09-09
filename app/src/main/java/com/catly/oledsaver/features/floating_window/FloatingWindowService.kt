@@ -46,6 +46,7 @@ class FloatingWindowService : Service() {
     private var statusBarSize = 0
     var rotation = 0
     var tapBehind = false
+    var viewsAttached = false
 
     companion object {
         fun startService(context: Context) {
@@ -145,6 +146,22 @@ class FloatingWindowService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
+        val rightLeft = intent?.getBooleanExtra("rightLeft", false)?: sharedPreferences.getBoolean("isFlipped", false)
+
+        if (rightLeft){
+            if (!viewsAttached){
+                leftRightMode()
+                handleLeftRightBarCutoutAdjustment()
+                viewsAttached = true
+            }
+        } else {
+            if (!viewsAttached){
+                topDownMode()
+                viewsAttached = false
+            }
+        }
+        sharedPreferences.edit().putBoolean("isFlipped", rightLeft).apply()
+        flipped = rightLeft
 
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
@@ -176,7 +193,6 @@ class FloatingWindowService : Service() {
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         powerManager = getSystemService(POWER_SERVICE) as PowerManager
         displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
-        flipped = sharedPreferences.getBoolean("isFlipped", false)
         locked = sharedPreferences.getBoolean("isLocked", false)
         statusBarSize = sharedPreferences.getString("statusBarSize", "92")!!.toInt()
         tapBehind = sharedPreferences.getBoolean("tapBehind", false)
@@ -187,12 +203,7 @@ class FloatingWindowService : Service() {
         getPrefValuesAndSystemServices()
         setWidthHeightValues()
         handleOverrideDimensions()
-        if (flipped){
-            leftRightMode()
-            handleLeftRightBarCutoutAdjustment()
-        } else {
-            topDownMode()
-        }
+
         setLockState()
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         displayManager.registerDisplayListener(displayListener, Handler())
