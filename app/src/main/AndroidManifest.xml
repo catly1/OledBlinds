@@ -28,8 +28,12 @@
         <service
             android:name="com.catly.oledsaver.features.floating_window.FloatingWindowService"
             android:enabled="true"
-            android:exported="false"
-            />
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="com.catly.oledsaver.features.floating_window.FloatingWindowService"/>
+            </intent-filter>
+        </service>
 
         <service
             android:name="com.catly.oledsaver.features.floating_window.OLEDBlindsTileService"
@@ -42,6 +46,15 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name=".features.floating_window.StopService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.catly.oledsaver.features.floating_window.StopService"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
