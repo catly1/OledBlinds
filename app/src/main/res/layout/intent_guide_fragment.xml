@@ -31,9 +31,27 @@
         />
 
     <TextView
+        android:id="@+id/text_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open with top and bottom Bars"
+        android:textSize="24sp"
+        android:layout_margin="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner_divider"
+        app:layout_constraintVertical_chainStyle="spread"
+        />
+
+    <TextView
+        android:id="@+id/open_intent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_label"
         />
 
     <Button
@@ -44,7 +62,9 @@
         app:iconPadding="0dp"
         app:iconGravity="textStart"
         app:cornerRadius="10dp"
-        android:layout_marginEnd="20dp"/>
+        app:layout_constraintTop_toBottomOf="@id/text_label"
+        app:layout_constraintStart_toEndOf="@id/open_intent"
+        />
 
 
     <TextView
