@@ -160,6 +160,7 @@ class FloatingWindowService : Service() {
                 viewsAttached = false
             }
         }
+        setLockState()
         sharedPreferences.edit().putBoolean("isFlipped", rightLeft).apply()
         flipped = rightLeft
 
@@ -203,8 +204,6 @@ class FloatingWindowService : Service() {
         getPrefValuesAndSystemServices()
         setWidthHeightValues()
         handleOverrideDimensions()
-
-        setLockState()
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceListener)
         displayManager.registerDisplayListener(displayListener, Handler())
         isRunning = true

@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
-    <string name="start">Turn On</string>
+    <string name="start">Start</string>
     <string name="reset">Reset</string>
     <string name="override">Overlap camera cutout</string>
     <string name="overrideDescription">For forced fullscreen apps</string>

@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
+import com.catly.oledsaver.features.floating_window.FloatingWindowService
+import com.google.android.material.button.MaterialButton
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -33,6 +35,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
@@ -40,28 +43,15 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, null)
     }
 
-    fun composeEmail(addresses: Array<String?>?, subject: String?) {
-        val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:") // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, addresses)
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        if (activity?.let { intent.resolveActivity(it.packageManager) } != null) {
-            startActivity(intent)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.inflateMenu(R.menu.menu_main)
-//        toolbar.setOnMenuItemClickListener {
-//            when (it.itemId) {
-//                R.id.feedback -> {
-//                    composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        view.findViewById<MaterialButton>(R.id.startButton).setOnClickListener {
+            if (!FloatingWindowService.isRunning) {
+                context?.let { it1 -> FloatingWindowService.startService(it1)}
+//                activity?.finish()
+            } else {
+                context?.let { it1 -> FloatingWindowService.stopService(it1) }
+            }
+        }
     }
 }

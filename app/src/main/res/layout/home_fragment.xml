@@ -9,15 +9,25 @@
     android:orientation="vertical"
     tools:context=".features.view.HomeFragment">
 
-    <View
+    <Toolbar
         android:id="@+id/fake_toolbar"
+        android:title="@string/app_name"
+        android:titleTextColor="?attr/colorOnPrimary"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="18dp"
         android:background="?attr/colorPrimaryVariant"
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <View
+        android:id="@+id/bottom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginBottom="18dp"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintTop_toBottomOf="@id/fake_toolbar"
+        />
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -27,20 +37,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fake_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/startButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
-
+        android:layout_marginTop="-30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:backgroundTint="?attr/colorSecondaryVariant"
         app:cornerRadius="20dp"
         android:text="@string/start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fake_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/bottom_toolbar"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
