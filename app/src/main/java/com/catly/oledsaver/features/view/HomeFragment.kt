@@ -52,16 +52,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_main)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.feedback -> {
-                    composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
-                    true
-                }
-                else -> false
-            }
-        }
+//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.inflateMenu(R.menu.menu_main)
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.feedback -> {
+//                    composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
     }
 }

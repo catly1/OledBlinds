@@ -9,26 +9,15 @@
     android:orientation="vertical"
     tools:context=".features.view.HomeFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <View
+        android:id="@+id/fake_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="150dp"
+        android:layout_marginBottom="18dp"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            app:title="@string/app_name"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -38,77 +27,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/fake_toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
-    <!--    <TextView-->
-<!--        android:id="@+id/fragment_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:text="@string/hello_first_fragment"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/onButton"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_chainStyle="packed" />-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
 
-<!--    <ToggleButton-->
-<!--        android:id="@+id/onButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/resetButton"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/fragment_text" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/resetButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Reset"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/override"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/onButton"-->
-<!--        android:layout_margin="10dp"-->
-<!--        />-->
-
-
-<!--    <Switch-->
-<!--        android:id="@+id/override"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:switchPadding="30dp"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:text="@string/override"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/resetButton" />-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/textInputLayout"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:hint="@string/status_bar_size"-->
-<!--        android:layout_margin="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/override">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/editText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-<!--            android:inputType="number"-->
-<!--            android:textSize="14dp" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
+        app:backgroundTint="?attr/colorSecondaryVariant"
+        app:cornerRadius="20dp"
+        android:text="@string/start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fake_toolbar"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

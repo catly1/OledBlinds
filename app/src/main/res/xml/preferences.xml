@@ -45,6 +45,12 @@
         />
 
     <Preference
+        app:key="feedback"
+        app:title="@string/feedback"
+        app:iconSpaceReserved="false"
+        />
+
+    <Preference
         app:key="reset"
         app:title="@string/reset"
         app:iconSpaceReserved="false"

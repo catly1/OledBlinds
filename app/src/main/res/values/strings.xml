@@ -27,5 +27,8 @@
     <string name="guide1">How to give permission to the app?</string>
     <string name="guide2">What does each button do?</string>
     <string name="guide3">Add app to notification panel</string>
+    <string name="button_guide">Button Guide</string>
+    <string name="permission_guide">Permission Guide</string>
+    <string name="notification_button">Notification Button</string>
 
 </resources>
