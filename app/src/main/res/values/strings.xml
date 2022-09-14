@@ -27,8 +27,15 @@
     <string name="guide1">How to give permission to the app?</string>
     <string name="guide2">What does each button do?</string>
     <string name="guide3">Add app to notification panel</string>
+    <string name="guide4">Automation with Tasker</string>
     <string name="button_guide">Button Guide</string>
     <string name="permission_guide">Permission Guide</string>
     <string name="notification_button">Notification Button</string>
+    <string name="open_intent">oledblinds.start</string>
+    <string name="close_intent">oledblinds.stop</string>
+    <string name="intentGuideText">Oled Blinds can be opened automatically with automation tools such as Tasker.</string>
+    <string name="watch_button">Watch Guide</string>
+    <string name="open">Open</string>
+    <string name="automation_guide_title">Automation Integration</string>
 
 </resources>

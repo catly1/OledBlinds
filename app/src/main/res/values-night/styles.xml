@@ -2,6 +2,7 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="colorOnBackground">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Customize your theme here. -->
         <!--        <item name="alertDialogTheme">@style/AlertDialogTheme</item>-->

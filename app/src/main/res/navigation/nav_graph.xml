@@ -75,6 +75,17 @@
         <action
             android:id="@+id/action_guideIndexFragment_to_tileGuideFragment"
             app:destination="@id/tileGuideFragment" />
+        <action
+            android:id="@+id/action_guideIndexFragment_to_intentGuideFragment"
+            app:destination="@id/intentGuideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/intentGuideFragment"
+        android:name="com.catly.oledsaver.features.view.guide.IntentGuideFragment"
+        android:label="IntentGuideFragment" >
+        <action
+            android:id="@+id/action_intentGuideFragment_to_guideIndexFragment"
+            app:destination="@id/guideIndexFragment" />
     </fragment>
 
 </navigation>
