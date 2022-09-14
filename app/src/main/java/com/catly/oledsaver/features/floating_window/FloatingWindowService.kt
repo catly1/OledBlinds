@@ -146,7 +146,7 @@ class FloatingWindowService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        val rightLeft = intent?.getBooleanExtra("rightLeft", false)?: sharedPreferences.getBoolean("isFlipped", false)
+        val rightLeft = intent?.getBooleanExtra("right_left", false)?: sharedPreferences.getBoolean("isFlipped", false)
 
         if (rightLeft){
             if (!viewsAttached){
