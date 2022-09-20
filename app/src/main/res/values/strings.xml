@@ -40,4 +40,5 @@
     <string name="automation_guide_title">Automation Integration</string>
     <string name="update">update</string>
 
+    <string name="version">Version: %1$s</string>
 </resources>

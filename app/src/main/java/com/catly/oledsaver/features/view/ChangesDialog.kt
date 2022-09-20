@@ -20,7 +20,7 @@ class ChangesDialog: DialogFragment() {
 
         val view = layoutInflater.inflate(R.layout.changes_dialog,null)
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Change Log Version: ${BuildConfig.VERSION_NAME}")
+            .setTitle("Change Log")
             .setView(view)
             .create()
 

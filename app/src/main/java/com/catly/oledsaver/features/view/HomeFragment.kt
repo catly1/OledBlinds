@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
@@ -61,6 +62,8 @@ class HomeFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.news_button).setOnClickListener {
             showChangeLogDialog()
         }
+
+        view.findViewById<TextView>(R.id.version_number).text = getString(R.string.version, BuildConfig.VERSION_NAME)
 
         if (checkOldVersion()){
             showChangeLogDialog()
