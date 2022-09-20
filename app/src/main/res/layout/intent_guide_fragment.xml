@@ -135,7 +135,7 @@
         android:layout_marginBottom="10dp"
         app:cornerRadius="20dp"
         android:layout_height="70dp"
-        android:text="@string/watch_button"
+        android:text="@string/guide_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/next_button"

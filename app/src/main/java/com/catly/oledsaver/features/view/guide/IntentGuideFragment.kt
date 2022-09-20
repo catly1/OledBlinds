@@ -11,15 +11,6 @@ import com.catly.oledsaver.R
 
 
 class IntentGuideFragment: BaseGuideFragment(R.layout.intent_guide_fragment, R.id.action_intentGuideFragment_to_guideIndexFragment) {
-    fun openYoutubeLink(youtubeID: String) {
-        val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeID))
-        val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + youtubeID))
-        try {
-            this.startActivity(intentApp)
-        } catch (ex: ActivityNotFoundException) {
-            this.startActivity(intentBrowser)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +27,7 @@ class IntentGuideFragment: BaseGuideFragment(R.layout.intent_guide_fragment, R.i
         }
 
         view.findViewById<Button>(R.id.guideButton).setOnClickListener {
-            openYoutubeLink("mJ1N7-HyH1A")
+            launchBrowser("https://github.com/catly1/OledBlinds/wiki/Tasker-Setup")
         }
     }
 }

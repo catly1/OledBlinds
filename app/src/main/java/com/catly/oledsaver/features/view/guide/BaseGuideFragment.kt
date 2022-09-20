@@ -1,7 +1,9 @@
 package com.catly.oledsaver.features.view.guide
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,5 +56,10 @@ open class BaseGuideFragment(private val viewLayout: Int, private val nextDestin
     override fun onPause() {
         super.onPause()
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+    }
+
+    fun launchBrowser(url: String){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 }
