@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
@@ -19,7 +22,7 @@ import com.google.android.material.button.MaterialButton
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class HomeFragment : Fragment() {
-
+    private var currentDialog : DialogFragment? = null
     override fun onResume() {
         super.onResume()
         if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
@@ -52,6 +55,11 @@ class HomeFragment : Fragment() {
             } else {
                 context?.let { it1 -> FloatingWindowService.stopService(it1) }
             }
+        }
+
+        view.findViewById<ImageButton>(R.id.news_button).setOnClickListener {
+            currentDialog = ChangesDialog()
+            currentDialog?.show(parentFragmentManager, javaClass.simpleName)
         }
     }
 }

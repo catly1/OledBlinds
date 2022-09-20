@@ -35,7 +35,9 @@
     <string name="close_intent">oledblinds.stop</string>
     <string name="intentGuideText">Oled Blinds can be opened automatically with automation tools such as Tasker.</string>
     <string name="guide_button">Guide</string>
-    <string name="open">Open</string>
+    <string name="open_label">Open Intent</string>
+    <string name="close_label">Close Intent</string>
     <string name="automation_guide_title">Automation Integration</string>
+    <string name="update">update</string>
 
 </resources>
