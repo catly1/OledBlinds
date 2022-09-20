@@ -83,7 +83,7 @@ pipeline {
                     }
 
                     try {
-                        CHANGELOG = readFile(file: 'CHANGELOG.txt')
+                        CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
@@ -118,7 +118,7 @@ pipeline {
                     ).trim()
                     echo "VersionInfo: ${tag}"
                     try {
-                        CHANGELOG = readFile(file: 'CHANGELOG.txt')
+                        CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''

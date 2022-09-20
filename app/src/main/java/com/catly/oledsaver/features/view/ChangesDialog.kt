@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.catly.oledsaver.BuildConfig
 import com.catly.oledsaver.R
 import java.io.BufferedReader
 import java.io.IOException
@@ -19,7 +20,7 @@ class ChangesDialog: DialogFragment() {
 
         val view = layoutInflater.inflate(R.layout.changes_dialog,null)
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Change Log")
+            .setTitle("Change Log Version: ${BuildConfig.VERSION_NAME}")
             .setView(view)
             .create()
 

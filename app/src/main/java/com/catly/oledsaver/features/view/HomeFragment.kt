@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.catly.oledsaver.BuildConfig
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.FloatingWindowService
 import com.google.android.material.button.MaterialButton
@@ -58,8 +59,28 @@ class HomeFragment : Fragment() {
         }
 
         view.findViewById<ImageButton>(R.id.news_button).setOnClickListener {
-            currentDialog = ChangesDialog()
-            currentDialog?.show(parentFragmentManager, javaClass.simpleName)
+            showChangeLogDialog()
         }
+
+        if (checkOldVersion()){
+            showChangeLogDialog()
+        }
+    }
+
+    private fun showChangeLogDialog(){
+        currentDialog = ChangesDialog()
+        currentDialog?.show(parentFragmentManager, javaClass.simpleName)
+    }
+
+    private fun checkOldVersion(): Boolean {
+        val sharedPreference = PreferenceManager.getDefaultSharedPreferences(context)
+        val savedVersion = sharedPreference.getInt("release", 0)
+        val currentVersion = BuildConfig.VERSION_CODE
+        return if (currentVersion > savedVersion){
+            sharedPreference.edit()
+                .putInt("release", currentVersion)
+                .apply()
+            true
+        } else false
     }
 }
