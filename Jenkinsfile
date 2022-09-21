@@ -119,7 +119,7 @@ pipeline {
                     echo "VersionInfo: ${tag}"
                     try {
                         CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
-                        test = CHANGELOG.replace(/(\r\n|\n|\r)/gm, "")
+                        test = CHANGELOG.replace(/(\r\n|\n|\r)/, "")
                         echo "not trimmed: ${CHANGELOG}"
                         echo -n "trimmed: ${test}"
                     } catch (err) {
