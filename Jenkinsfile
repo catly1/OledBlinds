@@ -130,7 +130,7 @@ pipeline {
                         CHANGELOG = ''
                     }
                     sh "rm -rf RELEASE"
-                    def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"nothing\", \"draft\": false, \"prerelease\": false, \"generate_release_notes\":false}"
+                    def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": false, \"generate_release_notes\":false}"
                     sh "curl -XPOST --header \"Authorization:Bearer ${GITHUB_CREDS_PSW}\" --header \"Content-Type:application/json\" --data '${API_create}' https://api.github.com/repos/catly1/OledBlinds/releases > RELEASE"
                     def release = readFile('RELEASE').trim()
                     echo release
