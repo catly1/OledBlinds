@@ -59,8 +59,7 @@ ENV LD_LIBRARY_PATH ${ANDROID_SDK_ROOT}/emulator/lib64:${ANDROID_SDK_ROOT}/emula
 ENV QTWEBENGINE_DISABLE_SANDBOX 1
 
 # accept the license agreements of the SDK components
-ADD license_accepter.sh /opt/
-RUN chmod +x /opt/license_accepter.sh && /opt/license_accepter.sh $ANDROID_SDK_ROOT
+RUN yes | sdkmanager --licenses
 
 # setup adb server
 EXPOSE 5037
