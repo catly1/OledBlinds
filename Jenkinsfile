@@ -121,7 +121,7 @@ pipeline {
                         CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
                         def test = CHANGELOG.replace(/(\r\n|\n|\r)/, "")
                         echo "not trimmed: ${CHANGELOG}"
-                        echo -n "trimmed: ${test}"
+                        echo "trimmed: ${test}"
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
