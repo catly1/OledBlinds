@@ -19,7 +19,7 @@ class GuideIndexItemAdapter(
 
     var guideList: List<GuideIndexItem> = mutableListOf()
 
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
+    class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val textView: TextView = view.findViewById(R.id.item_title)
     }
 
