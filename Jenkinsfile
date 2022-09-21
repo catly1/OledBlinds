@@ -124,7 +124,7 @@ pipeline {
                         lines.each {line ->
                             CHANGELOG <<= line
                         }
-                        echo CHANGELOG
+                        echo CHANGELOG.toString()
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
