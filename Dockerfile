@@ -149,8 +149,7 @@ RUN echo "platform tools" && \
 RUN echo "build tools 25-33" && \
     . /etc/jdk.env && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
-        "build-tools;33.0.0-rc1" \
-        "build-tools;30.0.3" > /dev/null
+        "build-tools;33.0.0-rc1" > /dev/null
 
 # seems there is no emulator on arm64
 # Warning: Failed to find package emulator
