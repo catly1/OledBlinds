@@ -65,5 +65,6 @@ RUN yes | sdkmanager --licenses
 EXPOSE 5037
 
 # install required tools
-RUN apt-get update -qq
+RUN apt-get update -qq --no-install-recommends \
+    curl
 RUN chmod +777 $ANDROID_SDK_ROOT
