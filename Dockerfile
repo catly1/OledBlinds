@@ -146,7 +146,7 @@ RUN echo "platform tools" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
         "platform-tools" > /dev/null
 
-RUN echo "build tools 25-30" && \
+RUN echo "build tools 25-33" && \
     . /etc/jdk.env && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
         "build-tools;33.0.0" > /dev/null
