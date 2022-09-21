@@ -118,10 +118,13 @@ pipeline {
                     ).trim()
                     echo "VersionInfo: ${tag}"
                     try {
-                        CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
-                        def test = CHANGELOG.replace(/(\r\n|\n|\r)/, "")
-                        echo "not trimmed: ${CHANGELOG}"
-                        echo "trimmed: ${test}"
+                        def filePath = readFile(file: 'app/src/main/assets/CHANGELOG.txt').trim()
+                        def lines = filePath.lines()
+                        CHANGELOG = ""
+                        lines.each {line ->
+                            CHANGELOG <<== line
+                        }
+                        echo CHANGELOG
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
