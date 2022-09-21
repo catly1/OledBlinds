@@ -122,7 +122,7 @@ pipeline {
                         def lines = filePath.lines()
                         CHANGELOG = ""
                         lines.each {line ->
-                            CHANGELOG <<= line + "\n"
+                            CHANGELOG <<= line
                         }
                         echo CHANGELOG.toString()
                     } catch (err) {
