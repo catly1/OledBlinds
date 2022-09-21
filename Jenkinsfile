@@ -120,7 +120,7 @@ pipeline {
                     try {
                         def filePath = readFile(file: 'app/src/main/assets/CHANGELOG.txt').trim()
                         def lines = filePath.lines()
-                        CHANGELOG = lines.drop(0)
+                        CHANGELOG = lines.pop()
                         lines.each {line ->
                             CHANGELOG <<= "\n" + line
                         }
