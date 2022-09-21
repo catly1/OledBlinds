@@ -49,6 +49,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    namespace 'com.catly.oledsaver'
 }
 
 dependencies {
