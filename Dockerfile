@@ -67,5 +67,32 @@ EXPOSE 5037
 # install required tools
 RUN apt-get update -qq && \
     apt-get install -qq --no-install-recommends \
-    curl
+        autoconf \
+        build-essential \
+        curl \
+        file \
+        git \
+        gpg-agent \
+        less \
+        libc6-dev \
+        libgmp-dev \
+        libmpc-dev \
+        libmpfr-dev \
+        libxslt-dev \
+        libxml2-dev \
+        m4 \
+        ncurses-dev \
+        ocaml \
+        openjdk-8-jdk \
+        openjdk-11-jdk \
+        openssh-client \
+        pkg-config \
+        ruby-full \
+        software-properties-common \
+        tzdata \
+        unzip \
+        vim-tiny \
+        wget \
+        zip \
+        zlib1g-dev
 RUN chmod +777 $ANDROID_SDK_ROOT
