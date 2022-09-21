@@ -66,3 +66,4 @@ EXPOSE 5037
 
 # install required tools
 RUN apt-get update -qq
+RUN sudo chown -R $(whoami) $ANDROID_SDK_ROOT
