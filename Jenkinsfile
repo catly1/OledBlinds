@@ -125,7 +125,7 @@ pipeline {
                     }
                     sh "rm -rf RELEASE"
                     def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": false}"
-                    sh "curl -XPOST -H \"Authorization: Bearer ${GITHUB_CREDS_PSW}\" https://api.github.com/repos/catly1/OledBlinds/releases -d '${API_create}' > RELEASE"
+                    sh "curl -XPOST -H \"Accept: application/vnd.github+json\" -H \"Authorization: Bearer ${GITHUB_CREDS_PSW}\" https://api.github.com/repos/catly1/OledBlinds/releases -d '${API_create}' > RELEASE"
                     def release = readFile('RELEASE').trim()
                     echo release
                     def info = getReleaseInfo(release)
