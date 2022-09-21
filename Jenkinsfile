@@ -103,7 +103,7 @@ pipeline {
                 echo 'Building APK'
                 script {
                     sh './gradlew -PstorePass=${STORE_PASSWORD} -Pkeystore=${KEYSTORE} -Palias=${KEY_ALIAS} -PkeyPass=${KEY_PASSWORD} assembleRelease'
-                    // archiveArtifacts '**/*.apk'
+                    archiveArtifacts '**/*.apk'
                 }
             }
         }
