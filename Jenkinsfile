@@ -127,12 +127,16 @@ pipeline {
                     def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": false}"
                     sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" --data '${API_create}' https://api.github.com/repos/catly1/OledBlinds/releases > RELEASE"
                     def release = readFile('RELEASE').trim()
+                    echo release
                     def info = getReleaseInfo(release)
+                    echo info
                     if(info != null) {
                         def release_id = info[1]
                         def location = "./app/build/outputs/apk/release/app-release.apk"
                         echo "file location ${location}"
                         sh "curl -XPOST -H \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${location} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
+                    } else {
+                        error("Release not uploaded")
                     }
                 }
             }
