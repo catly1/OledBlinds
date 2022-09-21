@@ -124,8 +124,8 @@ pipeline {
                         CHANGELOG = ''
                     }
                     sh "rm -rf RELEASE"
-                    def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": false}"
-                    sh "curl -X POST --header \"Accept: application/vnd.github+json\" --header \"Authorization:token ${GITHUB_CREDS_PSW}\" https://api.github.com/repos/catly1/OledBlinds/releases --data '${API_create}'> RELEASE"
+                    def API_create = "{\"tag_name\": \"${tag}\", \"target_commitish\": \"master\", \"name\": \"${tag}\", \"body\": \"${CHANGELOG}\", \"draft\": false, \"prerelease\": false, \"generate_release_notes\":false}"
+                    sh "curl -X POST --header \"Accept: application/vnd.github+json\" --header \"Authorization:Bearer ${GITHUB_CREDS_PSW}\" https://api.github.com/repos/catly1/OledBlinds/releases --data '${API_create}'> RELEASE"
                     def release = readFile('RELEASE').trim()
                     echo release
                     def info = getReleaseInfo(release)
@@ -134,7 +134,7 @@ pipeline {
                         def release_id = info[1]
                         def location = "./app/build/outputs/apk/release/app-release.apk"
                         echo "file location ${location}"
-                        sh "curl -X POST --header \"Authorization:token ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${location} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
+                        sh "curl -X POST --header \"Authorization:Bearer ${GITHUB_CREDS_PSW}\" -H \"Content-Type:application/octet-stream\"  --data-binary @${location} https://uploads.github.com/repos/catly1/OledBlinds/releases/${release_id}/assets?name=app-release.apk"
                     } else {
                         error("Release not uploaded")
                     }
