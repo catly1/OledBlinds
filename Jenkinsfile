@@ -121,12 +121,13 @@ pipeline {
                         def filePath = readFile(file: 'app/src/main/assets/CHANGELOG.txt').trim()
                         def lines = filePath.readLines()
                         lines.each{ line ->
-                            CHANGELOG+= line
+                            CHANGELOG = CHANGELOG + line
                         }
                         echo CHANGELOG
 //                         CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
 
                     } catch (err) {
+                        echo err
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
                     }
