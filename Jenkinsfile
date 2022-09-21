@@ -127,7 +127,6 @@ pipeline {
 //                         CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
 
                     } catch (err) {
-                        echo err
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
                     }
