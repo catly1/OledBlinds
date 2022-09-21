@@ -119,8 +119,9 @@ pipeline {
                     echo "VersionInfo: ${tag}"
                     try {
                         CHANGELOG = readFile(file: 'app/src/main/assets/CHANGELOG.txt')
+                        test = CHANGELOG.replace(/(\r\n|\n|\r)/gm, "")
                         echo "not trimed: ${CHANGELOG}"
-                        echo -n "trimed: ${CHANGELOG.replace(/(\r\n|\n|\r)/gm, "")}"
+                        echo -n "trimed: ${test}"
                     } catch (err) {
                         echo "Issue reading CHANGELOG.txt file: ${err.localizedMessage}"
                         CHANGELOG = ''
