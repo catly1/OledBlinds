@@ -28,6 +28,9 @@ Both links have the same app. If you want to support my work then consider buyin
 
 ![](images/SamsungButtonGuide.jpg)
 
+## Tasker Integration:
+[Here](https://github.com/catly1/OledBlinds/wiki/Tasker-Setup)
+
 ## Troubleshooting:
 * After an update, the button in the quick bar/notification panel is gone!
     * See if you can add it back by following the step about it in the installation section.
