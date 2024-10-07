@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -28,7 +29,10 @@
             android:name="com.catly.oledsaver.features.floating_window.FloatingWindowService"
             android:enabled="true"
             android:exported="true"
+            android:foregroundServiceType="specialUse"
             >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Just puts a black box on the screen"/>
             <intent-filter>
                 <action android:name="oledblinds.start"/>
             </intent-filter>
@@ -40,7 +44,10 @@
             android:icon="@drawable/ic_oledsaveronoff"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:foregroundServiceType="specialUse"
             >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Option to turn it on from the notification panel"/>
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
@@ -48,7 +55,11 @@
 
         <service
             android:name=".features.floating_window.StopService"
-            android:exported="true">
+            android:exported="true"
+            android:foregroundServiceType="specialUse"
+            >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Turns off the service"/>
             <intent-filter>
                 <action android:name="oledblinds.stop"/>
             </intent-filter>
