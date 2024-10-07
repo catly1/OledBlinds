@@ -9,21 +9,15 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.graphics.Point
 import android.hardware.display.DisplayManager
 import android.hardware.display.DisplayManager.DisplayListener
-import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.PowerManager
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.ServiceCompat
-import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.catly.oledsaver.R
 import com.catly.oledsaver.features.floating_window.bar.BottomBar
@@ -57,19 +51,7 @@ class FloatingWindowService : Service() {
     companion object {
         fun startService(context: Context) {
             val startIntent = Intent(context, FloatingWindowService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE){
-                if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                    context.startForegroundService(startIntent)
-                } else
-                {
-                ActivityCompat.requestPermissions(context as Activity,arrayOf(android.Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE),1001)
-                }
-
-            }else {
-
                 context.startForegroundService(startIntent)
-            }
         }
 
         fun stopService(context: Context) {
