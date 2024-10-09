@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.catly.oledsaver.features.view.HomeFragment"
+        android:name="com.catly.oledblinds.view.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_fragment">
 
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"
-        android:name="com.catly.oledsaver.features.view.guide.PermissionGuideFragment"
+        android:name="com.catly.oledblinds.view.guide.PermissionGuideFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/permission_fragment">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
-        android:name="com.catly.oledsaver.features.view.guide.GuideFragment"
+        android:name="com.catly.oledblinds.view.guide.GuideFragment"
         android:label="GuideFragment"
         tools:layout="@layout/guide_fragment">
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/tileGuideFragment"
-        android:name="com.catly.oledsaver.features.view.guide.TileGuideFragment"
+        android:name="com.catly.oledblinds.view.guide.TileGuideFragment"
         android:label="TileGuideFragment"
         tools:layout="@layout/tile_guide_fragment">
 
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/guideIndexFragment"
-        android:name="com.catly.oledsaver.features.view.guide.GuideIndexFragment"
+        android:name="com.catly.oledblinds.view.guide.GuideIndexFragment"
         android:label="GuideIndexFragment" >
         <action
             android:id="@+id/action_guideIndexFragment_to_homeFragment"
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/intentGuideFragment"
-        android:name="com.catly.oledsaver.features.view.guide.IntentGuideFragment"
+        android:name="com.catly.oledblinds.view.guide.IntentGuideFragment"
         android:label="IntentGuideFragment" >
         <action
             android:id="@+id/action_intentGuideFragment_to_guideIndexFragment"
