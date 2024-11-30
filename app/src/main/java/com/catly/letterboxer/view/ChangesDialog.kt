@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view
+package com.catly.letterboxer.view
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

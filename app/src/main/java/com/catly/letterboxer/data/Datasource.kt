@@ -1,7 +1,8 @@
 package com.catly.letterboxer.data
 
-import com.catly.oledblinds.R
-import com.catly.oledblinds.data.model.GuideIndexItem
+
+import com.catly.letterboxer.R
+import com.catly.letterboxer.data.model.GuideIndexItem
 
 
 class Datasource {

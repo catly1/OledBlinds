@@ -1,4 +1,6 @@
-package com.catly.oledblinds.view.guide
-import com.catly.oledblinds.R
+package com.catly.letterboxer.view.guide
+
+import com.catly.letterboxer.R
+
 
 class GuideFragment : BaseGuideFragment(R.layout.guide_fragment, R.id.action_guideFragment_to_tileGuideFragment)

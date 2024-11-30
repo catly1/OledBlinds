@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view
+package com.catly.letterboxer.view
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.catly.letterboxer.floating_window.FloatingWindowService
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private var currentDialog : MessageDialogFragment? = null

@@ -39,7 +39,7 @@ def getReleaseInfo(String data) {
 pipeline {
     agent { dockerfile true }
     environment {
-        appName = 'OLED Blinds'
+        appName = 'LetterBoxer'
 
         KEY_PASSWORD = credentials('keyPass')
         KEY_ALIAS = credentials('keyAlias')

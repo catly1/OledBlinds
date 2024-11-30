@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view.guide
+package com.catly.letterboxer.view.guide
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
 import com.catly.letterboxer.adapter.GuideIndexItemAdapter
+import com.catly.letterboxer.view.ViewModelFactory
 
 
 class GuideIndexFragment: Fragment() {
@@ -21,7 +22,7 @@ class GuideIndexFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        guideViewModel = ViewModelProvider(this, com.catly.oledblinds.view.ViewModelFactory()).get(
+        guideViewModel = ViewModelProvider(this, ViewModelFactory()).get(
             GuideViewModel::class.java)
         val view = inflater.inflate(R.layout.guide_index_fragment, container, false)
         val adapter = GuideIndexItemAdapter(requireContext(), findNavController())

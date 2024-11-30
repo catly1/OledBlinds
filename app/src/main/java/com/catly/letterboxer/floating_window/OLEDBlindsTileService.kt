@@ -1,11 +1,12 @@
 package com.catly.letterboxer.floating_window
 
+import android.app.NotificationManager
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import com.catly.letterboxer.floating_window.FloatingWindowService
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
+
 
 class OLEDBlindsTileService : TileService() {
 
@@ -19,8 +20,8 @@ class OLEDBlindsTileService : TileService() {
             setOffIcon()
         }
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
-            val closeNotificationPanelIntent = Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
-            this.sendBroadcast(closeNotificationPanelIntent)
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.cancelAll()
         }
     }
 

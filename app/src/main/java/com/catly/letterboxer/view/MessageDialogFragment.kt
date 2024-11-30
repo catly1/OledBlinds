@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view
+package com.catly.letterboxer.view
 
 import android.app.AlertDialog
 import android.app.Dialog

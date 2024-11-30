@@ -1,9 +1,10 @@
-package com.catly.oledblinds.floating_window.bar
+package com.catly.letterboxer.floating_window.bar
 
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
+
 import com.catly.letterboxer.floating_window.FloatingWindowService
 
 class TopBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {

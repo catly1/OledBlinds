@@ -1,4 +1,4 @@
-package com.catly.oledblinds.floating_window.bar
+package com.catly.letterboxer.floating_window.bar
 
 import android.annotation.SuppressLint
 import android.view.Gravity
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
 import com.catly.letterboxer.floating_window.FloatingWindowService
-import com.catly.oledblinds.utils.Utils
+import com.catly.letterboxer.utils.Utils
 
 
 class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar(floatingWindowService) {

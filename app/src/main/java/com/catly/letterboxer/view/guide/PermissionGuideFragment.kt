@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view.guide
+package com.catly.letterboxer.view.guide
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.provider.Settings
 import android.view.View
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
 
 class PermissionGuideFragment : BaseGuideFragment(R.layout.permission_fragment,R.id.action_permissionFragment_to_guideFragment) {
     private val drawOtherAppPermissionCode = 2084

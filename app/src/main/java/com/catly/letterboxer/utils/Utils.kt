@@ -1,4 +1,4 @@
-package com.catly.oledblinds.utils
+package com.catly.letterboxer.utils
 
 object Utils {
     fun checkIfValidNumber(num: Int) : Boolean{

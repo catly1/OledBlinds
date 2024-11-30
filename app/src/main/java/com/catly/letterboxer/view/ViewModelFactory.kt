@@ -1,10 +1,11 @@
-package com.catly.oledblinds.view
+package com.catly.letterboxer.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.catly.letterboxer.data.Datasource
-import com.catly.oledblinds.data.GuideItemRepository
-import com.catly.oledblinds.view.guide.GuideViewModel
+import com.catly.letterboxer.view.guide.GuideViewModel
+import com.catly.letterboxer.data.GuideItemRepository
+
 
 class ViewModelFactory : ViewModelProvider.Factory  {
 

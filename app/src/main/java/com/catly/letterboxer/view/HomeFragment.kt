@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view
+package com.catly.letterboxer.view
 
 import android.os.Bundle
 import android.provider.Settings
@@ -11,8 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.catly.oledblinds.BuildConfig
-import com.catly.oledblinds.R
+import com.catly.letterboxer.BuildConfig
+import com.catly.letterboxer.R
+
 import com.catly.letterboxer.floating_window.FloatingWindowService
 import com.google.android.material.button.MaterialButton
 

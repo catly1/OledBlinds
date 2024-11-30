@@ -1,4 +1,4 @@
-package com.catly.oledblinds
+package com.catly.letterboxer
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.catly.oledblinds.floating_window.bar
+package com.catly.letterboxer.floating_window.bar
 
 import android.app.Service
 import android.content.Context

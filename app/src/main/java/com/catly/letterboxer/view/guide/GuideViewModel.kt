@@ -1,10 +1,10 @@
-package com.catly.oledblinds.view.guide
+package com.catly.letterboxer.view.guide
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.catly.oledblinds.data.GuideItemRepository
-import com.catly.oledblinds.data.model.GuideIndexItem
+import com.catly.letterboxer.data.GuideItemRepository
+import com.catly.letterboxer.data.model.GuideIndexItem
 import java.lang.Exception
 
 class GuideViewModel(guideItemRepository: GuideItemRepository): ViewModel() {

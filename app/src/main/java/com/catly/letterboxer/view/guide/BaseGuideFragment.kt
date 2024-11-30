@@ -1,4 +1,4 @@
-package com.catly.oledblinds.view.guide
+package com.catly.letterboxer.view.guide
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,7 +12,8 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
+
 
 open class BaseGuideFragment(private val viewLayout: Int, private val nextDestination: Int) :
     Fragment() {

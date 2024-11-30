@@ -1,2 +1,2 @@
-rootProject.name='OledBlinds'
+rootProject.name='LetterBoxer'
 include ':app'

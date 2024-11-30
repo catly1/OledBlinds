@@ -9,8 +9,9 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 
 import androidx.recyclerview.widget.RecyclerView
-import com.catly.oledblinds.R
-import com.catly.oledblinds.data.model.GuideIndexItem
+import com.catly.letterboxer.R
+
+import com.catly.letterboxer.data.model.GuideIndexItem
 
 class GuideIndexItemAdapter(
     private val context: Context,

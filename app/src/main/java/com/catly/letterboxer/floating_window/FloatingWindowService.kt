@@ -18,12 +18,14 @@ import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
-import com.catly.oledblinds.R
-import com.catly.oledblinds.floating_window.bar.BottomBar
-import com.catly.oledblinds.floating_window.bar.LeftBar
-import com.catly.oledblinds.floating_window.bar.RightBar
-import com.catly.oledblinds.floating_window.bar.TopBar
+
+
 import com.catly.letterboxer.MainActivity
+import com.catly.letterboxer.R
+import com.catly.letterboxer.floating_window.bar.LeftBar
+import com.catly.letterboxer.floating_window.bar.RightBar
+import com.catly.letterboxer.floating_window.bar.TopBar
+import com.catly.letterboxer.floating_window.bar.BottomBar
 
 
 class FloatingWindowService : Service() {

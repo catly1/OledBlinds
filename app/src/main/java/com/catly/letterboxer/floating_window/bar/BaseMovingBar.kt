@@ -1,7 +1,8 @@
-package com.catly.oledblinds.floating_window.bar
+package com.catly.letterboxer.floating_window.bar
 
 import android.widget.ImageButton
-import com.catly.oledblinds.R
+import com.catly.letterboxer.R
+
 import com.catly.letterboxer.floating_window.FloatingWindowService
 
 open class BaseMovingBar(floatingWindowService: FloatingWindowService): BaseBar(floatingWindowService) {
