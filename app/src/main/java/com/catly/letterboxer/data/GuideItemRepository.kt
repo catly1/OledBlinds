@@ -1,5 +1,6 @@
 package com.catly.oledblinds.data
 
+import com.catly.letterboxer.data.Datasource
 import com.catly.oledblinds.data.model.GuideIndexItem
 
 class GuideItemRepository(val dataSource: Datasource) {

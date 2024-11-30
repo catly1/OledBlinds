@@ -7,7 +7,7 @@ import android.graphics.PixelFormat
 import android.view.View
 import android.view.WindowManager
 import androidx.preference.PreferenceManager
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 
 open class BaseBar(private val floatingWindowService: FloatingWindowService) {
     val param = WindowManager.LayoutParams(

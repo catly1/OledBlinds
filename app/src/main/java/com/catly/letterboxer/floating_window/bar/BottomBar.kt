@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
 import com.catly.oledblinds.R
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 import com.catly.oledblinds.utils.Utils
 
 class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar(floatingWindowService) {

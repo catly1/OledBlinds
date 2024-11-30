@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true">
         <activity
-            android:name="com.catly.oledblinds.MainActivity"
+            android:name="com.catly.letterboxer.MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.catly.oledblinds.floating_window.FloatingWindowService"
+            android:name="com.catly.letterboxer.floating_window.FloatingWindowService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="specialUse"
@@ -33,12 +33,12 @@
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Just puts a black box on the screen"/>
             <intent-filter>
-                <action android:name="oledblinds.start"/>
+                <action android:name="letterboxer.start"/>
             </intent-filter>
         </service>
 
         <service
-            android:name="com.catly.oledblinds.floating_window.OLEDBlindsTileService"
+            android:name="com.catly.letterboxer.floating_window.OLEDBlindsTileService"
             android:label="@string/app_tile_name"
             android:icon="@drawable/ic_oledsaveronoff"
             android:exported="true"
@@ -50,14 +50,19 @@
         </service>
 
         <service
-            android:name="com.catly.oledblinds.floating_window.StopService"
+            android:name="com.catly.letterboxer.floating_window.StopService"
             android:exported="true"
             >
             <intent-filter>
-                <action android:name="oledblinds.stop"/>
+                <action android:name="letterboxer.stop"/>
             </intent-filter>
         </service>
-
     </application>
-
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data android:scheme="mailto"/>
+        </intent>
+    </queries>
 </manifest>

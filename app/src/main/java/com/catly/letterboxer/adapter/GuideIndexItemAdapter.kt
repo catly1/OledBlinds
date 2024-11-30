@@ -1,4 +1,4 @@
-package com.catly.oledblinds.adapter
+package com.catly.letterboxer.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

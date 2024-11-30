@@ -1,4 +1,4 @@
-package com.catly.oledblinds
+package com.catly.letterboxer
 
 
 import android.content.Intent
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.catly.oledblinds.R
 
 
 class MainActivity : AppCompatActivity() {

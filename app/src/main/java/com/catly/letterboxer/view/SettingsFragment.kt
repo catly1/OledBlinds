@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.preference.*
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 import com.catly.oledblinds.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -50,7 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("feedback")?.setOnPreferenceClickListener {
-            composeEmail(arrayOf("ccatly@gmail.com"), "OLEDBlinds App Feedback")
+            composeEmail(arrayOf("ccatly@gmail.com"), "LetterBoxer App Feedback")
             true
         }
     }

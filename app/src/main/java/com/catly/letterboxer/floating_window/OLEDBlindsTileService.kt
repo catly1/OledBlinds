@@ -1,20 +1,21 @@
-package com.catly.oledblinds.floating_window
+package com.catly.letterboxer.floating_window
 
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 import com.catly.oledblinds.R
 
 class OLEDBlindsTileService : TileService() {
 
     override fun onClick() {
         super.onClick()
-        if (!com.catly.oledblinds.floating_window.FloatingWindowService.Companion.isRunning) {
-            com.catly.oledblinds.floating_window.FloatingWindowService.Companion.startService(this)
+        if (!FloatingWindowService.Companion.isRunning) {
+            FloatingWindowService.Companion.startService(this)
             setOnIcon()
         } else {
-            com.catly.oledblinds.floating_window.FloatingWindowService.Companion.stopService(this)
+            FloatingWindowService.Companion.stopService(this)
             setOffIcon()
         }
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
@@ -26,7 +27,7 @@ class OLEDBlindsTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
 
-        if (com.catly.oledblinds.floating_window.FloatingWindowService.Companion.isRunning) {
+        if (FloatingWindowService.Companion.isRunning) {
             setOnIcon()
         } else {
             setOffIcon()

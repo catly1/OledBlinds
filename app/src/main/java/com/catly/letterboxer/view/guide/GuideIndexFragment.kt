@@ -10,8 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.catly.oledblinds.R
-import com.catly.oledblinds.adapter.GuideIndexItemAdapter
-import com.catly.oledblinds.view.ViewModelFactory
+import com.catly.letterboxer.adapter.GuideIndexItemAdapter
 
 
 class GuideIndexFragment: Fragment() {

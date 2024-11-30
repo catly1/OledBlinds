@@ -4,7 +4,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import com.catly.oledblinds.R
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 
 class TopBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {
     init {

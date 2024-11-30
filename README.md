@@ -1,5 +1,5 @@
 ![](app/src/main/res/mipmap-hdpi/ic_launcher.png)
-# OLED Blinds
+# LetterBoxer (formerly OLEDBlinds)
 ![](images/comparison-resize.jpg)
 Android Devices have varying screen sizes. That's why you often see static backdrops to maintain the app's aspect ratio. 
 

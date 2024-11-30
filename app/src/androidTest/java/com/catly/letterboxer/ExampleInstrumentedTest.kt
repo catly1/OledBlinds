@@ -1,4 +1,4 @@
-package com.catly.oledblinds
+package com.catly.letterboxer
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

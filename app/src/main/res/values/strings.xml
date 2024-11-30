@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OLED Blinds</string>
+    <string name="app_name">LetterBoxer</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -8,7 +8,7 @@
     <string name="override">Overlap camera cutout</string>
     <string name="overrideDescription">For forced fullscreen apps</string>
     <string name="hello_first_fragment">Good to Go!</string>
-    <string name="app_tile_name">OLED Blinds</string>
+    <string name="app_tile_name">LetterBoxer</string>
     <string name="status_bar_size">Status Bar Size</string>
     <string name="status_bar_dialog">Put the size of your status bar</string>
     <string name="help">Help</string>
@@ -33,7 +33,7 @@
     <string name="notification_button">Notification Button</string>
     <string name="open_intent">oledblinds.start</string>
     <string name="close_intent">oledblinds.stop</string>
-    <string name="intentGuideText">Oled Blinds can be opened automatically with automation tools such as Tasker.</string>
+    <string name="intentGuideText">LetterBoxer can be opened automatically with automation tools such as Tasker.</string>
     <string name="guide_button">Guide</string>
     <string name="open_label">Open Intent</string>
     <string name="close_label">Close Intent</string>

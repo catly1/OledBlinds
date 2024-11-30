@@ -1,4 +1,4 @@
-package com.catly.oledblinds.floating_window
+package com.catly.letterboxer.floating_window
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -23,13 +23,13 @@ import com.catly.oledblinds.floating_window.bar.BottomBar
 import com.catly.oledblinds.floating_window.bar.LeftBar
 import com.catly.oledblinds.floating_window.bar.RightBar
 import com.catly.oledblinds.floating_window.bar.TopBar
-import com.catly.oledblinds.MainActivity
+import com.catly.letterboxer.MainActivity
 
 
 class FloatingWindowService : Service() {
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val channelID = "OLED Blinds Service"
+    private val channelID = "LetterBoxer Service"
     private lateinit var windowManager: WindowManager
     lateinit var powerManager: PowerManager
     private lateinit var displayManager: DisplayManager
@@ -167,8 +167,8 @@ class FloatingWindowService : Service() {
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notification = NotificationCompat.Builder(this, channelID)
-            .setContentTitle("OLED Blinds")
-            .setContentText("OLED Blinds is running.")
+            .setContentTitle("LetterBoxer")
+            .setContentText("LetterBoxer is running.")
             .setSmallIcon(R.drawable.ic_stat_oledsaver)
             .setContentIntent(pendingIntent)
             .setSilent(true)
@@ -180,7 +180,7 @@ class FloatingWindowService : Service() {
 
     private fun createNotificationChannel(){
         val serviceChannel = NotificationChannel(
-            channelID, "OLED Blinds Service Channel",
+            channelID, "LetterBoxer Service Channel",
             NotificationManager.IMPORTANCE_DEFAULT
         )
         val manager = getSystemService(NotificationManager::class.java)

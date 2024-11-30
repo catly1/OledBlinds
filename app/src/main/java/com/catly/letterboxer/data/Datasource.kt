@@ -1,7 +1,8 @@
-package com.catly.oledblinds.data
+package com.catly.letterboxer.data
 
 import com.catly.oledblinds.R
 import com.catly.oledblinds.data.model.GuideIndexItem
+
 
 class Datasource {
     fun loadGuideIndexItems(): List<GuideIndexItem>{

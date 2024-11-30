@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.catly.oledblinds.BuildConfig
 import com.catly.oledblinds.R
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 import com.google.android.material.button.MaterialButton
 
 /**

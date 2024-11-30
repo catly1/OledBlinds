@@ -2,7 +2,7 @@ package com.catly.oledblinds.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.catly.oledblinds.data.Datasource
+import com.catly.letterboxer.data.Datasource
 import com.catly.oledblinds.data.GuideItemRepository
 import com.catly.oledblinds.view.guide.GuideViewModel
 

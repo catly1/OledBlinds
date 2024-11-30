@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.catly.oledblinds.R
-import com.catly.oledblinds.floating_window.FloatingWindowService
+import com.catly.letterboxer.floating_window.FloatingWindowService
 
 class LeftBar(floatingWindowService: FloatingWindowService): BaseButtonsBar(floatingWindowService) {
     init {
