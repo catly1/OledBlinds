@@ -52,7 +52,7 @@ class FloatingWindowService : Service() {
     companion object {
         fun startService(context: Context) {
             val startIntent = Intent(context, FloatingWindowService::class.java)
-                context.startForegroundService(startIntent)
+            context.startForegroundService(startIntent)
         }
 
         fun stopService(context: Context) {
@@ -147,8 +147,9 @@ class FloatingWindowService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        val rightLeft = intent?.getBooleanExtra("right_left", false)?: sharedPreferences.getBoolean("isFlipped", false)
-
+        var rightLeft = sharedPreferences.getBoolean("isFlipped", false)
+        rightLeft = intent?.getBooleanExtra("right_left", rightLeft)!!
+//        if(intent?.getBooleanExtra("right_left"))
         if (rightLeft){
             if (!viewsAttached){
                 leftRightMode()
