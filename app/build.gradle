@@ -21,14 +21,14 @@ android {
             storePassword storePass
         }
     }
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "com.catly.letterboxer"
         minSdkVersion 26
-        targetSdkVersion 35
-        versionCode 12
-        versionName "6.1"
+        targetSdkVersion 36
+        versionCode 14
+        versionName "6.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
@@ -48,6 +48,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17" // Or "11", "17". Ensure this is supported.
+        // Or remove if you want to use a newer default
+        // compatible with your Kotlin plugin.
     }
 
     namespace 'com.catly.letterboxer'

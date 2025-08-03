@@ -162,9 +162,11 @@ class FloatingWindowService : Service() {
                 viewsAttached = false
             }
         }
-        setLockState()
+
         sharedPreferences.edit().putBoolean("isFlipped", rightLeft).apply()
         flipped = rightLeft
+
+        setLockState()
 
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
