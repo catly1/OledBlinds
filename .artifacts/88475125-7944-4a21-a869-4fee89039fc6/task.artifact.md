@@ -1,5 +1,0 @@
-- `[x]` Update Gradle Wrapper to 8.13
-- `[x]` Update root `build.gradle` (AGP 8.12.0, Kotlin 2.1.0)
-- `[x]` Update `app/build.gradle` (API 37, Dependencies)
-- `[x]` Gradle Sync
-- `[x]` Verify Build
