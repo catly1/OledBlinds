@@ -57,6 +57,22 @@
                 <action android:name="letterboxer.stop"/>
             </intent-filter>
         </service>
+        <activity
+            android:name="com.catly.letterboxer.StartActivity"
+            android:exported="true"
+            android:theme="@style/TransparentNoUI"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="letterboxer.com" android:path="/start" />
+            </intent-filter>
+        </activity>
+
     </application>
     <queries>
         <intent>
