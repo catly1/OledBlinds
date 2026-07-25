@@ -27,8 +27,8 @@ android {
         applicationId "com.catly.letterboxer"
         minSdkVersion 26
         targetSdkVersion 37
-        versionCode 14
-        versionName "6.3"
+        versionCode 15
+        versionName "6.31"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
