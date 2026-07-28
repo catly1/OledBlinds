@@ -1,1 +1,17 @@
-- Bug fixes
+New:
+- Bar opacity slider: the bars can be see-through instead of solid black
+- Custom zones: place your own black rectangles over static buttons, like TikTok's like
+  and profile column. Add, drag, resize and delete them straight on top of the real app
+- Auto toggle: the bars turn on when a chosen app opens and off when you leave it.
+  TikTok is chosen by default, and you can pick any other installed app
+
+Fixes:
+- Duplicated overlay bars no longer pile up when the service is started more than once
+- The control buttons no longer stay lit forever after an interrupted resize
+- A resize drag can no longer grow a bar past its own handle
+- Turning off "Overlap camera cutout" now puts the bars back where they belong
+- Editing the status bar size while running is applied instead of being overwritten
+- No more crash when the system restarts the service on its own, when the status bar size
+  is not a number, or when the overlay permission is taken away
+- The bars no longer relayout on every brightness or refresh rate change
+- The notification is quiet, and shows up on Android 13+

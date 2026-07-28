@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  No android:packageNames filter on purpose: the service has to see the window change that happens
+  when the user leaves TikTok, and that event carries the package of the app being switched to.
+  notificationTimeout throttles delivery so a burst of window changes wakes the service once.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:canRetrieveWindowContent="false"
+    android:notificationTimeout="200"
+    android:description="@string/accessibility_service_description"
+    android:summary="@string/accessibility_service_summary" />

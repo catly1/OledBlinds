@@ -30,8 +30,10 @@ class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBa
 
     @SuppressLint("ClickableViewAccessibility")
     fun setListeners(){
+        // Cached once: querying the display on every move event would be a system call per frame.
+        val maxHeight = Utils.realScreenSize(windowManager).y
+
         resizeButton.setOnTouchListener(object : View.OnTouchListener {
-            var initialY: Int = 0
             var initialTouchY: Float = 0.toFloat()
             var initialHeight: Int = 0
             var calculatedHeight = 0
@@ -39,23 +41,25 @@ class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBa
             override fun onTouch(view: View, event: MotionEvent): Boolean {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        initialY = param.y
                         initialHeight = param.height
                         initialTouchY = event.rawY
                         floatingWindowService.showTopBottomButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        calculatedHeight = (initialHeight - (event.rawY - initialTouchY)).toInt()
-                        if (Utils.checkIfValidNumber(calculatedHeight)){
-                            param.height = calculatedHeight
-                            floatingWindowService.topBar.param.height = calculatedHeight
-                            floatingWindowService.topBar.update()
-                            update()
-                        }
+                        calculatedHeight = Utils.clampBarSize(
+                            (initialHeight - (event.rawY - initialTouchY)).toInt(),
+                            maxHeight
+                        )
+                        param.height = calculatedHeight
+                        floatingWindowService.topBar.param.height = calculatedHeight
+                        floatingWindowService.topBar.update()
+                        update()
                         return true
                     }
-                    MotionEvent.ACTION_UP ->{
+                    // A cancel is routinely delivered when the window moves out from under the
+                    // finger. Without it the controls would stay lit and the size unsaved.
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
                         sharedPreferences.edit().putInt("height", param.height).apply()
                         floatingWindowService.hideTopBottomButtons()
                     }
