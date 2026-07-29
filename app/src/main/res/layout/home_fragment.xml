@@ -6,84 +6,142 @@
     android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/m3_pitch_black"
     tools:context="view.HomeFragment">
 
+    <!-- Top Status Space -->
     <View
-        android:id="@+id/space"
+        android:id="@+id/top_space"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:background="?attr/colorPrimaryVariant"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_height="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/bottom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="?attr/colorPrimaryVariant"
-        app:layout_constraintTop_toBottomOf="@id/space"
-        tools:layout_editor_absoluteX="0dp" />
+    <!-- Top App Title & Icon Header -->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintTop_toBottomOf="@id/top_space"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:text="@string/app_name"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintTop_toBottomOf="@id/space"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="20dp"
-        />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/m3_text_primary"
+        android:layout_marginStart="12dp"
+        app:layout_constraintTop_toTopOf="@id/app_logo"
+        app:layout_constraintBottom_toBottomOf="@id/app_logo"
+        app:layout_constraintStart_toEndOf="@id/app_logo" />
 
-    <ImageButton
-        android:id="@+id/news_button"
-        android:contentDescription="@string/update"
+    <!-- Master Service Card Material 3 Expressive -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/master_card"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="-25dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/baseline_newspaper_white_24dp"
-        android:background="@drawable/update_button_background"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/m3_surface_card"
+        app:strokeColor="@color/m3_surface_stroke"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/app_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintTop_toBottomOf="@id/bottom_toolbar"
-        />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/master_status_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="LetterBoxer Overlay"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/m3_text_primary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/news_button" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/master_status_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tap to toggle black bars overlay"
+                android:textSize="13sp"
+                android:textColor="@color/m3_text_secondary"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/master_status_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/news_button" />
+
+            <ImageButton
+                android:id="@+id/news_button"
+                android:contentDescription="@string/update"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/baseline_newspaper_white_24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/start"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnPrimary"
+                app:icon="@drawable/baseline_power_settings_new_white_24dp"
+                app:iconTint="?attr/colorOnPrimary"
+                app:iconSize="22dp"
+                app:iconPadding="12dp"
+                app:iconGravity="textStart"
+                app:backgroundTint="?attr/colorPrimary"
+                app:cornerRadius="30dp"
+                app:elevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/master_status_subtitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Settings Fragment Container -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/master_card"
         app:layout_constraintBottom_toTopOf="@id/version_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/startButton"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="-30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:backgroundTint="?attr/colorSecondary"
-        app:cornerRadius="20dp"
-        android:text="@string/start"
-        app:layout_constraintStart_toEndOf="@id/news_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottom_toolbar"
-        />
-
-    <TextView
+    <!-- Version Footer -->
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/version_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/m3_text_secondary"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

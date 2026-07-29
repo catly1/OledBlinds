@@ -55,7 +55,7 @@
         android:paddingEnd="20dp"
         android:paddingBottom="10dp"
         android:text="@string/zone_done"
-        android:textColor="@color/colorAccent"
+        android:textColor="?attr/colorPrimary"
         android:textSize="15sp"
         android:textStyle="bold" />
 

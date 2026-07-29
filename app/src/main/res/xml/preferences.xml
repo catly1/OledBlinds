@@ -32,6 +32,14 @@
         app:iconSpaceReserved="false"
         />
 
+    <SwitchPreferenceCompat
+        app:key="linkTopBottomBars"
+        app:title="@string/link_top_bottom"
+        app:summary="@string/link_top_bottom_description"
+        android:defaultValue="true"
+        app:iconSpaceReserved="false"
+        />
+
     <PreferenceCategory
         app:title="@string/zones_category"
         app:iconSpaceReserved="false">

@@ -22,24 +22,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         findPreference<Preference>("reset")?.setOnPreferenceClickListener {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
-            sharedPreferences.putInt("width", 200).apply()
-            sharedPreferences.putInt("height", 200).apply()
-            Toast.makeText(context, "Height and width have been reset", Toast.LENGTH_SHORT).show()
-            activity?.stopService(Intent(activity, FloatingWindowService::class.java))
-            sharedPreferences.putBoolean("isLocked", false).apply()
-            sharedPreferences.putString("statusBarSize", "92").apply()
-            findPreference<EditTextPreference>("statusBarSize")?.text = "92"
-            sharedPreferences.putInt(Utils.OPACITY_KEY, Utils.DEFAULT_OPACITY).apply()
+            val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            prefs.edit().clear().apply()
+
+            if (FloatingWindowService.isRunning) {
+                FloatingWindowService.stopService(requireContext())
+            }
+
             findPreference<SeekBarPreference>(Utils.OPACITY_KEY)?.value = Utils.DEFAULT_OPACITY
-            sharedPreferences.putInt(Utils.ZONE_OPACITY_KEY, Utils.DEFAULT_ZONE_OPACITY).apply()
             findPreference<SeekBarPreference>(Utils.ZONE_OPACITY_KEY)?.value = Utils.DEFAULT_ZONE_OPACITY
-            // The service is stopped just above, so clearing the stored zones cannot pull windows
-            // out from under anyone.
-            sharedPreferences.remove(ZoneRepository.KEY).apply()
-            sharedPreferences.remove(AppWatcherService.WATCHED_PACKAGES_KEY).apply()
+            findPreference<SwitchPreferenceCompat>("linkTopBottomBars")?.isChecked = true
+            findPreference<SwitchPreferenceCompat>("override")?.isChecked = false
+            findPreference<SwitchPreferenceCompat>("autoTikTok")?.isChecked = false
+            findPreference<SwitchPreferenceCompat>("zones_enabled")?.isChecked = false
+            findPreference<SwitchPreferenceCompat>("tap_behind")?.isChecked = false
+
             updateWatchedAppsSummary()
-        true
+            Toast.makeText(requireContext(), "All settings have been reset to default", Toast.LENGTH_SHORT).show()
+            true
         }
 
         findPreference<Preference>("editZones")?.setOnPreferenceClickListener {
@@ -82,8 +82,35 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("feedback")?.setOnPreferenceClickListener {
-            composeEmail(arrayOf("ccatly@gmail.com"), "LetterBoxer App Feedback")
+            showFeedbackDialog()
             true
+        }
+    }
+
+    private fun showFeedbackDialog() {
+        val options = arrayOf(
+            "📧 Email Author (Catly: ccatly@gmail.com)",
+            "🌐 GitHub: Catly1 (Original Author)",
+            "🌐 GitHub: uzbekunknown (Developer)"
+        )
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.feedback)
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> composeEmail(arrayOf("ccatly@gmail.com"), "LetterBoxer App Feedback")
+                    1 -> openUrl("https://github.com/catly1")
+                    2 -> openUrl("https://github.com/uzbekunknown")
+                }
+            }
+            .setNegativeButton(R.string.close, null)
+            .show()
+    }
+
+    private fun openUrl(url: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (e: Exception) {
+            Toast.makeText(context, "Could not open link", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -165,7 +192,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun updateWatchedAppsSummary() {
         val preference = findPreference<Preference>("watchedApps") ?: return
         val count = AppWatcherService.watchedPackages(
-            PreferenceManager.getDefaultSharedPreferences(requireContext())
+            PreferenceManager.getDefaultSharedPreferences(requireContext()),
+            requireContext()
         ).size
         preference.summary = if (count == 0) {
             getString(R.string.watched_apps_empty)

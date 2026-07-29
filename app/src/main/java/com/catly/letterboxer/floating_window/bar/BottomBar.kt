@@ -15,7 +15,7 @@ class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBa
     init {
         TAG = "BottomBar"
         param.width = floatingWindowService.overrideWidthForTopBottom
-        param.height = floatingWindowService.height
+        param.height = floatingWindowService.bottomBarHeight
         param.gravity = Gravity.BOTTOM
         viewLayout = LayoutInflater.from(context).inflate(R.layout.bottom_bar, null)
         resizeButton = viewLayout.findViewById<ImageButton>(R.id.bottom_resize_button)
@@ -30,11 +30,10 @@ class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBa
 
     @SuppressLint("ClickableViewAccessibility")
     fun setListeners(){
-        // Cached once: querying the display on every move event would be a system call per frame.
         val maxHeight = Utils.realScreenSize(windowManager).y
 
         resizeButton.setOnTouchListener(object : View.OnTouchListener {
-            var initialTouchY: Float = 0.toFloat()
+            var initialTouchY: Float = 0f
             var initialHeight: Int = 0
             var calculatedHeight = 0
 
@@ -52,15 +51,25 @@ class BottomBar(val floatingWindowService: FloatingWindowService) : BaseMovingBa
                             maxHeight
                         )
                         param.height = calculatedHeight
-                        floatingWindowService.topBar.param.height = calculatedHeight
-                        floatingWindowService.topBar.update()
+                        floatingWindowService.bottomBarHeight = calculatedHeight
+                        val link = sharedPreferences.getBoolean("linkTopBottomBars", true)
+                        if (link) {
+                            floatingWindowService.topBarHeight = calculatedHeight
+                            floatingWindowService.topBar.param.height = calculatedHeight + 5
+                            floatingWindowService.topBar.update()
+                        }
                         update()
                         return true
                     }
-                    // A cancel is routinely delivered when the window moves out from under the
-                    // finger. Without it the controls would stay lit and the size unsaved.
                     MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
-                        sharedPreferences.edit().putInt("height", param.height).apply()
+                        sharedPreferences.edit()
+                            .putInt("bottomBarHeight", param.height)
+                            .putInt("height", param.height)
+                            .apply()
+                        val link = sharedPreferences.getBoolean("linkTopBottomBars", true)
+                        if (link) {
+                            sharedPreferences.edit().putInt("topBarHeight", param.height).apply()
+                        }
                         floatingWindowService.hideTopBottomButtons()
                     }
                 }

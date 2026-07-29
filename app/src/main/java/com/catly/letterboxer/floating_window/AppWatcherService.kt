@@ -24,17 +24,15 @@ class AppWatcherService : AccessibilityService() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private val handler = Handler(Looper.getMainLooper())
-    private var lastPackage: String? = null
 
     private val preferenceListener =
         SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
-            // Otherwise switching the feature on, or adding the app you are currently in to the
-            // watched set, does nothing: the package has not changed, so no event ever gets past
-            // the debounce and the bars never come up.
-            if ((key == PREF_KEY && preferences.getBoolean(key, false)) ||
-                key == WATCHED_PACKAGES_KEY
-            ) {
-                lastPackage = null
+            if (key == PREF_KEY && !preferences.getBoolean(key, false)) {
+                handler.removeCallbacks(stopBarsRunnable)
+                if (FloatingWindowService.isRunning && FloatingWindowService.startedByWatcher) {
+                    FloatingWindowService.stopService(this)
+                    FloatingWindowService.setStartedByWatcher(this, false)
+                }
             }
         }
 
@@ -72,17 +70,28 @@ class AppWatcherService : AccessibilityService() {
          * the launcher during a gesture, a permission dialog, a share sheet -- does not toggle the
          * bars off and straight back on.
          */
-        private const val LEAVE_DELAY_MS = 600L
+        private const val LEAVE_DELAY_MS = 500L
 
         /**
-         * The returned set is the live instance held by SharedPreferences and must never be
-         * mutated or handed out, hence the copy. An absent key means the defaults; an empty set
-         * means the user deselected everything and wants nothing watched.
+         * Returns only the watched packages that are actually installed on the user's device when
+         * context is provided, avoiding inflated package counts.
          */
-        fun watchedPackages(sharedPreferences: SharedPreferences): Set<String> {
+        fun watchedPackages(sharedPreferences: SharedPreferences, context: Context? = null): Set<String> {
             val stored = sharedPreferences.getStringSet(WATCHED_PACKAGES_KEY, null)
-                ?: return DEFAULT_WATCHED_PACKAGES
-            return HashSet(stored)
+            val baseSet = stored ?: DEFAULT_WATCHED_PACKAGES
+            if (context != null) {
+                val pm = context.packageManager
+                val installed = baseSet.filter { pkg ->
+                    try {
+                        pm.getPackageInfo(pkg, 0)
+                        true
+                    } catch (e: Exception) {
+                        false
+                    }
+                }.toSet()
+                if (installed.isNotEmpty()) return installed
+            }
+            return HashSet(baseSet)
         }
 
         fun isAccessibilityServiceEnabled(context: Context): Boolean {
@@ -105,42 +114,37 @@ class AppWatcherService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        lastPackage = null
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
+        val type = event?.eventType ?: return
+        if (type != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED &&
+            type != AccessibilityEvent.TYPE_WINDOWS_CHANGED) return
 
         val eventPackage = event.packageName?.toString() ?: return
         if (eventPackage == packageName) return
         if (eventPackage in OVERLAY_PACKAGES) return
-        // The keyboard raises a window state change of its own without the app behind it going away.
-        // Re-read rather than cached: the service lives for days and the default IME can change.
         if (eventPackage == currentInputMethodPackage()) return
-        // Apps fire this event on every screen they open; only real app switches are of interest.
-        if (eventPackage == lastPackage) return
-        lastPackage = eventPackage
 
         if (!sharedPreferences.getBoolean(PREF_KEY, false)) return
 
-        handler.removeCallbacks(stopBarsRunnable)
-        if (eventPackage in watchedPackages(sharedPreferences)) {
+        val isWatched = eventPackage in watchedPackages(sharedPreferences, this)
+
+        if (isWatched) {
+            handler.removeCallbacks(stopBarsRunnable)
             startBars()
         } else {
+            handler.removeCallbacks(stopBarsRunnable)
             handler.postDelayed(stopBarsRunnable, LEAVE_DELAY_MS)
         }
     }
 
     private fun startBars() {
         if (FloatingWindowService.isRunning) return
-        // Starting the overlay service without this permission throws out of its onStartCommand,
-        // and START_STICKY would then restart it into the same crash on every app switch.
         if (!Settings.canDrawOverlays(this)) return
         try {
             FloatingWindowService.startService(this, byWatcher = true)
         } catch (e: Exception) {
-            // A background foreground-service start can still be refused; do not take the
-            // accessibility service down with it.
             FloatingWindowService.setStartedByWatcher(this, false)
         }
     }
@@ -150,8 +154,11 @@ class AppWatcherService : AccessibilityService() {
 
     override fun onUnbind(intent: Intent?): Boolean {
         handler.removeCallbacks(stopBarsRunnable)
-        lastPackage = null
-        return super.onUnbind(intent)
+        return true
+    }
+
+    override fun onRebind(intent: Intent?) {
+        super.onRebind(intent)
     }
 
     override fun onDestroy() {

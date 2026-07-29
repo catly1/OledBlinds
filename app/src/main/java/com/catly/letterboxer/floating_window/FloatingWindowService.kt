@@ -41,10 +41,12 @@ class FloatingWindowService : Service() {
     lateinit var leftBar: LeftBar
     private lateinit var rightBar: RightBar
     lateinit var topBar: TopBar
-    private lateinit var bottomBar: BottomBar
+    lateinit var bottomBar: BottomBar
     var width: Int = 0
     var overrideWidthForTopBottom: Int = 0
     var height: Int = 0
+    var topBarHeight: Int = 0
+    var bottomBarHeight: Int = 0
     var locked = false
     var override = false
     private var statusBarSize = 0
@@ -117,7 +119,7 @@ class FloatingWindowService : Service() {
         }
     }
 
-    private var flipped = false
+    var flipped = false
     private var stopAfterZoneEdit = false
 
     private fun onZoneEditingFinished() {
@@ -413,6 +415,10 @@ class FloatingWindowService : Service() {
         } else {
             200
         }
+        topBarHeight = sharedPreferences.getInt("topBarHeight", height)
+        if (!checkIfValidNumber(topBarHeight)) topBarHeight = height
+        bottomBarHeight = sharedPreferences.getInt("bottomBarHeight", height)
+        if (!checkIfValidNumber(bottomBarHeight)) bottomBarHeight = height
     }
 
     private fun topDownMode(){

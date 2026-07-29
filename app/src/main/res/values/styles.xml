@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorOnBackground">@color/black</item>
+    <!-- Base application theme Material 3 Expressive -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/m3_pitch_black</item>
+        <item name="colorSurface">@color/m3_surface_card</item>
+        <item name="colorOnSurface">@color/m3_text_primary</item>
+        <item name="colorOnBackground">@color/m3_text_primary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,9 +13,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.Material3.Dark" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.Material3.Dark" />
 
     <style name="TransparentNoUI" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
@@ -25,5 +24,4 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
 </resources>

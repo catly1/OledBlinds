@@ -55,7 +55,8 @@ class AppPickerFragment : Fragment() {
         selected.clear()
         selected.addAll(
             AppWatcherService.watchedPackages(
-                PreferenceManager.getDefaultSharedPreferences(requireContext())
+                PreferenceManager.getDefaultSharedPreferences(requireContext()),
+                requireContext()
             )
         )
 

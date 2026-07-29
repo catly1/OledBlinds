@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="start">Start</string>
+    <string name="stop">Stop</string>
     <string name="reset">Reset</string>
     <string name="override">Overlap camera cutout</string>
     <string name="overrideDescription">For forced fullscreen apps</string>
@@ -21,6 +22,8 @@
     <!--Bar opacity-->
     <string name="bar_opacity">Bar opacity</string>
     <string name="bar_opacity_description">100%% is solid black, lower values let the app show through</string>
+    <string name="link_top_bottom">Link top &amp; bottom bar sizes</string>
+    <string name="link_top_bottom_description">Resizing top or bottom bar adjusts both together when enabled</string>
 
     <!--Custom zones-->
     <string name="zones_category">Custom zones</string>

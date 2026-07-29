@@ -10,7 +10,10 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.catly.letterboxer.R
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.MaterialColors
 
 /**
  * The floating controls shown while zones are being edited. It is a separate overlay window so it
@@ -39,21 +42,36 @@ class ZoneEditToolbar(
         gravity = Gravity.BOTTOM
     }
 
+    private val themedContext = DynamicColors.wrapContextIfAvailable(
+        context,
+        com.google.android.material.R.style.ThemeOverlay_Material3_DynamicColors_Dark
+    )
+
     private val viewLayout: View =
-        LayoutInflater.from(context).inflate(R.layout.zone_edit_toolbar, null)
+        LayoutInflater.from(themedContext).inflate(R.layout.zone_edit_toolbar, null)
 
     private var attached = false
     private var atBottom = true
 
     init {
+        val colorPrimary = MaterialColors.getColor(
+            themedContext,
+            androidx.appcompat.R.attr.colorPrimary,
+            ContextCompat.getColor(context, R.color.m3_accent_primary)
+        )
+
+        viewLayout.findViewById<TextView>(R.id.zone_done_button).apply {
+            setTextColor(colorPrimary)
+            setOnClickListener {
+                callbacks.onDoneEditing()
+            }
+        }
+
         viewLayout.findViewById<ImageButton>(R.id.zone_add_button).setOnClickListener {
             callbacks.onAddZone()
         }
         viewLayout.findViewById<ImageButton>(R.id.zone_flip_button).setOnClickListener {
             flip()
-        }
-        viewLayout.findViewById<TextView>(R.id.zone_done_button).setOnClickListener {
-            callbacks.onDoneEditing()
         }
     }
 

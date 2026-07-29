@@ -15,7 +15,10 @@ import com.catly.letterboxer.BuildConfig
 import com.catly.letterboxer.R
 
 import com.catly.letterboxer.floating_window.FloatingWindowService
+import android.content.res.ColorStateList
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.MaterialColors
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -31,6 +34,7 @@ class HomeFragment : Fragment() {
         ) {
             findNavController().navigate(R.id.action_homeFragment_to_permissionFragment)
         }
+        updateServiceStateUI(view)
     }
 
     override fun onCreateView(
@@ -47,13 +51,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<MaterialButton>(R.id.startButton).setOnClickListener {
+        val startBtn = view.findViewById<MaterialButton>(R.id.startButton)
+        startBtn.setOnClickListener {
             if (!FloatingWindowService.isRunning) {
                 context?.let { it1 -> FloatingWindowService.startService(it1)}
-//                activity?.finish()
             } else {
                 context?.let { it1 -> FloatingWindowService.stopService(it1) }
             }
+            startBtn.postDelayed({ updateServiceStateUI(view) }, 300)
         }
 
         view.findViewById<ImageButton>(R.id.news_button).setOnClickListener {
@@ -62,8 +67,36 @@ class HomeFragment : Fragment() {
 
         view.findViewById<TextView>(R.id.version_number).text = getString(R.string.version, BuildConfig.VERSION_NAME)
 
+        updateServiceStateUI(view)
+
         if (checkOldVersion()){
             showChangeLogDialog()
+        }
+    }
+
+    private fun updateServiceStateUI(view: View?) {
+        if (view == null) return
+        val startBtn = view.findViewById<MaterialButton>(R.id.startButton) ?: return
+        val subtitle = view.findViewById<TextView>(R.id.master_status_subtitle) ?: return
+        val context = view.context ?: return
+
+        val colorPrimary = MaterialColors.getColor(view, androidx.appcompat.R.attr.colorPrimary, ContextCompat.getColor(context, R.color.m3_accent_primary))
+        val colorOnPrimary = MaterialColors.getColor(view, com.google.android.material.R.attr.colorOnPrimary, ContextCompat.getColor(context, R.color.m3_pitch_black))
+        val colorSurfaceStroke = ContextCompat.getColor(context, R.color.m3_surface_stroke)
+        val colorTextPrimary = ContextCompat.getColor(context, R.color.m3_text_primary)
+
+        if (FloatingWindowService.isRunning) {
+            startBtn.text = getString(R.string.stop)
+            startBtn.backgroundTintList = ColorStateList.valueOf(colorSurfaceStroke)
+            startBtn.setTextColor(colorTextPrimary)
+            startBtn.iconTint = ColorStateList.valueOf(colorTextPrimary)
+            subtitle.text = "Overlay is currently Active"
+        } else {
+            startBtn.text = getString(R.string.start)
+            startBtn.backgroundTintList = ColorStateList.valueOf(colorPrimary)
+            startBtn.setTextColor(colorOnPrimary)
+            startBtn.iconTint = ColorStateList.valueOf(colorOnPrimary)
+            subtitle.text = "Tap to toggle black bars overlay"
         }
     }
 

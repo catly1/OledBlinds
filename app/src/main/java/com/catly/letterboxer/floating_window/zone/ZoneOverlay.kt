@@ -2,6 +2,7 @@ package com.catly.letterboxer.floating_window.zone
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.view.Gravity
@@ -57,6 +58,11 @@ class ZoneOverlay(
         gravity = Gravity.TOP or Gravity.LEFT
         x = zone.x
         y = zone.y
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
     }
 
     private val viewLayout: View = LayoutInflater.from(context).inflate(R.layout.zone_overlay, null)

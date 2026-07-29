@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 
 
 
+import com.google.android.material.color.DynamicColors
+
 class MainActivity : AppCompatActivity() {
     private val drawOtherAppPermissionCode = 2084
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DynamicColors.applyToActivityIfAvailable(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestNotificationPermissionIfNeeded()

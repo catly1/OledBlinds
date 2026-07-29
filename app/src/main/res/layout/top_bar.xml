@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black">
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/top_bar_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="top_close_button, top_rotate_button, top_lock_button"
+        app:constraint_referenced_ids="top_close_button, top_rotate_button, top_lock_button, top_resize_button"
         />
 
     <ImageButton
@@ -23,8 +24,8 @@
         android:src="@drawable/baseline_close_white_24dp"
         app:layout_constraintEnd_toStartOf="@+id/top_rotate_button"
         app:layout_constraintStart_toEndOf="@+id/top_lock_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/top_resize_button"
+        android:layout_marginBottom="5dp"
         />
 
     <ImageButton
@@ -36,9 +37,8 @@
         android:src="@drawable/baseline_rotate_90_degrees_ccw_white_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/top_close_button"
-        tools:layout_editor_absoluteY="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/top_resize_button"
+        android:layout_marginBottom="5dp"
         />
 
     <ImageButton
@@ -50,9 +50,19 @@
         android:src="@drawable/baseline_lock_open_white_24dp"
         app:layout_constraintEnd_toStartOf="@+id/top_close_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/top_resize_button"
+        android:layout_marginBottom="5dp"
         />
 
+    <ImageButton
+        android:id="@+id/top_resize_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:scaleType="fitCenter"
+        android:background="@color/black"
+        android:src="@drawable/baseline_keyboard_arrow_down_white_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

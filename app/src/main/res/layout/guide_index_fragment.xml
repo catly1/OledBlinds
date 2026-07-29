@@ -6,31 +6,32 @@
     android:id="@+id/guide_index"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/m3_pitch_black">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/m3_pitch_black"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <View
             android:id="@+id/space"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="?attr/colorOnPrimary"
-            />
+            android:background="@color/m3_pitch_black" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:title="@string/help"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </androidx.appcompat.widget.Toolbar>
+            android:background="@color/m3_pitch_black"
+            app:titleTextColor="@color/m3_text_primary"
+            app:title="@string/help"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,8 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -52,4 +52,3 @@
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

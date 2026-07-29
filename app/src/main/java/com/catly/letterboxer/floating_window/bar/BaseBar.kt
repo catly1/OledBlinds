@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.PixelFormat
+import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.preference.PreferenceManager
@@ -17,7 +18,13 @@ open class BaseBar(private val floatingWindowService: FloatingWindowService) {
         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
         PixelFormat.TRANSLUCENT
-    )
+    ).apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+    }
     val context: Context = floatingWindowService.baseContext
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     val windowManager = floatingWindowService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
