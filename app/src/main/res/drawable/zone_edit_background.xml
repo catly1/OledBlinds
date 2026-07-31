@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Edit mode fill: translucent enough to position the zone over the real UI underneath. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#66000000" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/colorAccent" />
+</shape>

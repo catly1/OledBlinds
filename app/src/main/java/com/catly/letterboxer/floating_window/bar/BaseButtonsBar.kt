@@ -13,7 +13,7 @@ open class BaseButtonsBar(val floatingWindowService: FloatingWindowService): Bas
     private val lockedIcon = R.drawable.baseline_lock_white_24dp
     private val unlockedIcon = R.drawable.baseline_lock_open_white_24dp
 
-    fun setListeners(){
+    open fun setListeners(){
         closeButton.setOnClickListener {
             floatingWindowService.stopSelf()
         }
@@ -53,7 +53,7 @@ open class BaseButtonsBar(val floatingWindowService: FloatingWindowService): Bas
         super.lockButtons()
     }
 
-    fun unlockButtons(){
+    open fun unlockButtons(){
         closeButton.isEnabled = true
         rotateButton.isEnabled = true
     }

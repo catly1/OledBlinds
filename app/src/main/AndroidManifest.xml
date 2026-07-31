@@ -3,8 +3,10 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- Without this the foreground service notification is silently dropped on Android 13+, which
+         leaves the service running with no way for the user to see or reach it. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
 
     <application
@@ -50,13 +52,37 @@
         </service>
 
         <service
+            android:name="com.catly.letterboxer.floating_window.AppWatcherService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/app_watcher_config" />
+        </service>
+
+        <service
             android:name="com.catly.letterboxer.floating_window.StopService"
             android:exported="true"
+            android:foregroundServiceType="specialUse"
             >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Takes the black box off the screen"/>
             <intent-filter>
                 <action android:name="letterboxer.stop"/>
             </intent-filter>
         </service>
+
+        <receiver
+            android:name="com.catly.letterboxer.AppActionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.catly.letterboxer.APP_ACTION"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name="com.catly.letterboxer.StartActivity"
             android:exported="true"
@@ -79,6 +105,12 @@
             <action android:name="android.intent.action.SENDTO"/>
             <category android:name="android.intent.category.DEFAULT"/>
             <data android:scheme="mailto"/>
+        </intent>
+        <!-- Lets the app picker list every launchable app. This is the narrow alternative to
+             QUERY_ALL_PACKAGES: it grants visibility of apps with a launcher entry and nothing else. -->
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
         </intent>
     </queries>
 </manifest>

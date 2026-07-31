@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Inflated from a Service, so every view here is a plain framework widget with explicit colours: no
+  AppCompat/Material widget and no ?attr lookup, which would depend on an Activity theme.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zone_toolbar_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/zone_toolbar_background"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <ImageButton
+        android:id="@+id/zone_add_button"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/zone_add"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_add_white_24dp" />
+
+    <ImageButton
+        android:id="@+id/zone_flip_button"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/zone_flip_toolbar"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_keyboard_arrow_up_white_24dp" />
+
+    <TextView
+        android:id="@+id/zone_toolbar_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/zone_edit_hint"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/zone_done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/zone_toolbar_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/zone_done"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

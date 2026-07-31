@@ -1,1 +1,16 @@
-- Bug fixes
+[Version 6.67]
+
+Added:
+- Complete Material 3 Expressive UI redesign with Monet dynamic color support (Android 12+)
+- Custom zones editing: place and customize black bars directly over static app elements
+- Adaptive themed app launcher icon (Android 13+)
+- Independent top and bottom bar height adjustments with link toggle
+- Redesigned Watched Apps picker with rounded search bar
+- Feedback & Credits dialog with developer links
+
+Changed:
+- Improved app watcher accessibility service stability and auto-toggle accuracy
+- Fixed full settings reset action to restore all defaults properly
+
+Removed:
+- Deprecated Tasker automation guide

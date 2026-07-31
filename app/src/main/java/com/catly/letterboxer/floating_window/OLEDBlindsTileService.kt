@@ -36,14 +36,16 @@ class OLEDBlindsTileService : TileService() {
     }
 
     fun setOnIcon(){
-        val tile = qsTile
+        // getQsTile() is null whenever the tile is not currently bound, which the system can do
+        // immediately after onClick.
+        val tile = qsTile ?: return
         tile.state = Tile.STATE_ACTIVE
         tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveron)
         tile.updateTile()
     }
 
     fun setOffIcon(){
-        val tile = qsTile
+        val tile = qsTile ?: return
         tile.state = Tile.STATE_INACTIVE
         tile.icon = Icon.createWithResource(this, R.drawable.ic_oledsaveronoff)
         tile.updateTile()

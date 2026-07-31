@@ -17,6 +17,96 @@
         app:iconSpaceReserved="false"
         />
 
+    <!-- min lives in the app namespace for androidx SeekBarPreference; android:min is the framework
+         ProgressBar attribute, which compiles fine and is then never read. -->
+    <SeekBarPreference
+        app:key="barOpacity"
+        app:title="@string/bar_opacity"
+        app:summary="@string/bar_opacity_description"
+        android:defaultValue="100"
+        app:min="10"
+        android:max="100"
+        app:seekBarIncrement="5"
+        app:showSeekBarValue="true"
+        app:updatesContinuously="false"
+        app:iconSpaceReserved="false"
+        />
+
+    <SwitchPreferenceCompat
+        app:key="linkTopBottomBars"
+        app:title="@string/link_top_bottom"
+        app:summary="@string/link_top_bottom_description"
+        android:defaultValue="true"
+        app:iconSpaceReserved="false"
+        />
+
+    <PreferenceCategory
+        app:title="@string/zones_category"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            app:key="zonesEnabled"
+            app:title="@string/zones_enabled"
+            app:summary="@string/zones_enabled_description"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            />
+
+        <Preference
+            app:key="editZones"
+            app:title="@string/zones_edit"
+            app:summary="@string/zones_edit_description"
+            app:dependency="zonesEnabled"
+            app:iconSpaceReserved="false"
+            />
+
+        <SeekBarPreference
+            app:key="zoneOpacity"
+            app:title="@string/zone_opacity"
+            app:summary="@string/zone_opacity_description"
+            android:defaultValue="75"
+            app:min="10"
+            android:max="100"
+            app:seekBarIncrement="5"
+            app:showSeekBarValue="true"
+            app:updatesContinuously="false"
+            app:dependency="zonesEnabled"
+            app:iconSpaceReserved="false"
+            />
+
+        <SwitchPreferenceCompat
+            app:key="zonesBlockTouches"
+            app:title="@string/zones_block_touches"
+            app:summary="@string/zones_block_touches_description"
+            android:defaultValue="false"
+            app:dependency="zonesEnabled"
+            app:iconSpaceReserved="false"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/auto_toggle_category"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            app:key="autoTikTok"
+            app:title="@string/auto_toggle"
+            app:summary="@string/auto_toggle_description"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            />
+
+        <Preference
+            app:key="watchedApps"
+            app:title="@string/watched_apps"
+            app:summary="@string/watched_apps_description"
+            app:dependency="autoTikTok"
+            app:iconSpaceReserved="false"
+            />
+
+    </PreferenceCategory>
+
     <SwitchPreferenceCompat
         app:key="tapBehind"
         app:title="@string/tap_behind"

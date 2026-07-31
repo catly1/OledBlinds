@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#A8C7FA</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D3E3FD</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Material 3 Expressive Pitch Black OLED Color Palette -->
+    <color name="m3_pitch_black">#000000</color>
+    <color name="m3_surface_card">#141416</color>
+    <color name="m3_surface_card_elevated">#1E1E22</color>
+    <color name="m3_surface_stroke">#2A2A30</color>
+    <color name="m3_accent_primary">#A8C7FA</color>
+    <color name="m3_accent_container">#25395A</color>
+    <color name="m3_on_accent_container">#D3E3FD</color>
+    <color name="m3_active_mint">#A7F3D0</color>
+    <color name="m3_text_primary">#F1F5F9</color>
+    <color name="m3_text_secondary">#94A3B8</color>
 </resources>

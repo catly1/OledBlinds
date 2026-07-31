@@ -17,6 +17,12 @@
         <action
             android:id="@+id/action_homeFragment_to_guideIndexFragment"
             app:destination="@id/guideIndexFragment" />
+        <!-- SettingsFragment is committed into HomeFragment's container rather than being a
+             destination itself, so the NavController's current destination when it navigates is
+             still homeFragment and the action has to be declared here. -->
+        <action
+            android:id="@+id/action_homeFragment_to_appPickerFragment"
+            app:destination="@id/appPickerFragment" />
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"
@@ -79,6 +85,12 @@
             android:id="@+id/action_guideIndexFragment_to_intentGuideFragment"
             app:destination="@id/intentGuideFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/appPickerFragment"
+        android:name="com.catly.letterboxer.view.AppPickerFragment"
+        android:label="AppPickerFragment"
+        tools:layout="@layout/app_picker_fragment" />
+
     <fragment
         android:id="@+id/intentGuideFragment"
         android:name="com.catly.letterboxer.view.guide.IntentGuideFragment"

@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:background="@color/m3_pitch_black">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/notification_button"
-        android:textSize="34sp"
+        android:text="@string/app_tile_name"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/m3_text_primary"
         android:layout_margin="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <View
         android:id="@+id/banner_divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="?attr/colorOnBackground"
+        android:background="@color/m3_surface_stroke"
         app:layout_constraintTop_toBottomOf="@id/banner"
         app:layout_constraintStart_toStartOf="@id/banner"
-        app:layout_constraintEnd_toEndOf="@id/banner"
-        />
+        app:layout_constraintEnd_toEndOf="@id/banner" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -42,9 +44,9 @@
         app:layout_constraintTop_toBottomOf="@+id/banner"
         app:layout_constraintVertical_weight="0.8"
         app:layout_constraintBottom_toTopOf="@id/guide_text"
-        android:contentDescription="@string/notification_button" />
+        android:contentDescription="@string/app_tile_name" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/guide_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -53,33 +55,34 @@
         android:gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:text="@string/tileGuideText"
+        android:text='@string/tileGuideText'
+        android:textColor="@color/m3_text_secondary"
         android:textSize="16sp"
-        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMaxTextSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/next_button"
         app:layout_constraintTop_toBottomOf="@id/imageView"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="0.2"
-        />
+        app:layout_constraintVertical_weight="0.2" />
 
-
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
         android:layout_width="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
-        app:cornerRadius="20dp"
-        android:layout_height="70dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:cornerRadius="28dp"
+        android:layout_height="60dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:textStyle="bold"
+        app:backgroundTint="?attr/colorPrimary"
         app:icon="@drawable/baseline_arrow_forward_white_24dp"
+        app:iconTint="?attr/colorOnPrimary"
         app:iconGravity="end"
-        android:text="@string/next"
+        android:text="@string/close"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

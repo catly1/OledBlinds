@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorOnBackground">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Customize your theme here. -->
-        <!--        <item name="alertDialogTheme">@style/AlertDialogTheme</item>-->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/m3_pitch_black</item>
+        <item name="colorSurface">@color/m3_surface_card</item>
+        <item name="colorOnSurface">@color/m3_text_primary</item>
+        <item name="colorOnBackground">@color/m3_text_primary</item>
     </style>
 
     <style name="TransparentNoUI" parent="Theme.AppCompat.NoActionBar">

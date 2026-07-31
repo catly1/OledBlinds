@@ -9,16 +9,21 @@ task printVersion{
   }
 }
 
+// A fresh clone has no keystore, and wiring an empty storeFile into the build breaks every task.
+def releaseKeystore = (project.findProperty('keystore') ?: '').toString().trim()
+
 android {
     buildFeatures{
         buildConfig = true
     }
     signingConfigs {
         release {
-            keyAlias alias
-            keyPassword keyPass
-            storeFile file(keystore)
-            storePassword storePass
+            if (releaseKeystore) {
+                keyAlias project.findProperty('alias')
+                keyPassword project.findProperty('keyPass')
+                storeFile file(releaseKeystore)
+                storePassword project.findProperty('storePass')
+            }
         }
     }
     compileSdkVersion 37
@@ -27,15 +32,17 @@ android {
         applicationId "com.catly.letterboxer"
         minSdkVersion 26
         targetSdkVersion 37
-        versionCode 15
-        versionName "6.31"
+        versionCode 20
+        versionName "6.67"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            if (releaseKeystore) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

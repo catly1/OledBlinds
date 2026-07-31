@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  One of these fills a whole overlay window, so it is always match_parent: the size of the zone is
+  the size of the window and is driven by WindowManager.LayoutParams, not by this layout.
+  The background is swapped in code between solid black and the edit mode frame.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zone_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ImageButton
+        android:id="@+id/zone_delete_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/zone_delete"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_close_white_24dp"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/zone_resize_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/zone_resize"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_resize_white_24dp"
+        android:visibility="gone" />
+
+</FrameLayout>

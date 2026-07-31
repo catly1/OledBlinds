@@ -41,31 +41,35 @@ class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar
 
     @SuppressLint("ClickableViewAccessibility")
     fun setListeners(){
+        // Cached once: querying the display on every move event would be a system call per frame.
+        val maxWidth = Utils.realScreenSize(windowManager).x
+
         resizeButton.setOnTouchListener(object : View.OnTouchListener {
-            var initialX: Int = 0
             var initialTouchX: Float = 0.toFloat()
             var initialWidth: Int = 0
             var calculatedWidth = 0
             override fun onTouch(view: View, event: MotionEvent): Boolean {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        initialX = param.x
                         initialWidth = param.width
                         initialTouchX = event.rawX
                         floatingWindowService.showLeftRightButtons()
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        calculatedWidth = (initialWidth - (event.rawX - initialTouchX)).toInt()
-                        if (Utils.checkIfValidNumber(calculatedWidth)) {
-                            floatingWindowService.leftBar.param.width = calculatedWidth
-                            param.width = calculatedWidth
-                            floatingWindowService.leftBar.update()
-                            update()
-                        }
+                        calculatedWidth = Utils.clampBarSize(
+                            (initialWidth - (event.rawX - initialTouchX)).toInt(),
+                            maxWidth
+                        )
+                        floatingWindowService.leftBar.param.width = calculatedWidth
+                        param.width = calculatedWidth
+                        floatingWindowService.leftBar.update()
+                        update()
                         return true
                     }
-                    MotionEvent.ACTION_UP ->{
+                    // A cancel is routinely delivered when the window moves out from under the
+                    // finger. Without it the controls would stay lit and the size unsaved.
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
                         sharedPreferences.edit().putInt("width", param.width).apply()
                         floatingWindowService.hideLeftRightButtons()
                     }
@@ -94,7 +98,7 @@ class RightBar(val floatingWindowService: FloatingWindowService) : BaseMovingBar
                             }
                             return true
                         }
-                        MotionEvent.ACTION_UP ->{
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
                             floatingWindowService.saveOffset()
                             floatingWindowService.hideLeftRightButtons()
                         }

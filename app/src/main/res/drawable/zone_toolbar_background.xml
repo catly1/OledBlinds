@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Explicit colours rather than theme attributes: this is inflated from a Service context. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#EE1C1C1C" />
+    <corners android:radius="20dp" />
+</shape>

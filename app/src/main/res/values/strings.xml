@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="start">Start</string>
+    <string name="stop">Stop</string>
     <string name="reset">Reset</string>
     <string name="override">Overlap camera cutout</string>
     <string name="overrideDescription">For forced fullscreen apps</string>
@@ -17,6 +18,52 @@
     <string name="tap_behind_description">Items behind the bars become touchable</string>
     <string name="close">Close</string>
     <string name="tap_behind_dialog_message">Buttons in the black bars will be untouchable when this option is on. Won\'t work for Android 12 and above.</string>
+
+    <!--Bar opacity-->
+    <string name="bar_opacity">Bar opacity</string>
+    <string name="bar_opacity_description">100%% is solid black, lower values let the app show through</string>
+    <string name="link_top_bottom">Link top &amp; bottom bar sizes</string>
+    <string name="link_top_bottom_description">Resizing top or bottom bar adjusts both together when enabled</string>
+
+    <!--Custom zones-->
+    <string name="zones_category">Custom zones</string>
+    <string name="zones_enabled">Custom zones</string>
+    <string name="zones_enabled_description">Cover static buttons, like TikTok\'s like and profile column</string>
+    <string name="zones_edit">Edit zones</string>
+    <string name="zones_edit_description">Closes the app so you can place zones on top of the real thing</string>
+    <string name="zone_opacity">Zone opacity</string>
+    <string name="zone_opacity_description">Above about 80%% Android stops passing taps through to the app underneath</string>
+    <string name="zones_block_touches">Zones swallow taps</string>
+    <string name="zones_block_touches_description">Lets zones be fully black, but whatever they cover can no longer be tapped</string>
+    <string name="zone_add">Add zone</string>
+    <string name="zone_delete">Delete zone</string>
+    <string name="zone_resize">Resize zone</string>
+    <string name="zone_flip_toolbar">Move these controls to the other edge</string>
+    <string name="zone_done">Done</string>
+    <string name="zone_edit_hint">Drag to move, corner to resize</string>
+    <string name="zone_limit_reached">Limit of %1$d zones reached</string>
+    <string name="zone_edit_started">Open the app you want to cover, then place the zones</string>
+    <string name="zone_permission_needed">Display over other apps permission is needed first</string>
+
+    <!--Auto toggle in chosen apps-->
+    <string name="auto_toggle_category">Auto toggle</string>
+    <string name="auto_toggle">Auto toggle in chosen apps</string>
+    <string name="auto_toggle_description">Turn the bars on when a chosen app opens and off when you leave it</string>
+    <string name="watched_apps">Chosen apps</string>
+    <string name="watched_apps_description">TikTok by default</string>
+    <string name="watched_apps_title">Chosen apps</string>
+    <string name="watched_apps_empty">No apps chosen, so nothing will be watched</string>
+    <string name="watched_apps_search">Search</string>
+    <plurals name="watched_apps_count">
+        <item quantity="one">%1$d app chosen</item>
+        <item quantity="other">%1$d apps chosen</item>
+    </plurals>
+    <string name="accessibility_service_label">LetterBoxer app watcher</string>
+    <string name="accessibility_service_summary">Detects which app is in the foreground</string>
+    <string name="accessibility_service_description">Lets LetterBoxer notice which app is in the foreground so the bars can be turned on in the apps you choose and off again when you leave them. Screen content is never read.</string>
+    <string name="accessibility_permission_needed">Enable \u201cLetterBoxer app watcher\u201d in Accessibility to use this</string>
+    <string name="accessibility_settings_unavailable">Could not open Accessibility settings</string>
+    <string name="accessibility_restricted_hint">If the switch is greyed out, open App info, tap the menu and choose Allow restricted settings</string>
 
     <!--Guide-->
     <string name="guideFragmentText">Press and drag to resize. Override is press and drag too. Use the quick toggle when locked.</string>
