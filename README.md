@@ -68,3 +68,6 @@ Both links have the same app. If you want to support my work then consider buyin
 
 ## Disclaimer:
 This app does not directly interact with other apps. It just draws black bars on the screen. It's the same as how Facebook messenger draws floating chat heads.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
